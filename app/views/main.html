@@ -4,33 +4,45 @@
     <li><a ng-href="#">About</a></li>
     <li><a ng-href="#">Contact</a></li>
   </ul>
-  <h3 class="text-muted">visualizer</h3>
+  <h3 class="text-muted"><span class="glyphicon glyphicon-random"></span>&nbsp; PRioritizer</h3>
 </div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
   <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
+    Prioritize your pull requests.
   </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+  <p ng-show="fileApiSupport">
+    <a class="btn btn-lg btn-success" ng-click="selectFile()">
+      Select input file <span class="glyphicon glyphicon-list-alt"></span>
+    </a>
+    <input id="selectedFile" name="selectedFile" type="file" style="display:none" ng-file-select="onFileSelect($files)" />
+  </p>
+  <p class="text-muted">
+    {{file.name || "No file"}}
+  </p>
+  <p ng-show="!fileApiSupport">
+    Your browser does not support the <a href="http://caniuse.com/fileapi" target="_blank">File API</a>.<br>
+    Please use a <a href="https://www.google.com/chrome" target="_blank">modern browser</a>.
+  </p>
+  <p>
+    {{message}}
+  </p>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
+<div class="row" ng-show="data != null">
+  <h4>Data</h4>
   <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
+    {{data}}
   </p>
+</div>
 
-  <h4>Angular</h4>
+<div class="row">
+  <h4>How do I get an input file?</h4>
   <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
+    Generate your input file with the analyzer. More text here...
   </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
 </div>
 
 <div class="footer">
-  <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+  <p>Erik van der Veen</p>
 </div>
