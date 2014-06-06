@@ -2,5 +2,5 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', 'jsonFactory', function ($scope, jsonFactory) {
-    $scope.data = jsonFactory.data;
+    $scope.data = jsonFactory.getData();
   }]);

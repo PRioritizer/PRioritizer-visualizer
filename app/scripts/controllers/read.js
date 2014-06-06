@@ -24,7 +24,7 @@ angular.module('visualizerApp')
       }
 
       $scope.file = file;
-      $scope.message = 'Reading input file...';
+      $scope.message = 'Reading JSON file...';
       jsonFactory.readFile(file, function() {
         $location.path('/display/');
         $scope.$apply();

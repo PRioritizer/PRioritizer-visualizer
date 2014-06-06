@@ -25,5 +25,9 @@ angular.module('visualizerApp')
       fileReader.readAsText(file);
     };
 
+    service.getData = function getData () {
+      return _this.data;
+    };
+
     return service;
   });
