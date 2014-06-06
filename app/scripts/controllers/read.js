@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('MainController', ['$scope', '$upload', function ($scope, $upload) {
+  .controller('ReadController', ['$scope', '$upload', function ($scope, $upload) {
     $scope.message = null;
     $scope.file = null;
     $scope.data = null;
@@ -27,8 +27,8 @@ angular.module('visualizerApp')
       readFile();
     };
 
-    $scope.$watch('data', function() {
-      if ($scope.data === null)
+    $scope.$watch('data', function (newVal, oldVal, scope) {
+      if (scope.data === null)
         return;
 
       alert('Done');
