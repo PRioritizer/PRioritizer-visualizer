@@ -6,7 +6,7 @@ angular.module('visualizerApp')
     var service = {
       fileApiSupport: window.File && window.FileReader && window.FileList && window.Blob,
       data: null,
-    }
+    };
     var _this = service;
 
     service.readFile = function readFile(file, callback) {
@@ -18,12 +18,12 @@ angular.module('visualizerApp')
         var data = angular.fromJson(jsonStr);
         _this.data = data;
         callback(data);
-      }
+      };
 
       var fileReader = new FileReader();
       fileReader.onload = parseJson;
       fileReader.readAsText(file);
-    }
+    };
 
     return service;
-});
+  });
