@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('MainController', ['$scope', '$interpolate', '$upload', function ($scope, $interpolate, $upload) {
+  .controller('MainController', ['$scope', '$upload', function ($scope, $upload) {
     $scope.message = null;
     $scope.file = null;
     $scope.data = null;
@@ -19,7 +19,7 @@ angular.module('visualizerApp')
         return;
 
       if (!files[0].name.endsWith('.json')) {
-        $scope.message = "Select a JSON file.";
+        $scope.message = 'Select a JSON file.';
         return;
       }
 
@@ -27,18 +27,27 @@ angular.module('visualizerApp')
       readFile();
     };
 
+    $scope.$watch('data', function() {
+      if ($scope.data === null)
+        return;
+
+      alert('Done');
+    });
+
     function readFile() {
       if (!$scope.fileApiSupport || $scope.file === null)
         return;
 
-      console.log($scope.file);
-      $scope.message = $interpolate('Reading {{file.name}}...')($scope);
+      $scope.message = 'Reading input file...';
 
       var file = $scope.file;
       var reader = new FileReader();
 
       reader.onload = function(e) {
-        $scope.data = e.target.result;
+        var jsonStr = e.target.result;
+        $scope.message = 'Parsing JSON...';
+        $scope.$apply();
+        $scope.data = JSON.parse(jsonStr);
         $scope.message = 'Done';
         $scope.$apply();
       };
