@@ -8,15 +8,12 @@
     </a>
     <input id="selectedFile" name="selectedFile" type="file" style="display:none" ng-file-select="onFileSelect($files)" />
   </p>
-  <p class="text-muted">
-    {{file.name || "No file"}}
-  </p>
   <p ng-show="!fileApiSupport">
     Your browser does not support the <a href="http://caniuse.com/fileapi" target="_blank">File API</a>.<br>
     Please use a <a href="https://www.google.com/chrome" target="_blank">modern browser</a>.
   </p>
   <p>
-    {{message}}
+    {{message || "Select a JSON file to start."}}
   </p>
 </div>
 

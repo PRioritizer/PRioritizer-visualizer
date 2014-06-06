@@ -19,14 +19,14 @@ angular.module('visualizerApp')
 
       var file = files[0];
       if (!file.name.endsWith('.json')) {
-        $scope.message = 'Select a JSON file.';
+        $scope.message = 'Only JSON files are supported.';
         return;
       }
 
       $scope.file = file;
       $scope.message = 'Reading input file...';
       jsonFactory.readFile(file, function() {
-        $location.path("/display/");
+        $location.path('/display/');
         $scope.$apply();
       });
     };
