@@ -47,7 +47,7 @@ angular.module('visualizerApp')
         var jsonStr = e.target.result;
         $scope.message = 'Parsing JSON...';
         $scope.$apply();
-        $scope.data = JSON.parse(jsonStr);
+        $scope.data = angular.fromJson(jsonStr);
         $scope.message = 'Done';
         $scope.$apply();
       };
