@@ -31,6 +31,14 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
+.text-muted a {
+  color: inherit;
+}
+
+.text-muted a:hover {
+  text-decoration: none;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
