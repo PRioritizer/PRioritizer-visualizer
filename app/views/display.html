@@ -2,7 +2,7 @@
   <h3>Sort</h3>
   <p>Filter on:
     <span ng-repeat="branch in branches">
-      <button type="button" class="btn btn-default" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
+      <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
     </span>
   </p>
   <p>Sort on:
@@ -19,7 +19,7 @@
     <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
     <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
     <p>Author: {{pr.author}}</p>
-    <p>From <span class="label label-default">{{pr.author}}:{{pr.source}}</span> into <span class="label label-primary">{{pr.target}}</span></p>
+    <p>From <span class="label label-default">{{pr.author}}:{{pr.source}}</span> into <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span></p>
     <p>Mergeable: {{pr.isMergeable}}</p>
     <p>ContributorIndex: {{pr.contributorIndex | number : 3}}</p>
     <p>AcceptRatio: {{pr.acceptedPullRequests / pr.totalPullRequests || 0 | number : 3}}</p>

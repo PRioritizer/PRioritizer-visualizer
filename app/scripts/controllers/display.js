@@ -17,6 +17,20 @@ angular.module('visualizerApp')
       }
     };
 
+    $scope.branchClass = function branchClass (branch, prefix) {
+      prefix = prefix || '';
+      switch (branch) {
+        case 'master':
+          return prefix + 'primary';
+        case 'dev':
+        case 'develop':
+        case 'development':
+          return prefix + 'warning';
+        default:
+          return prefix + 'default';
+      }
+    };
+
     /* Private functions */
     function getTargets() {
       if (!angular.isArray($scope.pullRequests))
