@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', 'jsonFactory', function ($scope, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $location, $anchorScroll, jsonFactory) {
     $scope.sortOrder = false;
     $scope.sortFunc = $scope.onNumber;
     $scope.pullRequests = jsonFactory.getData();
@@ -29,6 +29,14 @@ angular.module('visualizerApp')
         default:
           return prefix + 'default';
       }
+    };
+
+    $scope.scrollTo = function scrollTo (id) {
+      var old = $location.hash();
+      $location.hash(id);
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
     };
 
     /* Private functions */

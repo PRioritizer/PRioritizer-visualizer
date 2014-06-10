@@ -15,7 +15,7 @@
     <a href ng-click="sort(onContributor)">contributor</a>
   </p>
   <h3>Display</h3>
-  <div ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder">
+  <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder">
     <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
     <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
     <p>Author: {{pr.author}}</p>
@@ -25,7 +25,9 @@
     <p>AcceptRatio: {{pr.acceptedPullRequests / pr.totalPullRequests || 0 | number : 3}}</p>
     <p>
       Conflicts with:
-      <span ng-repeat="n in pr.conflictsWith"><span class="label label-default">#{{n}}</span> </span>
+      <span ng-repeat="n in pr.conflictsWith">
+        <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
+      </span>
     </p>
     <p>
       Size: <span class="text-danger">++{{pr.linesAdded}}</span> <span class="text-success">--{{pr.linesDeleted}}</span>,
