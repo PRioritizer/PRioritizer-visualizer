@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show="pullRequests">
   <h3>Sort</h3>
   <p>Filter on:
     <span ng-repeat="branch in branches">
@@ -35,4 +35,10 @@
       commit: {{pr.commits}}
     </p>
   </div>
+</div>
+<div class="row" ng-show="!pullRequests">
+  <h3>No data</h3>
+  <p>
+    There is no data available yet. First, select a file on the <a ng-href="#read">previous page</a>.
+  </p>
 </div>
