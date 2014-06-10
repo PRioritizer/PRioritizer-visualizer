@@ -1,5 +1,10 @@
 <div class="row">
   <h3>Sort</h3>
+  <p>Filter on:
+    <span ng-repeat="branch in branches">
+      <button type="button" class="btn btn-default" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
+    </span>
+  </p>
   <p>Sort on:
     <a href ng-click="sort(onNumber)">number</a>,
     <a href ng-click="sort(onDate)">date</a>,
@@ -10,7 +15,7 @@
     <a href ng-click="sort(onContributor)">contributor</a>
   </p>
   <h3>Display</h3>
-  <div ng-repeat="pr in pullRequests | orderBy:sortFunc:sortOrder">
+  <div ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder">
     <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
     <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
     <p>Author: {{pr.author}}</p>

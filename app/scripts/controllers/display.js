@@ -5,6 +5,8 @@ angular.module('visualizerApp')
     $scope.sortOrder = false;
     $scope.sortFunc = $scope.onNumber;
     $scope.pullRequests = jsonFactory.getData();
+    $scope.branches = getTargets();
+    $scope.selectedBranch = $scope.branches[0] || '';
 
     $scope.sort = function sort (on) {
       if ($scope.sortFunc === on) {
@@ -14,6 +16,17 @@ angular.module('visualizerApp')
         $scope.sortOrder = false;
       }
     };
+
+    /* Private functions */
+    function getTargets() {
+      if (!angular.isArray($scope.pullRequests))
+        return [];
+
+      var targets = $scope.pullRequests.map(function (pr) {
+        return pr.target.toLowerCase();
+      });
+      return targets.distinct().sort();
+    }
 
     /* Sort functions */
     $scope.onDate = function onDate (pr) {

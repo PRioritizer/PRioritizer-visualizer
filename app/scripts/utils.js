@@ -5,3 +5,13 @@ if (typeof String.prototype.endsWith !== 'function') {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
   };
 }
+
+if (typeof Array.prototype.distinct !== 'function') {
+  Array.prototype.distinct = function() {
+    var values = [];
+    for (var i = 0; i < this.length; i += 1)
+      if (values.indexOf(this[i]) === -1)
+        values.push(this[i]);
+    return values;
+  };
+}
