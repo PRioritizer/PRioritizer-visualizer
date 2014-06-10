@@ -4,10 +4,13 @@
     <a href ng-click="sort(onNumber)">number</a>,
     <a href ng-click="sort(onDate)">date</a>,
     <a href ng-click="sort(onNumberConflicts)">number of conflicts</a>,
-    <a href ng-click="">contributor</a>
+    <a href ng-click="sort(onSize('lines'))">lines</a>,
+    <a href ng-click="sort(onSize('files'))">files</a>,
+    <a href ng-click="sort(onSize('commits'))">commits</a>,
+    <a href ng-click="sort(onContributor)">contributor</a>
   </p>
   <h3>Display</h3>
-  <div ng-repeat="pr in pullRequests">
+  <div ng-repeat="pr in pullRequests | orderBy:sortFunc:sortOrder">
     <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
     <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
     <p>Author: {{pr.author}}</p>

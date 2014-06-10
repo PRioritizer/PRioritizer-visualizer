@@ -2,24 +2,22 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', 'jsonFactory', function ($scope, jsonFactory) {
+    $scope.sortOrder = false;
+    $scope.sortFunc = $scope.onNumber;
     $scope.pullRequests = jsonFactory.getData();
 
     $scope.sort = function sort (on) {
-      var data = jsonFactory.getData();
-      var func = function(a, b) {
-        a = on(a);
-        b = on(b);
-        if (a === b)
-          return 0;
-
-        return a > b ? 1 : -1;
-      };
-
-      $scope.pullRequests = data.sort(func);
+      if ($scope.sortFunc === on) {
+        $scope.sortOrder = !$scope.sortOrder;
+      } else {
+        $scope.sortFunc = on;
+        $scope.sortOrder = false;
+      }
     };
 
+    /* Sort functions */
     $scope.onDate = function onDate (pr) {
-      return pr.createdAt;
+      return Date.parse(pr.createdAt);
     };
 
     $scope.onNumber = function onNumber (pr) {
@@ -28,5 +26,34 @@ angular.module('visualizerApp')
 
     $scope.onNumberConflicts = function onNumberConflicts (pr) {
       return pr.conflictsWith.length;
+    };
+
+    $scope.onContributor = function onContributor (pr) {
+      return pr.contributorIndex;
+    };
+
+    $scope.onSize = function onSize (dimension) {
+      switch(dimension) {
+        case 'lines':
+          return $scope.onLines;
+        case 'files':
+          return $scope.onFiles;
+        case 'commits':
+          return $scope.onCommits;
+        default:
+          return function () {};
+      }
+    };
+
+    $scope.onLines = function onLines (pr) {
+      return pr.linesAdded + pr.linesDeleted;
+    };
+
+    $scope.onFiles = function onFiles (pr) {
+      return pr.filesChanged;
+    };
+
+    $scope.onCommits = function onCommits (pr) {
+      return pr.commits;
     };
   }]);
