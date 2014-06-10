@@ -1,4 +1,8 @@
 /* Space out content a bit */
+html {
+  overflow-y: scroll;
+}
+
 body {
   padding-top: 20px;
   padding-bottom: 20px;
