@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $location, $anchorScroll, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', 'jsonFactory', function ($scope, $interpolate, jsonFactory) {
     $scope.sortOrder = false;
     $scope.sortFunc = $scope.onNumber;
-    $scope.pullRequests = jsonFactory.getData();
-    $scope.branches = getTargets();
+    $scope.data = jsonFactory.getData() || {};
+    $scope.pullRequests = $scope.data.pullRequests || [];
+    $scope.branches = getTargets() || [];
     $scope.selectedBranch = $scope.branches[0] || '';
+    $scope.owner = $scope.data.owner || '';
+    $scope.repository = $scope.data.repository || '';
+    $scope.github = $interpolate('https://github.com/{{owner}}/{{repository}}')($scope);
 
     $scope.sort = function sort (on) {
       if ($scope.sortFunc === on) {
@@ -29,14 +33,6 @@ angular.module('visualizerApp')
         default:
           return prefix + 'default';
       }
-    };
-
-    $scope.scrollTo = function scrollTo (id) {
-      var old = $location.hash();
-      $location.hash(id);
-      $anchorScroll();
-      //reset to old to keep any additional routing logic from kicking in
-      $location.hash(old);
     };
 
     /* Private functions */

@@ -1,4 +1,6 @@
-<div class="row" ng-show="pullRequests">
+<div class="row" ng-show="pullRequests.length > 0">
+  <h3>Repository</h3>
+  <p>Owner: {{owner}}, name: {{repository}}, <a ng-href="{{github}}" target="_blank">link</a></p>
   <h3>Sort</h3>
   <p>Filter on:
     <span ng-repeat="branch in branches">
@@ -14,29 +16,33 @@
     <a href ng-click="sort(onSize('commits'))">commits</a>,
     <a href ng-click="sort(onContributor)">contributor</a>
   </p>
-  <h3>Display</h3>
-  <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder">
-    <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
-    <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
-    <p>Author: {{pr.author}}</p>
-    <p>From <span class="label label-default">{{pr.author}}:{{pr.source}}</span> into <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span></p>
-    <p>Mergeable: {{pr.isMergeable}}</p>
-    <p>ContributorIndex: {{pr.contributorIndex | number : 3}}</p>
-    <p>AcceptRatio: {{pr.acceptedPullRequests / pr.totalPullRequests || 0 | number : 3}}</p>
-    <p>
-      Conflicts with:
-      <span ng-repeat="n in pr.conflictsWith">
-        <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
-      </span>
-    </p>
-    <p>
-      Size: <span class="text-danger">++{{pr.linesAdded}}</span> <span class="text-success">--{{pr.linesDeleted}}</span>,
-      files: {{pr.filesChanged}},
-      commit: {{pr.commits}}
-    </p>
+  <h3>Pull requests</h3>
+  <div ng-controller="PullRequestController">
+    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder | limitTo:25">
+      <h4>{{pr.title}} <span class="text-muted">#{{pr.number}}</span></h4>
+      <p>GitHub: <a ng-href="{{github}}/pull/{{pr.number}}" target="_blank">link</a></p>
+      <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
+      <p>Author: {{pr.author}}</p>
+      <p>From <span class="label label-default">{{pr.author}}:{{pr.source}}</span> into <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span></p>
+      <p>Mergeable: {{pr.isMergeable}}</p>
+      <p>ContributorIndex: {{pr.contributorIndex | number : 3}}</p>
+      <p>AcceptRatio: {{pr.acceptedPullRequests / pr.totalPullRequests || 0 | number : 3}}</p>
+      <p>
+        Conflicts with:
+        <span ng-repeat="n in pr.conflictsWith | limitTo:10">
+          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
+        </span>
+        <span ng-show="pr.conflictsWith.length > 10">and {{pr.conflictsWith.length - 10}} more...</span>
+      </p>
+      <p>
+        Size: <span class="text-danger">++{{pr.linesAdded}}</span> <span class="text-success">--{{pr.linesDeleted}}</span>,
+        files: {{pr.filesChanged}},
+        commit: {{pr.commits}}
+      </p>
+    </div>
   </div>
 </div>
-<div class="row" ng-show="!pullRequests">
+<div ng-show="!pullRequests.length">
   <h3>No data</h3>
   <p>
     There is no data available yet. First, select a file on the <a ng-href="#read">previous page</a>.
