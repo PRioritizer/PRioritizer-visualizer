@@ -64,6 +64,14 @@ body {
   text-align: center;
 }
 
+.pull-request .left .conflict {
+  color: #d7431b;
+  right: 0;
+  top: 20%;
+  left: auto !important;
+  width: auto !important;
+}
+
 .pull-request .right {
   position: absolute;
   top: 10px;
@@ -71,10 +79,6 @@ body {
   width: 80px;
   font-size: 18px;
   text-align: right;
-}
-
-.pull-request .icon {
-  font-size: 30px;
 }
 
 .pull-request.mergeable .icon {

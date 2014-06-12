@@ -22,8 +22,11 @@
   <div ng-controller="PullRequestController">
     <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
       <div class="left">
-        <i class="icon fa fa-code-fork" title="Can be merged directly on GitHub" ng-show="pr.isMergeable"></i>
-        <i class="icon fa fa-code-fork" title="Cannot be merged directly on GitHub" ng-show="!pr.isMergeable"></i>
+        <i class="icon fa fa-2x fa-code-fork" title="Can be merged directly" ng-show="pr.isMergeable"></i>
+        <span class="fa-stack" title="Cannot be merged directly" ng-show="!pr.isMergeable">
+          <i class="icon fa fa-2x fa-code-fork"></i>
+          <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
+        </span>
         <div class="calendar" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}">
           <i class="fa fa-calendar-o"></i>
           <div class="day">{{pr.createdAt | date:'d'}}</div>
