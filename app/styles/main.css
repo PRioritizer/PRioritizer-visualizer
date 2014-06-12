@@ -4,26 +4,24 @@ html {
 }
 
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 15px;
 }
 
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
 }
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
   line-height: 40px;
   padding-bottom: 19px;
 }
@@ -35,6 +33,7 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
+/* Links in muted text */
 .text-muted a {
   color: inherit;
 }
@@ -43,14 +42,62 @@ body {
   text-decoration: none;
 }
 
+/* Cross reference */
 .cross-reference {
   cursor: pointer;
 }
 
+/* Pull request */
 .pull-request {
   position: relative;
-  padding: 10px 20px 10px 40px;
+  padding: 10px 100px 10px 70px;
   border-bottom: 1px solid #e5e5e5;
+}
+
+.pull-request .left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  font-size: 18px;
+  color: #999999;
+  text-align: center;
+}
+
+.pull-request .right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 80px;
+  font-size: 18px;
+  text-align: right;
+}
+
+.pull-request .icon {
+  font-size: 30px;
+}
+
+.pull-request.mergeable .icon {
+  color: #6cc644;
+}
+
+.pull-request .calendar {
+  margin-top: 10px;
+  position: relative;
+  font-size: 10px;
+}
+
+.pull-request .calendar i {
+  font-size: 30px;
+}
+
+.pull-request .calendar .day {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
 }
 
 .pull-request.even {
@@ -58,32 +105,25 @@ body {
 }
 
 .pull-request h4 {
-  position: relative;
-  padding-right: 100px;
-}
-
-.pull-request h4 .icon {
-  position: absolute;
-  top: 0;
-  left: -25px;
-  font-size: 1.5em;
-  color: #999999;
-}
-
-.pull-request.mergeable h4 .icon {
-  color: #6cc644;
-}
-
-.pull-request h4 .text-muted {
-  position: absolute;
-  top: 0;
-  right: 0;
+  margin: -5px 0;
+  padding: 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pull-request .source-target {
   font-size: 0.9em;
-  margin-left: 2px;
-  margin-top: -10px;
+  margin-left: 5px;
+}
+
+.pull-request .size i {
+  color: #cccccc;
+}
+
+.pull-request span.line-bar,
+.pull-request .line-bar span {
+  display: inline-block;
 }
 
 .pull-request .line-bar {
@@ -93,8 +133,7 @@ body {
   white-space: nowrap;
   text-align: left;
   width: 84px;
-  height: 14px;
-  line-height: 14px;
+  height: 16px;
   font-size: 14px;
 }
 
@@ -109,11 +148,13 @@ body {
   white-space: nowrap;
 }
 
-.pull-request .line-bar .added {
+.pull-request .line-bar .added,
+.pull-request .line-bar .added i {
   color: #6cc644;
 }
 
-.pull-request .line-bar .deleted {
+.pull-request .line-bar .deleted,
+.pull-request .line-bar .deleted i {
   color: #d7431b;
 }
 
