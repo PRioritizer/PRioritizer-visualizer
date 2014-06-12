@@ -63,6 +63,10 @@ angular.module('visualizerApp')
       return pr.contributorIndex;
     };
 
+    $scope.onPrevPullRequests = function onPrevPullRequests (pr) {
+      return pr.acceptedPullRequests/pr.totalPullRequests || 0;
+    };
+
     $scope.onSize = function onSize (dimension) {
       switch(dimension) {
         case 'lines':

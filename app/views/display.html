@@ -14,7 +14,8 @@
     <a href ng-click="sort(onSize('lines'))">lines</a>,
     <a href ng-click="sort(onSize('files'))">files</a>,
     <a href ng-click="sort(onSize('commits'))">commits</a>,
-    <a href ng-click="sort(onContributor)">contributor</a>
+    <a href ng-click="sort(onContributor)">contributor</a>,
+    <a href ng-click="sort(onPrevPullRequests)">history</a>
   </p>
   <h3>Pull requests</h3>
   <div ng-controller="PullRequestController">
@@ -24,8 +25,8 @@
       <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
       <p>Author: {{pr.author}}</p>
       <p>Mergeable: {{pr.isMergeable}}</p>
-      <p>ContributorIndex: {{pr.contributorIndex | number : 3}}</p>
-      <p>AcceptRatio: {{pr.acceptedPullRequests / pr.totalPullRequests || 0 | number : 3}}</p>
+      <p>ContributorIndex: <pie-chart title="{{pr.contributorIndex*100 | number:0}}%" data="getPart(pr.contributorIndex,10)"></pie-chart></p>
+      <p>AcceptRatio: <pie-chart title="{{pr.acceptedPullRequests/pr.totalPullRequests*100 || 0 | number:0}}%" data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,10)"></pie-chart></p>
       <p>
         Conflicts with:
         <span ng-repeat="n in pr.conflictsWith | limitTo:10">
