@@ -1,7 +1,11 @@
 <div class="row" ng-show="pullRequests.length > 0">
-  <h3>Repository</h3>
-  <p>Owner: {{owner}}, name: {{repository}}, <a ng-href="{{github}}" title="View this repository on GitHub" target="_blank"><i class="fa fa-github"></i></a></p>
-  <h3>Sort</h3>
+  <h3>
+    <i class="fa fa-github"></i>
+    <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
+    /
+    <a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a>
+  </h3>
+  <h3>Filter and sort</h3>
   <p>Filter on:
     <span ng-repeat="branch in branches">
       <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
