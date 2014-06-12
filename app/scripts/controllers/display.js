@@ -10,7 +10,8 @@ angular.module('visualizerApp')
     $scope.selectedBranch = $scope.branches[0] || '';
     $scope.owner = $scope.data.owner || '';
     $scope.repository = $scope.data.repository || '';
-    $scope.github = $interpolate('https://github.com/{{owner}}/{{repository}}')($scope);
+    $scope.host = 'https://github.com';
+    $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
 
     $scope.sort = function sort (on) {
       if ($scope.sortFunc === on) {

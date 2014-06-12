@@ -121,6 +121,17 @@ body {
   color: #cccccc;
 }
 
+.pull-request .size,
+.pull-request .size a {
+  color: #999999;
+  text-decoration: none;
+}
+
+.pull-request .size a:hover,
+.pull-request .size a:hover i {
+  color: #333333;
+}
+
 .pull-request span.line-bar,
 .pull-request .line-bar span {
   display: inline-block;
