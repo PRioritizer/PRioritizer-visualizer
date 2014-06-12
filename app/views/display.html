@@ -35,8 +35,10 @@
       </div>
       <div class="right">
         <span class="text-muted">
-          #{{pr.number}}
-          <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+          <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
+            <i class="fa fa-github"></i>
+            #{{pr.number}}
+          </a>
         </span>
       </div>
       <h4>{{pr.title}}</h4>
