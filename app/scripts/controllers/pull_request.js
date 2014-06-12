@@ -6,6 +6,11 @@ angular.module('visualizerApp')
       return pr.conflictsWith.join(' ');
     };
 
+    $scope.getPercentageAdded = function getConflicts(pr, parts) {
+      parts = parts || 100;
+      return Math.floor(pr.linesAdded * parts / (pr.linesAdded + pr.linesDeleted)) * (100/parts);
+    };
+
     $scope.scrollTo = function scrollTo (id) {
       var old = $location.hash();
       $location.hash(id);

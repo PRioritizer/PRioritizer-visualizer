@@ -47,6 +47,72 @@ body {
   cursor: pointer;
 }
 
+.pull-request {
+  position: relative;
+  padding: 10px 20px 10px 30px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.pull-request.even {
+  background-color: #eeeeee;
+}
+
+.pull-request h4 {
+  position: relative;
+}
+
+.pull-request h4 .icon {
+  position: absolute;
+  top: 0;
+  left: -15px;
+}
+
+.pull-request h4 .text-muted {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.pull-request .source-target {
+  font-size: 0.9em;
+  margin-top: -10px;
+}
+
+.pull-request .line-bar {
+  position: relative;
+  color: green;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  width: 84px;
+  height: 14px;
+  line-height: 14px;
+  font-size: 14px;
+}
+
+.pull-request .line-bar .added,
+.pull-request .line-bar .deleted {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pull-request .line-bar .added {
+  color: #6cc644;
+}
+
+.pull-request .line-bar .deleted {
+  color: #d7431b;
+}
+
+.pull-request .line-bar i {
+  margin: 0 1px;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
