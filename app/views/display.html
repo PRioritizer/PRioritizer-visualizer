@@ -39,11 +39,7 @@
       <h4>{{pr.title}}</h4>
       <p class="source-target">
         from
-        <span class="label label-default">
-          {{pr.author}}
-          :
-          {{pr.source}}
-        </span>
+        <span class="label label-default">{{pr.source}}</span>
         into
         <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
         by
