@@ -49,7 +49,7 @@ body {
 
 .pull-request {
   position: relative;
-  padding: 10px 20px 10px 30px;
+  padding: 10px 20px 10px 40px;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -59,12 +59,19 @@ body {
 
 .pull-request h4 {
   position: relative;
+  padding-right: 100px;
 }
 
 .pull-request h4 .icon {
   position: absolute;
   top: 0;
-  left: -15px;
+  left: -25px;
+  font-size: 1.5em;
+  color: #999999;
+}
+
+.pull-request.mergeable h4 .icon {
+  color: #6cc644;
 }
 
 .pull-request h4 .text-muted {
@@ -75,6 +82,7 @@ body {
 
 .pull-request .source-target {
   font-size: 0.9em;
+  margin-left: 2px;
   margin-top: -10px;
 }
 

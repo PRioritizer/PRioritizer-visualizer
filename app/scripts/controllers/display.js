@@ -67,6 +67,10 @@ angular.module('visualizerApp')
       return pr.acceptedPullRequests/pr.totalPullRequests || 0;
     };
 
+    $scope.onMergeable = function onMergeable (pr) {
+      return pr.isMergeable;
+    };
+
     $scope.onSize = function onSize (dimension) {
       switch(dimension) {
         case 'lines':

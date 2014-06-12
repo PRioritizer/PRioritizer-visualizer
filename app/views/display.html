@@ -15,18 +15,26 @@
     <a href ng-click="sort(onSize('files'))">files</a>,
     <a href ng-click="sort(onSize('commits'))">commits</a>,
     <a href ng-click="sort(onContributor)">contributor</a>,
-    <a href ng-click="sort(onPrevPullRequests)">history</a>
+    <a href ng-click="sort(onPrevPullRequests)">history</a>,
+    <a href ng-click="sort(onMergeable)">mergeable</a>
   </p>
   <h3>Pull requests</h3>
   <div ng-controller="PullRequestController">
-    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder | limitTo:25" class="pull-request" ng-class-even="'even'" ng-class-odd="'odd'">
-      <h4><i class="icon fa fa-code-fork"></i> {{pr.title}} <span class="text-muted">#{{pr.number}} <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank"><i class="fa fa-github"></i></a></span></h4>
+    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target: selectedBranch}:true | orderBy:sortFunc:sortOrder | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
+      <h4>
+        <i class="icon fa fa-code-fork" title="Can be merged directly on GitHub" ng-show="pr.isMergeable"></i>
+        <i class="icon fa fa-code-fork" title="Cannot be merged directly on GitHub" ng-show="!pr.isMergeable"></i>
+        {{pr.title}}
+        <span class="text-muted">
+          #{{pr.number}}
+          <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank"><i class="fa fa-github"></i></a>
+        </span>
+      </h4>
       <p class="source-target">from <span class="label label-default">{{pr.author}}:{{pr.source}}</span> into <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span></p>
       <p>Date: {{pr.createdAt | date:'dd MMM yyyy @ HH:mm'}}</p>
       <p>Author: {{pr.author}}</p>
-      <p>Mergeable: {{pr.isMergeable}}</p>
-      <p>ContributorIndex: <pie-chart title="{{pr.contributorIndex*100 | number:0}}%" data="getPart(pr.contributorIndex,10)"></pie-chart></p>
-      <p>AcceptRatio: <pie-chart title="{{pr.acceptedPullRequests/pr.totalPullRequests*100 || 0 | number:0}}%" data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,10)"></pie-chart></p>
+      <p>ContributorIndex: <pie-chart title="{{pr.contributorIndex*100 | number:0}}%" data="getPart(pr.contributorIndex,20)"></pie-chart></p>
+      <p>AcceptRatio: <pie-chart title="{{pr.acceptedPullRequests/pr.totalPullRequests*100 || 0 | number:0}}%" data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,20)"></pie-chart></p>
       <p>
         Conflicts with:
         <span ng-repeat="n in pr.conflictsWith | limitTo:10">
