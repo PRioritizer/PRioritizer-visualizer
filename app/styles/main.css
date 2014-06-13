@@ -56,6 +56,10 @@ table.sort td:hover {
   background: #d9edf7;
 }
 
+table.sort td.selected {
+  background: #eeeeee;
+}
+
 /* Pull request */
 .pull-request {
   position: relative;

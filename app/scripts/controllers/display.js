@@ -6,6 +6,7 @@ angular.module('visualizerApp')
     $scope.chartResolution = 20;
     $scope.maxConflicts = 10;
     $scope.defaultSort = '+timestamp';
+    $scope.sortFields = getSortFields();
     $scope.sortOn = [];
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
@@ -43,8 +44,9 @@ angular.module('visualizerApp')
     };
 
     $scope.indexSort = function indexSort (field) {
+      var hasSign = field.startsWith('+') || field.startsWith('-');
       for (var i = $scope.sortOn.length - 1; i >= 0; i--)
-        if ($scope.sortOn[i].substr(1) === field)
+        if ((!hasSign && trimField($scope.sortOn[i]) === field) || ($scope.sortOn[i] === field))
           return i + 1;
       return 0;
     };
@@ -91,5 +93,23 @@ angular.module('visualizerApp')
       }
 
       return Math.max(sum, $scope.chartResolution);
+    }
+
+    function trimField(field) {
+      var sign = field.startsWith('+') || field.startsWith('-');
+      return sign ? field.substr(1) : field;
+    }
+
+    function getSortFields () {
+      return [
+        { name: 'Date', key: 'timestamp', plus: 'Oldest first', min: 'Newest first' },
+        { name: 'Conflicts', key: 'numConflicts', plus: 'Less first', min: 'More first' },
+        { name: 'Lines', key: 'lines', plus: 'Less first', min: 'More first' },
+        { name: 'Files', key: 'files', plus: 'Less first', min: 'More first' },
+        { name: 'Commits', key: 'commits', plus: 'Less first', min: 'More first' },
+        { name: 'Contributor', key: 'contributor', plus: 'Unknown first', min: 'Known first' },
+        { name: 'History', key: 'ratioPullRequests', plus: 'Negative first', min: 'Positive first' },
+        { name: 'Mergeable', key: 'isMergeable', plus: 'Conflicted first', min: 'Mergeable first' }
+      ];
     }
   }]);
