@@ -8,6 +8,7 @@ angular.module('visualizerApp')
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
     $scope.selectedBranch = $scope.branches[0] || '';
+    $scope.snapshot = $scope.data.date || '';
     $scope.owner = $scope.data.owner || '';
     $scope.repository = $scope.data.repository || '';
     $scope.host = 'https://github.com';

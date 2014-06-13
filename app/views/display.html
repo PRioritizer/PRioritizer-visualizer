@@ -1,11 +1,11 @@
 <div class="row" ng-show="pullRequests.length > 0">
-  <h3>
+  <h1>
     <i class="fa fa-github"></i>
     <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
     /
-    <a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a>
-  </h3>
-  <h3>Filter and sort</h3>
+    <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
+    <small class="text-muted">({{snapshot | date:'d MMM yyyy'}})</small>
+  </h1>
   <p>Filter on:
     <span ng-repeat="branch in branches">
       <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
@@ -22,7 +22,7 @@
     <a href ng-click="sort(onPrevPullRequests)">history</a>,
     <a href ng-click="sort(onMergeable)">mergeable</a>
   </p>
-  <h3>Pull requests <span class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</span></h3>
+  <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
   <div ng-controller="PullRequestController">
     <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:sortFunc:sortOrder | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
       <div class="left">
