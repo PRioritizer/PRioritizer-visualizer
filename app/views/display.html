@@ -44,7 +44,7 @@
           </a>
         </span>
       </div>
-      <h4>{{pr.title}}</h4>
+      <h4 title="{{pr.title}}">{{pr.title}}</h4>
       <p class="source-target">
         from
         <span class="label label-default">{{pr.source}}</span>
@@ -55,16 +55,6 @@
           {{pr.author}}
         </a>
       </p>
-      <p class="author">
-        <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank">
-          <pie-chart title="{{pr.contributorIndex*100 | number:0}}%" data="getPart(pr.contributorIndex,20)"></pie-chart>
-          contributor
-        </a>
-        <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank">
-          <pie-chart title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted" data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,20)"></pie-chart>
-          history
-        </a>
-      </p>
       <p>
         Conflicts:
         <span ng-repeat="n in pr.conflictsWith | limitTo:maxConflicts">
@@ -72,25 +62,37 @@
         </span>
         <span ng-show="pr.conflictsWith.length > maxConflicts">and {{pr.conflictsWith.length - maxConflicts}} more...</span>
       </p>
-      <p class="size">
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
-          <i class="fa fa-align-left"></i> {{pr.linesAdded + pr.linesDeleted}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
-          <i class="fa fa-files-o"></i> {{pr.filesChanged}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/commits" target="_blank">
-          <i class="fa fa-history"></i> {{pr.commits}}
-        </a>
-        <span class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
-          <span class="deleted">
-            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+      <div class="info">
+        <p class="author">
+          <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributorIndex*100 | number:0}}%">
+            <pie-chart data="getPart(pr.contributorIndex,20)"></pie-chart>
+            contributor
+          </a>
+          <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
+            <pie-chart data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,20)"></pie-chart>
+            history
+          </a>
+        </p>
+        <p class="size">
+          <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
+            <i class="fa fa-align-left"></i> {{pr.linesAdded + pr.linesDeleted}}
+          </a>
+          <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
+            <i class="fa fa-files-o"></i> {{pr.filesChanged}}
+          </a>
+          <a ng-href="{{github}}/pull/{{pr.number}}/commits" target="_blank">
+            <i class="fa fa-history"></i> {{pr.commits}}
+          </a>
+          <span class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
+            <span class="deleted">
+              <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+            </span>
+            <span class="added" ng-style="{width: getPercentageAdded(pr,6) + '%'}">
+              <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+            </span>
           </span>
-          <span class="added" ng-style="{width: getPercentageAdded(pr,6) + '%'}">
-            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
-          </span>
-        </span>
-      </p>
+        </p>
+      </div>
     </div>
   </div>
 </div>

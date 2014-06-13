@@ -50,7 +50,7 @@ body {
 /* Pull request */
 .pull-request {
   position: relative;
-  padding: 10px 100px 10px 70px;
+  padding: 10px 10px 10px 70px;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -111,6 +111,7 @@ body {
 .pull-request h4 {
   margin: -5px 0;
   padding: 5px 0;
+  margin-right: 90px; /* Because pr # */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -119,6 +120,17 @@ body {
 .pull-request .source-target {
   font-size: 0.9em;
   margin-left: 5px;
+}
+
+.pull-request .info {
+  position: relative;
+  margin-bottom: -10px;
+}
+
+.pull-request .size {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .pull-request .size i,
