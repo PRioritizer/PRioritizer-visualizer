@@ -25,8 +25,11 @@ angular.module('visualizerApp')
 
       $scope.file = file;
       $scope.message = 'Reading JSON file...';
-      jsonFactory.readFile(file, function() {
+      jsonFactory.readFile(file, function success() {
         $location.path('/display/');
+        $scope.$apply();
+      }, function error(err) {
+        $scope.message = 'Could not read JSON file: ' + err.message;
         $scope.$apply();
       });
     };

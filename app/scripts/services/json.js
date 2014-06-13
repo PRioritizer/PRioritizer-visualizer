@@ -9,15 +9,22 @@ angular.module('visualizerApp')
     };
     var _this = service;
 
-    service.readFile = function readFile(file, callback) {
+    service.readFile = function readFile(file, callback, errorCallback) {
       if (!_this.fileApiSupport || file === null)
         return;
 
       var parseJson = function(e) {
         var jsonStr = e.target.result;
-        var data = angular.fromJson(jsonStr);
-        _this.data = data;
-        callback(data);
+        try {
+          var data = angular.fromJson(jsonStr);
+          _this.data = data;
+        } catch(err) {
+          _this.data = null;
+          if (errorCallback)
+            errorCallback(err);
+        }
+        if (_this.data)
+          callback(_this.data);
       };
 
       var fileReader = new FileReader();
