@@ -12,15 +12,14 @@
     </span>
   </p>
   <p>Sort on:
-    <a href ng-click="sort(onNumber)">number</a>,
     <a href ng-click="sort(onDate)">date</a>,
     <a href ng-click="sort(onNumberConflicts)">number of conflicts</a>,
     <a href ng-click="sort(onSize('lines'))">lines</a>,
     <a href ng-click="sort(onSize('files'))">files</a>,
     <a href ng-click="sort(onSize('commits'))">commits</a>,
-    <a href ng-click="sort(onContributor)">contributor</a>,
-    <a href ng-click="sort(onPrevPullRequests)">history</a>,
-    <a href ng-click="sort(onMergeable)">mergeable</a>
+    <a href ng-click="sort(onContributor, true)">contributor</a>,
+    <a href ng-click="sort(onPrevPullRequests, true)">history</a>,
+    <a href ng-click="sort(onMergeable, true)">mergeable</a>
   </p>
   <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
   <div ng-controller="PullRequestController">

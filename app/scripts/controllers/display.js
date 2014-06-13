@@ -14,12 +14,12 @@ angular.module('visualizerApp')
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
 
-    $scope.sort = function sort (on) {
+    $scope.sort = function sort (on, order) {
       if ($scope.sortFunc === on) {
         $scope.sortOrder = !$scope.sortOrder;
       } else {
         $scope.sortFunc = on;
-        $scope.sortOrder = false;
+        $scope.sortOrder = !!order;
       }
     };
 
@@ -51,10 +51,6 @@ angular.module('visualizerApp')
     /* Sort functions */
     $scope.onDate = function onDate (pr) {
       return Date.parse(pr.createdAt);
-    };
-
-    $scope.onNumber = function onNumber (pr) {
-      return pr.number;
     };
 
     $scope.onNumberConflicts = function onNumberConflicts (pr) {
