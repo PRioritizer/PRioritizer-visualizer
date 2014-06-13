@@ -26,7 +26,8 @@ angular.module('visualizerApp')
       $scope.file = file;
       $scope.message = 'Reading JSON file...';
       jsonFactory.readFile(file, function success(data) {
-        data.pullRequests = data.pullRequests.map(function (pr) { return new PullRequest(pr); });
+        if (angular.isArray(data.pullRequests))
+          data.pullRequests = data.pullRequests.map(function (pr) { return new PullRequest(pr); });
         $location.path('/display/');
         $scope.$apply();
       }, function error(err) {
