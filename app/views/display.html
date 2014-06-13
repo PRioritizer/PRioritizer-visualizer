@@ -56,22 +56,22 @@
           {{pr.author}}
         </a>
       </p>
-      <p>ContributorIndex:
+      <p class="author">
         <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank">
           <pie-chart title="{{pr.contributorIndex*100 | number:0}}%" data="getPart(pr.contributorIndex,20)"></pie-chart>
+          contributor
         </a>
-      </p>
-      <p>AcceptRatio:
         <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank">
           <pie-chart title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted" data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,20)"></pie-chart>
-          </p>
+          history
         </a>
+      </p>
       <p>
-        Conflicts with:
-        <span ng-repeat="n in pr.conflictsWith | limitTo:10">
+        Conflicts:
+        <span ng-repeat="n in pr.conflictsWith | limitTo:maxConflicts">
           <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
         </span>
-        <span ng-show="pr.conflictsWith.length > 10">and {{pr.conflictsWith.length - 10}} more...</span>
+        <span ng-show="pr.conflictsWith.length > maxConflicts">and {{pr.conflictsWith.length - maxConflicts}} more...</span>
       </p>
       <p class="size">
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">

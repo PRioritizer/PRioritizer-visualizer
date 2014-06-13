@@ -121,18 +121,23 @@ body {
   margin-left: 5px;
 }
 
-.pull-request .size i {
+.pull-request .size i,
+.pull-request .author i {
   color: #cccccc;
 }
 
 .pull-request .size,
-.pull-request .size a {
+.pull-request .size a,
+.pull-request .author,
+.pull-request .author a {
   color: #999999;
   text-decoration: none;
 }
 
 .pull-request .size a:hover,
-.pull-request .size a:hover i {
+.pull-request .size a:hover i,
+.pull-request .author a:hover,
+.pull-request .author a:hover i {
   color: #333333;
 }
 
