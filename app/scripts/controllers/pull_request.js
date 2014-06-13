@@ -2,13 +2,9 @@
 
 angular.module('visualizerApp')
   .controller('PullRequestController', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
-    $scope.getConflicts = function getConflicts(pr) {
-      return pr.conflictsWith.join(' ');
-    };
-
-    $scope.getPercentageAdded = function getPercentageAdded(pr, resolution) {
+    $scope.getPercentage = function getPercentage(part, resolution) {
+      part = isFinite(part) ? part : 0;
       resolution = resolution || $scope.linesResolution;
-      var part = pr.linesAdded / (pr.linesAdded + pr.linesDeleted) || 0;
       var round = part > (1 / resolution) ? Math.floor : Math.ceil;
       return round(part * resolution) * (100 / resolution);
     };

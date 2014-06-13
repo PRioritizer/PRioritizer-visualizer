@@ -5,8 +5,7 @@ angular.module('visualizerApp')
     $scope.linesResolution = 6;
     $scope.chartResolution = 20;
     $scope.maxConflicts = 10;
-    $scope.sortOrder = false;
-    $scope.sortFunc = $scope.onNumber;
+    $scope.sortOn = '+timestamp';
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
@@ -18,13 +17,8 @@ angular.module('visualizerApp')
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
 
-    $scope.sort = function sort (on, order) {
-      if ($scope.sortFunc === on) {
-        $scope.sortOrder = !$scope.sortOrder;
-      } else {
-        $scope.sortFunc = on;
-        $scope.sortOrder = !!order;
-      }
+    $scope.sort = function sort (on) {
+      $scope.sortOn = on;
     };
 
     $scope.branchClass = function branchClass (branch, prefix) {
@@ -70,50 +64,4 @@ angular.module('visualizerApp')
 
       return Math.max(sum, $scope.chartResolution);
     }
-
-    /* Sort functions */
-    $scope.onDate = function onDate (pr) {
-      return Date.parse(pr.createdAt);
-    };
-
-    $scope.onNumberConflicts = function onNumberConflicts (pr) {
-      return pr.conflictsWith.length;
-    };
-
-    $scope.onContributor = function onContributor (pr) {
-      return pr.contributedCommits;
-    };
-
-    $scope.onPrevPullRequests = function onPrevPullRequests (pr) {
-      return pr.acceptedPullRequests/pr.totalPullRequests || 0;
-    };
-
-    $scope.onMergeable = function onMergeable (pr) {
-      return pr.isMergeable;
-    };
-
-    $scope.onSize = function onSize (dimension) {
-      switch(dimension) {
-        case 'lines':
-          return $scope.onLines;
-        case 'files':
-          return $scope.onFiles;
-        case 'commits':
-          return $scope.onCommits;
-        default:
-          return function () {};
-      }
-    };
-
-    $scope.onLines = function onLines (pr) {
-      return pr.linesAdded + pr.linesDeleted;
-    };
-
-    $scope.onFiles = function onFiles (pr) {
-      return pr.filesChanged;
-    };
-
-    $scope.onCommits = function onCommits (pr) {
-      return pr.commits;
-    };
   }]);
