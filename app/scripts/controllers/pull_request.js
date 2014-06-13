@@ -2,8 +2,6 @@
 
 angular.module('visualizerApp')
   .controller('PullRequestController', ['$scope', '$location', '$anchorScroll', function ($scope, $location, $anchorScroll) {
-    $scope.maxConflicts = 10;
-
     $scope.getConflicts = function getConflicts(pr) {
       return pr.conflictsWith.join(' ');
     };

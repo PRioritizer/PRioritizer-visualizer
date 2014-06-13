@@ -51,7 +51,7 @@ body {
 .pull-request {
   position: relative;
   padding: 10px 10px 10px 70px;
-  border-bottom: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
 }
 
 .pull-request .left {

@@ -4,6 +4,7 @@ angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', 'jsonFactory', function ($scope, $interpolate, jsonFactory) {
     $scope.linesResolution = 6;
     $scope.chartResolution = 20;
+    $scope.maxConflicts = 10;
     $scope.sortOrder = false;
     $scope.sortFunc = $scope.onNumber;
     $scope.data = jsonFactory.getData() || {};
