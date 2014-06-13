@@ -11,18 +11,18 @@
       <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
     </span>
   </p>
-  <p>Sort on:
+  <p>Sort on: <a href ng-click="resetSort()">clear</a>
     <table class="table table-condensed small sort">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Conflicts</th>
-          <th>Lines</th>
-          <th>Files</th>
-          <th>Commits</th>
-          <th>Contributor</th>
-          <th>History</th>
-          <th>Mergeable</th>
+          <th>Date <span ng-show="indexSort('timestamp')">{{indexSort('timestamp')}}</span></th>
+          <th>Conflicts <span ng-show="indexSort('numConflicts')">{{indexSort('numConflicts')}}</span></th>
+          <th>Lines <span ng-show="indexSort('lines')">{{indexSort('lines')}}</span></th>
+          <th>Files <span ng-show="indexSort('files')">{{indexSort('files')}}</span></th>
+          <th>Commits <span ng-show="indexSort('commits')">{{indexSort('commits')}}</span></th>
+          <th>Contributor <span ng-show="indexSort('contributor')">{{indexSort('contributor')}}</span></th>
+          <th>History <span ng-show="indexSort('ratioPullRequests')">{{indexSort('ratioPullRequests')}}</span></th>
+          <th>Mergeable <span ng-show="indexSort('isMergeable')">{{indexSort('isMergeable')}}</span></th>
         </tr>
       </thead>
       <tbody>
@@ -32,9 +32,9 @@
           <td ng-click="sort('+lines')">Less first</td>
           <td ng-click="sort('+files')">Less first</td>
           <td ng-click="sort('+commits')">Less first</td>
-          <td ng-click="sort('-contributor')">Known first</td>
-          <td ng-click="sort('-ratioPullRequests')">Positive first</td>
-          <td ng-click="sort('-isMergeable')">Mergeable first</td>
+          <td ng-click="sort('+contributor')">Unknown first</td>
+          <td ng-click="sort('+ratioPullRequests')">Negative first</td>
+          <td ng-click="sort('+isMergeable')">Conflicted first</td>
         </tr>
         <tr>
           <td ng-click="sort('-timestamp')">Newest first</td>
@@ -42,16 +42,16 @@
           <td ng-click="sort('-lines')">More first</td>
           <td ng-click="sort('-files')">More first</td>
           <td ng-click="sort('-commits')">More first</td>
-          <td ng-click="sort('+contributor')">Unknown first</td>
-          <td ng-click="sort('+ratioPullRequests')">Negative first</td>
-          <td ng-click="sort('+isMergeable')">Conflicted first</td>
+          <td ng-click="sort('-contributor')">Known first</td>
+          <td ng-click="sort('-ratioPullRequests')">Positive first</td>
+          <td ng-click="sort('-isMergeable')">Mergeable first</td>
         </tr>
       </tbody>
     </table>
   </p>
   <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
   <div ng-controller="PullRequestController">
-    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:sortOn | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
+    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
       <div class="left">
         <i class="icon fa fa-2x fa-code-fork" title="Can be merged directly" ng-show="pr.isMergeable"></i>
         <span class="fa-stack" title="Cannot be merged directly" ng-show="!pr.isMergeable">

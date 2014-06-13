@@ -5,7 +5,8 @@ angular.module('visualizerApp')
     $scope.linesResolution = 6;
     $scope.chartResolution = 20;
     $scope.maxConflicts = 10;
-    $scope.sortOn = '+timestamp';
+    $scope.defaultSort = '+timestamp';
+    $scope.sortOn = [];
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
@@ -18,7 +19,34 @@ angular.module('visualizerApp')
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
 
     $scope.sort = function sort (on) {
-      $scope.sortOn = on;
+      var field = on.substr(1);
+      var newField = true;
+
+      for (var i = $scope.sortOn.length - 1; i >= 0; i--) {
+        if ($scope.sortOn[i].substr(1) === field) {
+          $scope.sortOn[i] = on;
+          newField = false;
+          break;
+        }
+      }
+
+      if (newField)
+        $scope.sortOn.push(on);
+    };
+
+    $scope.getSort = function getSort () {
+      return $scope.sortOn.length > 0 ? $scope.sortOn : $scope.defaultSort;
+    };
+
+    $scope.resetSort = function resetSort () {
+      $scope.sortOn = [];
+    };
+
+    $scope.indexSort = function indexSort (field) {
+      for (var i = $scope.sortOn.length - 1; i >= 0; i--)
+        if ($scope.sortOn[i].substr(1) === field)
+          return i + 1;
+      return 0;
     };
 
     $scope.branchClass = function branchClass (branch, prefix) {
