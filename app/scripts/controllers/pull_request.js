@@ -9,16 +9,17 @@ angular.module('visualizerApp')
     };
 
     $scope.getPercentageAdded = function getPercentageAdded(pr, resolution) {
-      resolution = resolution || 100;
+      resolution = resolution || $scope.linesResolution;
       var part = pr.linesAdded / (pr.linesAdded + pr.linesDeleted) || 0;
       var round = part > (1 / resolution) ? Math.floor : Math.ceil;
       return round(part * resolution) * (100 / resolution);
     };
 
     $scope.getPart = function getPart(part, resolution) {
-      part = part || 0;
-      resolution = resolution || 10;
-      return Math.ceil(part * resolution) + '/' + resolution;
+      part = isFinite(part) ? part : 0;
+      resolution = resolution || $scope.chartResolution;
+      var round = part > (1 / resolution) ? Math.floor : Math.ceil;
+      return round(part * resolution) + '/' + resolution;
     };
 
     $scope.scrollTo = function scrollTo (id) {

@@ -64,12 +64,12 @@
       </p>
       <div class="info">
         <p class="author">
-          <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributorIndex*100 | number:0}}%">
-            <pie-chart data="getPart(pr.contributorIndex,20)"></pie-chart>
+          <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
+            <pie-chart data="getPart(pr.contributedCommits/commits)"></pie-chart>
             contributor
           </a>
           <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
-            <pie-chart data="getPart(pr.acceptedPullRequests/pr.totalPullRequests,20)"></pie-chart>
+            <pie-chart data="getPart(pr.acceptedPullRequests/pr.totalPullRequests)"></pie-chart>
             history
           </a>
         </p>
@@ -87,7 +87,7 @@
             <span class="deleted">
               <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
             </span>
-            <span class="added" ng-style="{width: getPercentageAdded(pr,6) + '%'}">
+            <span class="added" ng-style="{width: getPercentageAdded(pr) + '%'}">
               <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
             </span>
           </span>

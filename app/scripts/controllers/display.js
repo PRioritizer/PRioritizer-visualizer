@@ -2,11 +2,14 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', 'jsonFactory', function ($scope, $interpolate, jsonFactory) {
+    $scope.linesResolution = 6;
+    $scope.chartResolution = 20;
     $scope.sortOrder = false;
     $scope.sortFunc = $scope.onNumber;
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
+    $scope.commits = getContributorCommits() || 0;
     $scope.selectedBranch = $scope.branches[0] || '';
     $scope.snapshot = $scope.data.date || '';
     $scope.owner = $scope.data.owner || '';
@@ -48,6 +51,25 @@ angular.module('visualizerApp')
       return targets.distinct().sort();
     }
 
+    function getContributorCommits() {
+      if (!angular.isArray($scope.pullRequests))
+        return 0;
+
+      var authors = [];
+      var sum = 0;
+
+      /* Sum commits of distinct authors */
+      for (var i = $scope.pullRequests.length - 1; i >= 0; i--) {
+        var pr = $scope.pullRequests[i];
+        if (authors.indexOf(pr.author) !== -1)
+          continue;
+        sum += pr.contributedCommits;
+        authors.push(pr.author);
+      }
+
+      return Math.max(sum, $scope.chartResolution);
+    }
+
     /* Sort functions */
     $scope.onDate = function onDate (pr) {
       return Date.parse(pr.createdAt);
@@ -58,7 +80,7 @@ angular.module('visualizerApp')
     };
 
     $scope.onContributor = function onContributor (pr) {
-      return pr.contributorIndex;
+      return pr.contributedCommits;
     };
 
     $scope.onPrevPullRequests = function onPrevPullRequests (pr) {
