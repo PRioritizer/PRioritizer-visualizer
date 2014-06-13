@@ -25,3 +25,8 @@ angular
         redirectTo: '/'
       });
   });
+
+$.fn.peity.defaults.pie = {
+  diameter: 16,
+  fill: ['#ff9900', '#ffd592', '#fff4dd']
+};
