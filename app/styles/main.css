@@ -42,12 +42,21 @@ body {
   text-decoration: none;
 }
 
+.notvisible {
+  visibility: hidden;
+}
+
 /* Cross reference */
 .cross-reference {
   cursor: pointer;
 }
 
 /* Sort table */
+table.sort th span {
+  float: right;
+  color: #777;
+}
+
 table.sort td {
   cursor: pointer;
 }

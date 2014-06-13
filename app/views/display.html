@@ -15,7 +15,7 @@
     <table class="table table-condensed small sort">
       <thead>
         <tr>
-          <th ng-repeat="field in sortFields">{{field.name}} <span ng-show="indexSort(field.key)">{{indexSort(field.key)}}</span></th>
+          <th ng-repeat="field in sortFields">{{field.name}} <span ng-class="{notvisible: indexSort(field.key) === 0}">{{indexSort(field.key)}}</span></th>
         </tr>
       </thead>
       <tbody>
