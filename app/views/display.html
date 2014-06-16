@@ -38,9 +38,8 @@
           <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
         </span>
         <div class="calendar" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}">
-          <i class="fa fa-calendar-o"></i>
-          <div class="day">{{pr.createdAt | date:'d'}}</div>
-          <div>{{pr.createdAt | date:'MMM yyyy'}}</div>
+          <div>{{pr.createdAt | date:'d MMM'}}</div>
+          <div>{{pr.createdAt | date:'yyyy'}}</div>
         </div>
       </div>
       <div class="right">
