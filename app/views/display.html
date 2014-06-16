@@ -30,77 +30,8 @@
   </p>
   <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
   <div ng-controller="PullRequestController">
-    <div id="pr{{pr.number}}" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" class="pull-request" ng-class="{mergeable: pr.isMergeable}" ng-class-even="'even'" ng-class-odd="'odd'">
-      <div class="left">
-        <i class="icon fa fa-2x fa-code-fork" title="Can be merged directly" ng-show="pr.isMergeable"></i>
-        <span class="fa-stack" title="Cannot be merged directly" ng-show="!pr.isMergeable">
-          <i class="icon fa fa-2x fa-code-fork"></i>
-          <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
-        </span>
-        <div class="calendar" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}">
-          <div>{{pr.createdAt | date:'d MMM'}}</div>
-          <div>{{pr.createdAt | date:'yyyy'}}</div>
-        </div>
-      </div>
-      <div class="right">
-        <span class="text-muted">
-          <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
-            <i class="fa fa-github"></i>
-            #{{pr.number}}
-          </a>
-        </span>
-      </div>
-      <h4 title="{{pr.title}}">{{pr.title}}</h4>
-      <p class="source-target">
-        from
-        <span class="label label-default">{{pr.source}}</span>
-        into
-        <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
-        by
-        <a ng-href="{{host}}/{{pr.author}}" target="_blank">
-          {{pr.author}}
-        </a>
-      </p>
-      <div class="info">
-        <p class="author">
-          <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
-            <pie-chart data="getPart(pr.contributedCommits/commits)"></pie-chart>
-            contributor
-          </a>
-          <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
-            <pie-chart data="getPart(pr.ratioPullRequests)"></pie-chart>
-            history
-          </a>
-          <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
-            <i class="fa fa-warning"></i> {{pr.numConflicts}} conflicts
-          </a>
-        </p>
-        <p class="size">
-          <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
-            <i class="fa fa-align-left"></i> {{pr.lines}}
-          </a>
-          <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
-            <i class="fa fa-files-o"></i> {{pr.filesChanged}}
-          </a>
-          <a ng-href="{{github}}/pull/{{pr.number}}/commits" target="_blank">
-            <i class="fa fa-history"></i> {{pr.commits}}
-          </a>
-          <span class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
-            <span class="deleted">
-              <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
-            </span>
-            <span class="added" ng-style="{width: getPercentage(pr.ratioAdded) + '%'}">
-              <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
-            </span>
-          </span>
-        </p>
-        <p class="conflicts" ng-show="showConflictsOf == pr.number">
-          <span ng-repeat="n in pr.conflictsWith">
-            <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
-          </span>
-        </p>
-      </div>
-    </div>
+    <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
+    </angular-pr>
   </div>
 </div>
 <div ng-show="!pullRequests.length">

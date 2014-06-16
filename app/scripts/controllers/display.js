@@ -2,9 +2,6 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', 'jsonFactory', function ($scope, $interpolate, jsonFactory) {
-    $scope.linesResolution = 6;
-    $scope.chartResolution = 20;
-    $scope.maxConflicts = 10;
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
     $scope.sortOn = [];
@@ -66,7 +63,7 @@ angular.module('visualizerApp')
       }
     };
 
-    $scope.showConflicts = function showConflicts(pr) {
+    $scope.showConflicts = function showConflicts (pr) {
       if ($scope.showConflictsOf === pr.number)
         $scope.showConflictsOf = 0;
       else
@@ -100,10 +97,10 @@ angular.module('visualizerApp')
         authors.push(pr.author);
       }
 
-      return Math.max(sum, $scope.chartResolution);
+      return sum;
     }
 
-    function trimField(field) {
+    function trimField (field) {
       var sign = field.startsWith('+') || field.startsWith('-');
       return sign ? field.substr(1) : field;
     }
