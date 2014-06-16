@@ -61,13 +61,6 @@
           {{pr.author}}
         </a>
       </p>
-      <p>
-        Conflicts:
-        <span ng-repeat="n in pr.conflictsWith | limitTo:maxConflicts">
-          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
-        </span>
-        <span ng-show="pr.numConflicts > maxConflicts">and {{pr.numConflicts - maxConflicts}} more...</span>
-      </p>
       <div class="info">
         <p class="author">
           <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
@@ -77,6 +70,9 @@
           <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
             <pie-chart data="getPart(pr.ratioPullRequests)"></pie-chart>
             history
+          </a>
+          <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
+            <i class="fa fa-warning"></i> {{pr.numConflicts}} conflicts
           </a>
         </p>
         <p class="size">
@@ -96,6 +92,11 @@
             <span class="added" ng-style="{width: getPercentage(pr.ratioAdded) + '%'}">
               <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
             </span>
+          </span>
+        </p>
+        <p class="conflicts" ng-show="showConflictsOf == pr.number">
+          <span ng-repeat="n in pr.conflictsWith">
+            <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
           </span>
         </p>
       </div>

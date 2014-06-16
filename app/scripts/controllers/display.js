@@ -18,6 +18,7 @@ angular.module('visualizerApp')
     $scope.repository = $scope.data.repository || '';
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
+    $scope.showConflictsOf = 0;
 
     $scope.sort = function sort (on) {
       var field = on.substr(1);
@@ -63,6 +64,13 @@ angular.module('visualizerApp')
         default:
           return prefix + 'default';
       }
+    };
+
+    $scope.showConflicts = function showConflicts(pr) {
+      if ($scope.showConflictsOf === pr.number)
+        $scope.showConflictsOf = 0;
+      else
+        $scope.showConflictsOf = pr.number;
     };
 
     /* Private functions */
