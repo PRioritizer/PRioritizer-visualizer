@@ -54,19 +54,23 @@ body {
 /* Sort table */
 table.sort th span {
   float: right;
-  color: #777;
+  cursor: pointer;
+}
+
+table.sort th span:hover {
+  background-color: #999;
 }
 
 table.sort td {
   cursor: pointer;
 }
 
-table.sort td:hover {
-  background: #d9edf7;
-}
-
 table.sort td.selected {
   background: #eeeeee;
+}
+
+table.sort td:hover {
+  background: #d9edf7;
 }
 
 /* Pull request */

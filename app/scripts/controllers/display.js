@@ -33,6 +33,15 @@ angular.module('visualizerApp')
         $scope.sortOn.push(on);
     };
 
+    $scope.removeSort = function removeSort (on) {
+      var index = $scope.indexSort(on);
+
+      if (index === -1)
+        return;
+
+      $scope.sortOn.splice(index, 1);
+    };
+
     $scope.getSort = function getSort () {
       return $scope.sortOn.length > 0 ? $scope.sortOn : $scope.defaultSort;
     };
@@ -45,8 +54,8 @@ angular.module('visualizerApp')
       var hasSign = field.startsWith('+') || field.startsWith('-');
       for (var i = $scope.sortOn.length - 1; i >= 0; i--)
         if ((!hasSign && trimField($scope.sortOn[i]) === field) || ($scope.sortOn[i] === field))
-          return i + 1;
-      return 0;
+          return i;
+      return -1;
     };
 
     $scope.branchClass = function branchClass (branch, prefix) {

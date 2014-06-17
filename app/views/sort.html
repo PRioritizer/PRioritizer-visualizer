@@ -1,0 +1,19 @@
+<p>Sort on: <a href ng-click="resetSort()">clear</a></p>
+<table class="table table-condensed small sort">
+  <thead>
+    <tr>
+      <th ng-repeat="field in sortFields">
+        {{field.name}}
+        <span class="label label-danger" ng-click="removeSort(field.key)" ng-class="{notvisible: indexSort(field.key) === -1}">{{indexSort(field.key)+1}}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td ng-repeat="field in sortFields" ng-click="sort('+' + field.key)" ng-class="{selected: indexSort('+' + field.key) > -1}">{{field.plus}}</td>
+    </tr>
+    <tr>
+      <td ng-repeat="field in sortFields" ng-click="sort('-' + field.key)" ng-class="{selected: indexSort('-' + field.key) > -1}">{{field.min}}</td>
+    </tr>
+  </tbody>
+</table>

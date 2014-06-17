@@ -11,23 +11,7 @@
       <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
     </span>
   </p>
-  <p>Sort on: <a href ng-click="resetSort()">clear</a>
-    <table class="table table-condensed small sort">
-      <thead>
-        <tr>
-          <th ng-repeat="field in sortFields">{{field.name}} <span ng-class="{notvisible: indexSort(field.key) === 0}">{{indexSort(field.key)}}</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td ng-repeat="field in sortFields" ng-click="sort('+' + field.key)" ng-class="{selected: indexSort('+' + field.key)}">{{field.plus}}</td>
-        </tr>
-        <tr>
-          <td ng-repeat="field in sortFields" ng-click="sort('-' + field.key)" ng-class="{selected: indexSort('-' + field.key)}">{{field.min}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </p>
+  <div ng-include="'views/sort.html'"></div>
   <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
   <div ng-controller="PullRequestController">
     <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
