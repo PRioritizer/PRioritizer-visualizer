@@ -201,7 +201,7 @@ module.exports = function (grunt) {
     // The following *-min tasks produce minified files in the dist folder
     cssmin: {
       options: {
-        root: '<%= yeoman.app %>'
+        //root: '<%= yeoman.app %>'
       }
     },
 
@@ -286,6 +286,16 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/bootstrap/dist/fonts',
+          dest: '<%= yeoman.dist %>/fonts/',
+          src: ['*.*']
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/fontawesome/fonts',
+          dest: '<%= yeoman.dist %>/fonts/',
+          src: ['*-webfont.*']
         }]
       },
       styles: {
