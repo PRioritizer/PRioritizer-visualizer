@@ -6,8 +6,7 @@
         <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
       </span>
       <div class="calendar" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}">
-        <div>{{pr.createdAt | date:'d MMM'}}</div>
-        <div>{{pr.createdAt | date:'yyyy'}}</div>
+        <div am-time-ago="pr.timestamp"></div>
       </div>
     </div>
     <div class="right">

@@ -4,6 +4,7 @@ angular
   .module('visualizerApp', [
     'ngRoute',
     'angularFileUpload',
+    'angularMoment',
     'angularPeity'
   ])
   .config(function ($routeProvider) {

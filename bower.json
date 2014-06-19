@@ -10,6 +10,7 @@
     "angular-route": "1.2.15",
     "ng-file-upload": "1.4.0",
     "fontawesome": "4.1.0",
+    "angular-moment": "~0.7.1",
     "peity": "2.0.3"
   },
   "devDependencies": {
