@@ -26,8 +26,7 @@ angular.module('visualizerApp')
       $scope.file = file;
       $scope.message = 'Reading JSON file...';
       jsonFactory.readFile(file, function success(data) {
-        if (angular.isArray(data.pullRequests))
-          data.pullRequests = data.pullRequests.map(function (pr) { return new PullRequest(pr); });
+        processData(data);
         $location.path('/display/');
         $scope.$apply();
       }, function error(err) {
@@ -35,6 +34,12 @@ angular.module('visualizerApp')
         $scope.$apply();
       });
     };
+
+    function processData(data)
+    {
+      if (angular.isArray(data.pullRequests))
+        data.pullRequests = data.pullRequests.map(function (pr) { return new PullRequest(pr); });
+    }
   }]);
 
 var PullRequest = function(atts) {

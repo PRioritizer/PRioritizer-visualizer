@@ -36,5 +36,9 @@ angular.module('visualizerApp')
       return _this.data;
     };
 
+    service.setData = function setData (data) {
+      _this.data = data;
+    };
+
     return service;
   });
