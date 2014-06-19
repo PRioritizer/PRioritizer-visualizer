@@ -1,0 +1,7 @@
+{
+  "host" : "production.server",
+  "port": 22,
+  "username" : "user",
+  "password" : "******",
+  "path": "/path/on/server"
+}

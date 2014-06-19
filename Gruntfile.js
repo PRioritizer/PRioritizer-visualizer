@@ -18,6 +18,11 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    // SSH settings
+    sshconfig: {
+      production: grunt.file.exists('ssh/production.json') ? grunt.file.readJSON('ssh/production.json') : {}
+    },
+
     // Project settings
     yeoman: {
       // configurable paths
@@ -306,6 +311,35 @@ module.exports = function (grunt) {
       ]
     },
 
+    sftp: {
+      deployProduction: {
+        files: {
+          './': 'dist/**'
+        },
+        options: {
+          config: 'production',
+          srcBasePath: 'dist/',
+          createDirectories: true,
+          showProgress: true
+        }
+      }
+    },
+
+    // sshexec: {
+    //   test: {
+    //     command: 'uptime',
+    //     options: {
+    //       config: 'production'
+    //     }
+    //   },
+    //   ls: {
+    //     command: 'ls -la',
+    //     options: {
+    //       config: 'production'
+    //     }
+    //   }
+    // },
+
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
@@ -391,5 +425,11 @@ module.exports = function (grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('production', [
+    'test',
+    'build',
+    'sftp:deployProduction'
   ]);
 };
