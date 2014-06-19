@@ -64,7 +64,7 @@
       </p>
       <p class="conflicts" ng-if="showConflictsOf == pr.number">
         <span ng-repeat="n in pr.conflictsWith">
-          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>
+          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>{{$last ? '' : ' '}}
         </span>
       </p>
     </div>
