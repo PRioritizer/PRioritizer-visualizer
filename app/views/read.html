@@ -1,27 +1,33 @@
 <div class="jumbotron">
-  <p class="lead">
-    Prioritize your pull requests.
-  </p>
-  <p ng-show="fileApiSupport">
-    <a class="btn btn-lg btn-success" ng-click="selectFile()">
-      Select input file <span class="fa fa-list-alt"></span>
-    </a>
-    <input id="selectedFile" name="selectedFile" type="file" style="display:none" ng-file-select="onFileSelect($files)" />
-  </p>
-  <p ng-show="!fileApiSupport">
-    Your browser does not support the <a href="http://caniuse.com/fileapi" target="_blank">File API</a>.<br>
-    Please use a <a href="https://www.google.com/chrome" target="_blank">modern browser</a>.
-  </p>
-  <p>
-    {{message || "Select a JSON file to start."}}
+  <p class="lead">Prioritize your pull requests</p>
+  <p>{{message || "Select a project to start."}}</p>
   </p>
 </div>
 
+<h4>Projects</h4>
+<div class="row projects">
+  <div class="column col-sm-4" ng-repeat="i in [0,1,2]">
+    <ul>
+      <li ng-repeat="repo in repos | orderBy:['owner','repo'] | limitToFrom:i*3:3"><a href ng-click="onFileClick(repo);">{{repo.owner}}/{{repo.repo}}</a></li>
+    </ul>
+  </div>
+</div>
+
 <div class="row">
-  <div class="col-md-12">
-    <h4>How do I get an input file?</h4>
+  <div class="col-sm-12">
+    <h4>How do I prioritize my own project?</h4>
     <p>
-      Generate your input file with the analyzer. More text here...
+      Generate your input file with the analyzer. And select your generated file below.
+    </p>
+    <p ng-show="fileApiSupport">
+      <a class="btn btn-success" ng-click="selectFile()">
+        Select input file <span class="fa fa-list-alt"></span>
+      </a>
+      <input id="selectedFile" name="selectedFile" type="file" style="display:none" ng-file-select="onFileSelect($files)" />
+    </p>
+    <p ng-show="!fileApiSupport">
+      Your browser does not support the <a href="http://caniuse.com/fileapi" target="_blank">File API</a>.<br>
+      Please use a <a href="https://www.google.com/chrome" target="_blank">modern browser</a>.
     </p>
   </div>
 </div>

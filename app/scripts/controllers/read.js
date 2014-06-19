@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('ReadController', ['$scope', '$upload', '$location', 'jsonFactory', 'pullRequestFactory', function ($scope, $upload, $location, jsonFactory, pullRequestFactory) {
+  .controller('ReadController', ['$scope', '$upload', '$location', '$http', 'jsonFactory', 'pullRequestFactory', function ($scope, $upload, $location, $http, jsonFactory, pullRequestFactory) {
     $scope.fileApiSupport = jsonFactory.fileApiSupport;
     $scope.message = null;
     $scope.file = null;
+    $scope.repos = [];
+
+    getRepositories();
 
     $scope.selectFile = function selectFile() {
       if (!$scope.fileApiSupport)
@@ -35,9 +38,34 @@ angular.module('visualizerApp')
       });
     };
 
+    $scope.onFileClick = function onFileClick(repo) {
+      $scope.file = repo.file;
+      $scope.message = 'Reading JSON file...';
+      $http.get('json/' + repo.file).
+        success(function(data) {
+          transformData(data);
+          jsonFactory.setData(data);
+          $location.path('/display/');
+        }).
+        error(function(data, status) {
+          $scope.message = 'Could not read JSON file: ' + status;
+          $scope.$apply();
+        });
+    };
+
     function transformData(data) {
       if (angular.isArray(data.pullRequests))
         data.pullRequests = data.pullRequests.map(function (pr) { return pullRequestFactory.get(pr); });
       return data;
+    }
+
+    function getRepositories() {
+      $http.get('json/index.json').
+        success(function(data) {
+          $scope.repos = data;
+        }).
+        error(function(data, status) {
+          $scope.message = 'Could not read JSON index: ' + status;
+        });
     }
   }]);

@@ -78,6 +78,16 @@ h1 .mega-octicon {
   vertical-align: top;
 }
 
+/* Projects */
+.projects ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.projects .column:last-child {
+  margin-bottom: 10px;
+}
+
 /* Cross reference */
 .cross-reference {
   cursor: pointer;
