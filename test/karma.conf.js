@@ -1,3 +1,5 @@
+'use strict';
+
 // Karma configuration
 // http://karma-runner.github.io/0.12/config/configuration-file.html
 // Generated on 2014-06-05 using
@@ -15,7 +17,9 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
-    files: [],
+    files: [
+      'unit/**/*.spec.js'
+    ],
 
     // list of files / patterns to exclude
     exclude: [],
@@ -43,7 +47,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
 
     colors: true,
 
