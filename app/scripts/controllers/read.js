@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('ReadController', ['$scope', '$upload', '$location', 'jsonFactory', function ($scope, $upload, $location, jsonFactory) {
+  .controller('ReadController', ['$scope', '$upload', '$location', 'jsonFactory', 'pullRequestFactory', function ($scope, $upload, $location, jsonFactory, pullRequestFactory) {
     $scope.fileApiSupport = jsonFactory.fileApiSupport;
     $scope.message = null;
     $scope.file = null;
@@ -26,7 +26,7 @@ angular.module('visualizerApp')
       $scope.file = file;
       $scope.message = 'Reading JSON file...';
       jsonFactory.readFile(file, function success(data) {
-        processData(data);
+        transformData(data);
         $location.path('/display/');
         $scope.$apply();
       }, function error(err) {
@@ -35,31 +35,9 @@ angular.module('visualizerApp')
       });
     };
 
-    function processData(data)
-    {
+    function transformData(data) {
       if (angular.isArray(data.pullRequests))
-        data.pullRequests = data.pullRequests.map(function (pr) { return new PullRequest(pr); });
+        data.pullRequests = data.pullRequests.map(function (pr) { return pullRequestFactory.get(pr); });
+      return data;
     }
   }]);
-
-var PullRequest = function(atts) {
-  var self = this;
-
-  //initial settings if passed in
-  var initialSettings = atts || {};
-  for(var setting in initialSettings){
-    if(initialSettings.hasOwnProperty(setting))
-      self[setting] = initialSettings[setting];
-  }
-
-  self.ratioPullRequests = self.acceptedPullRequests/self.totalPullRequests || 0;
-  self.numConflicts = self.conflictsWith.length;
-  self.timestamp = Date.parse(self.createdAt);
-  self.lines = self.linesAdded + self.linesDeleted;
-  self.ratioAdded = self.linesAdded / (self.linesAdded + self.linesDeleted) || 0;
-  self.contributor = self.contributedCommits;
-  self.files = self.filesChanged;
-
-  //return the scope-safe instance
-  return self;
-};
