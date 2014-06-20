@@ -32,7 +32,7 @@
           <pie-chart data="getPart(pr.ratioPullRequests)"></pie-chart>&nbsp;history
         </a>
         <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
-          <i class="fa fa-warning"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
+          <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
         </a>
       </p>
       <p class="size">

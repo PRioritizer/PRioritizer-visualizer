@@ -182,11 +182,19 @@ table.sort td:hover {
   text-decoration: none;
 }
 
+.pull-request .author a i.red {
+  color: #f9a18a;
+}
+
 .pull-request .size a:hover,
 .pull-request .size a:hover i,
 .pull-request .author a:hover,
 .pull-request .author a:hover i {
   color: #333333;
+}
+
+.pull-request .author a:hover i.red {
+  color: #d7431b;
 }
 
 .pull-request span.line-bar,
