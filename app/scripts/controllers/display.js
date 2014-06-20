@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$interpolate', 'jsonFactory', function ($scope, $interpolate, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, jsonFactory) {
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
     $scope.sortOn = [];
@@ -16,7 +16,10 @@ angular.module('visualizerApp')
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
     $scope.showConflictsOf = 0;
+    $scope.linesResolution = 6;
+    $scope.chartResolution = 20;
 
+    /* Sort functions */
     $scope.sort = function sort (on) {
       var field = on.substr(1);
       var newField = true;
@@ -58,6 +61,7 @@ angular.module('visualizerApp')
       return -1;
     };
 
+    /* Misc functions */
     $scope.branchClass = function branchClass (branch, prefix) {
       prefix = prefix || '';
       switch (branch) {
@@ -77,6 +81,28 @@ angular.module('visualizerApp')
         $scope.showConflictsOf = 0;
       else
         $scope.showConflictsOf = pr.number;
+    };
+
+    $scope.getPercentage = function getPercentage (part, resolution) {
+      part = isFinite(part) ? part : 0;
+      resolution = resolution || $scope.linesResolution;
+      var round = part > (1 / resolution) ? Math.floor : Math.ceil;
+      return round(part * resolution) * (100 / resolution);
+    };
+
+    $scope.getPart = function getPart (part, resolution) {
+      part = isFinite(part) ? part : 0;
+      resolution = resolution || $scope.chartResolution;
+      var round = part > (1 / resolution) ? Math.floor : Math.ceil;
+      return round(part * resolution) + '/' + resolution;
+    };
+
+    $scope.scrollTo = function scrollTo (id) {
+      var old = $location.hash();
+      $location.hash(id);
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
     };
 
     /* Private functions */
