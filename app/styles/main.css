@@ -100,10 +100,9 @@ table.sort td:hover {
 
 .pull-request .right {
   position: absolute;
-  top: 10px;
+  top: 5px;
   right: 10px;
   width: 80px;
-  font-size: 18px;
   text-align: right;
 }
 
@@ -143,9 +142,20 @@ table.sort td:hover {
   text-overflow: ellipsis;
 }
 
+.pull-request .number {
+  font-size: 18px;
+}
+
 .pull-request .source-target {
+  position: relative;
   font-size: 0.9em;
-  margin-left: 5px;
+}
+
+.pull-request .source-target .ago {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .pull-request .info {
@@ -190,9 +200,10 @@ table.sort td:hover {
   overflow: hidden;
   white-space: nowrap;
   text-align: left;
-  width: 84px;
+  width: 66px;
   height: 16px;
-  font-size: 14px;
+  line-height: 22px;
+  font-size: 10px;
 }
 
 .pull-request .line-bar .added,
