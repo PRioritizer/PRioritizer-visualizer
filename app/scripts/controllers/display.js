@@ -16,8 +16,6 @@ angular.module('visualizerApp')
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
     $scope.showConflictsOf = 0;
-    $scope.linesResolution = 6;
-    $scope.chartResolution = 20;
 
     /* Sort functions */
     $scope.sort = function sort (on) {
@@ -83,18 +81,11 @@ angular.module('visualizerApp')
         $scope.showConflictsOf = pr.number;
     };
 
-    $scope.getPercentage = function getPercentage (part, resolution) {
-      part = isFinite(part) ? part : 0;
-      resolution = resolution || $scope.linesResolution;
-      var round = part > (1 / resolution) ? Math.floor : Math.ceil;
-      return round(part * resolution) * (100 / resolution);
-    };
-
     $scope.getPart = function getPart (part, resolution) {
-      part = isFinite(part) ? part : 0;
-      resolution = resolution || $scope.chartResolution;
-      var round = part > (1 / resolution) ? Math.floor : Math.ceil;
-      return round(part * resolution) + '/' + resolution;
+      part = isFinite(part) ? part * resolution : 0;
+      resolution = resolution || 100;
+      var round = (part < 1) ? Math.ceil : (part > resolution-1) ? Math.floor : Math.round;
+      return round(part);
     };
 
     $scope.scrollTo = function scrollTo (id) {

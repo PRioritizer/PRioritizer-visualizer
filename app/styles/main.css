@@ -208,35 +208,17 @@ table.sort td:hover {
 }
 
 .pull-request .line-bar {
-  position: relative;
-  color: green;
-  overflow: hidden;
-  white-space: nowrap;
   text-align: left;
-  width: 66px;
   height: 16px;
   line-height: 22px;
   font-size: 10px;
 }
 
-.pull-request .line-bar .added,
-.pull-request .line-bar .deleted {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  text-align: left;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.pull-request .line-bar .added,
-.pull-request .line-bar .added i {
+.pull-request .line-bar i.added {
   color: #6cc644;
 }
 
-.pull-request .line-bar .deleted,
-.pull-request .line-bar .deleted i {
+.pull-request .line-bar i.deleted {
   color: #d7431b;
 }
 
