@@ -40,6 +40,7 @@ body {
 
 .text-muted a:hover {
   text-decoration: none;
+  color: #333333;
 }
 
 .notvisible {
@@ -218,8 +219,16 @@ table.sort td:hover {
   color: #6cc644;
 }
 
+.pull-request .line-bar:hover i.added {
+  color: #3f9e15;
+}
+
 .pull-request .line-bar i.deleted {
   color: #d7431b;
+}
+
+.pull-request .line-bar:hover i.deleted {
+  color: #bb1e12;
 }
 
 .pull-request .line-bar i {
