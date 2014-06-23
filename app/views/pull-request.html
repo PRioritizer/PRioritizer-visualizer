@@ -1,28 +1,25 @@
 <div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable}">
     <div class="left">
       <i class="icon fa fa-2x fa-code-fork" title="Can be merged directly" ng-show="pr.isMergeable"></i>
-      <span class="fa-stack" title="Cannot be merged directly" ng-show="!pr.isMergeable">
+      <span class="fa-stack" title="Cannot be merged directly" ng-hide="pr.isMergeable">
         <i class="icon fa fa-2x fa-code-fork"></i>
         <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
       </span>
     </div>
-    <div class="right">
-      <div class="number text-muted">
-        <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
-          <i class="fa fa-github"></i>
-          #{{pr.number}}
-        </a>
-      </div>
+    <div class="right number text-muted">
+      <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
+        <i class="fa fa-github"></i>&nbsp;#{{pr.number}}
+      </a>
     </div>
     <h4 title="{{pr.title}}">{{pr.title}}</h4>
-    <p class="source-target">
+    <p class="subtitle">
       <i class="fa fa-user" ng-class="{core: pr.coreMember}" ng-attr-title="{{pr.coreMember ? 'Core member' : 'Contributor'}}"></i>
       <a ng-href="{{host}}/{{pr.author}}" target="_blank">{{pr.author}}</a>
       wants to merge
       <span class="label label-default">{{pr.source}}</span>
       into
       <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
-      <span class="ago" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></span>
+      <span class="ago abs-right" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></span>
     </p>
     <div class="info">
       <p class="author">
@@ -36,7 +33,7 @@
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
         </a>
       </p>
-      <p class="size">
+      <p class="size abs-right">
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
           <i class="fa fa-align-left"></i>&nbsp;{{pr.lines}}
         </a>

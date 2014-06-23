@@ -9,7 +9,6 @@ body {
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
 .footer {
   padding: 0 15px;
 }
@@ -107,33 +106,35 @@ table.sort td:hover {
   text-align: right;
 }
 
-.pull-request.mergeable .icon {
-  color: #6cc644;
-}
-
-.pull-request .calendar {
-  margin-top: 10px;
-  position: relative;
-  font-size: 10px;
-}
-
-.pull-request .calendar i {
-  font-size: 30px;
-}
-
-.pull-request .calendar .day {
-  position: absolute;
-  top: 8px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-}
-
 .pull-request.even {
   background-color: #eeeeee;
 }
 
+.pull-request .abs-right {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* PR icons */
+.pull-request i {
+  color: #cccccc;
+}
+
+.pull-request i.icon {
+  color: #999999;
+}
+
+.pull-request.mergeable i.icon {
+  color: #6cc644;
+}
+
+.pull-request .text-muted i {
+  color: inherit;
+}
+
+/* PR title */
 .pull-request h4 {
   margin: -5px 0;
   padding: 5px 0;
@@ -143,45 +144,24 @@ table.sort td:hover {
   text-overflow: ellipsis;
 }
 
-.pull-request svg.peity {
-  vertical-align: middle;
-}
-
 .pull-request .number {
   font-size: 18px;
 }
 
-.pull-request .source-target {
+/* PR subtitle */
+.pull-request .subtitle {
   position: relative;
   font-size: 0.9em;
 }
 
-.pull-request .source-target .ago {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
+.pull-request i.core {
+  color: #428bca;
 }
 
+/* PR info */
 .pull-request .info {
   position: relative;
   margin-bottom: -10px;
-}
-
-.pull-request .size {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.pull-request .source-target i,
-.pull-request .info i {
-  color: #cccccc;
-}
-
-
-.pull-request i.core {
-  color: #428bca;
 }
 
 .pull-request .info,
@@ -203,16 +183,20 @@ table.sort td:hover {
   color: #d7431b;
 }
 
-.pull-request span.line-bar,
-.pull-request .line-bar span {
-  display: inline-block;
+.pull-request .info svg.peity {
+  vertical-align: middle;
 }
 
+/* Line addtitions/deletions bar */
 .pull-request .line-bar {
   text-align: left;
   height: 16px;
   line-height: 22px;
   font-size: 10px;
+}
+
+.pull-request .line-bar i {
+  margin: 0 1px;
 }
 
 .pull-request .line-bar i.added {
@@ -231,21 +215,14 @@ table.sort td:hover {
   color: #bb1e12;
 }
 
-.pull-request .line-bar i {
-  margin: 0 1px;
-}
-
 /* Customize container */
 @media (min-width: 768px) {
   .container {
     max-width: 730px;
   }
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
 
-/* Main marketing message and sign up button */
+/* Main message and sign up button */
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
@@ -255,19 +232,10 @@ table.sort td:hover {
   padding: 14px 24px;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
-}
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
   .footer {
     padding-left: 0;
     padding-right: 0;

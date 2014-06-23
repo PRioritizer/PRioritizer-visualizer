@@ -1,27 +1,29 @@
-<div class="row" ng-show="pullRequests.length > 0">
-  <h1>
-    <i class="fa fa-github"></i>
-    <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
-    /
-    <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
-    <small class="text-muted">({{snapshot | date:'d MMM yyyy'}})</small>
-  </h1>
-  <p>Filter on:
-    <span ng-repeat="branch in branches">
-      <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
-      {{$last ? '' : ' '}}
-    </span>
-  </p>
-  <div ng-include="'views/sort.html'"></div>
-  <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
-  <div>
-    <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
-    </angular-pr>
+<div class="row">
+  <div class="col-md-12" ng-show="pullRequests.length > 0">
+    <h1>
+      <i class="fa fa-github"></i>
+      <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
+      /
+      <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
+      <small class="text-muted">({{snapshot | date:'d MMM yyyy'}})</small>
+    </h1>
+    <p>Filter on:
+      <span ng-repeat="branch in branches">
+        <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
+        {{$last ? '' : ' '}}
+      </span>
+    </p>
+    <div ng-include="'views/sort.html'"></div>
+    <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
+    <div>
+      <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
+      </angular-pr>
+    </div>
   </div>
-</div>
-<div ng-show="!pullRequests.length">
-  <h3>No data</h3>
-  <p>
-    There is no data available yet. First, select a file on the <a ng-href="#read">previous page</a>.
-  </p>
+  <div class="col-md-12" ng-show="!pullRequests.length">
+    <h3>No data</h3>
+    <p>
+      There is no data available yet. First, select a file on the <a ng-href="#read">previous page</a>.
+    </p>
+  </div>
 </div>
