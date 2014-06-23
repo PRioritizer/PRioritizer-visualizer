@@ -8,7 +8,7 @@ angular.module('visualizerApp')
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
-    $scope.commits = getContributorCommits() || 0;
+    $scope.commits = $scope.data.commits || 0;
     $scope.selectedBranch = $scope.branches[0] || '';
     $scope.snapshot = $scope.data.date || '';
     $scope.owner = $scope.data.owner || '';
@@ -114,25 +114,6 @@ angular.module('visualizerApp')
         return pr.target.toLowerCase();
       });
       return targets.distinct().sort();
-    }
-
-    function getContributorCommits() {
-      if (!angular.isArray($scope.pullRequests))
-        return 0;
-
-      var authors = [];
-      var sum = 0;
-
-      /* Sum commits of distinct authors */
-      for (var i = $scope.pullRequests.length - 1; i >= 0; i--) {
-        var pr = $scope.pullRequests[i];
-        if (authors.indexOf(pr.author) !== -1)
-          continue;
-        sum += pr.contributedCommits;
-        authors.push(pr.author);
-      }
-
-      return sum;
     }
 
     function trimField (field) {
