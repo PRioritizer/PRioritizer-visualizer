@@ -142,6 +142,10 @@ table.sort td:hover {
   text-overflow: ellipsis;
 }
 
+.pull-request svg.peity {
+  vertical-align: middle;
+}
+
 .pull-request .number {
   font-size: 18px;
 }
@@ -169,31 +173,32 @@ table.sort td:hover {
   right: 0;
 }
 
-.pull-request .size i,
-.pull-request .author i {
+.pull-request .source-target i,
+.pull-request .info i {
   color: #cccccc;
 }
 
-.pull-request .size,
-.pull-request .size a,
-.pull-request .author,
-.pull-request .author a {
+
+.pull-request i.core {
+  color: #428bca;
+}
+
+.pull-request .info,
+.pull-request .info a {
   color: #999999;
   text-decoration: none;
 }
 
-.pull-request .author a i.red {
-  color: #f9a18a;
-}
-
-.pull-request .size a:hover,
-.pull-request .size a:hover i,
-.pull-request .author a:hover,
-.pull-request .author a:hover i {
+.pull-request .info a:hover,
+.pull-request .info a:hover i {
   color: #333333;
 }
 
-.pull-request .author a:hover i.red {
+.pull-request .info a i.red {
+  color: #f9a18a;
+}
+
+.pull-request .info a:hover i.red {
   color: #d7431b;
 }
 

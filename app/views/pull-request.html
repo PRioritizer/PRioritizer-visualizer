@@ -16,6 +16,7 @@
     </div>
     <h4 title="{{pr.title}}">{{pr.title}}</h4>
     <p class="source-target">
+      <i class="fa fa-user" ng-class="{core: pr.coreMember}" ng-attr-title="{{pr.coreMember ? 'Core member' : 'Contributor'}}"></i>
       <a ng-href="{{host}}/{{pr.author}}" target="_blank">{{pr.author}}</a>
       wants to merge
       <span class="label label-default">{{pr.source}}</span>
