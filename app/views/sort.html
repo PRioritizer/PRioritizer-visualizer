@@ -1,19 +1,43 @@
-<p>Sort on: <a href ng-click="resetSort()">clear</a></p>
-<table class="table table-condensed small sort">
-  <thead>
-    <tr>
-      <th ng-repeat="field in sortFields">
-        {{field.name}}
-        <span class="label label-danger" ng-click="removeSort(field.key)" ng-class="{notvisible: indexSort(field.key) === -1}">{{indexSort(field.key)+1}}</span>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td ng-repeat="field in sortFields" ng-click="sort('+' + field.key)" ng-class="{selected: indexSort('+' + field.key) > -1}">{{field.plus}}</td>
-    </tr>
-    <tr>
-      <td ng-repeat="field in sortFields" ng-click="sort('-' + field.key)" ng-class="{selected: indexSort('-' + field.key) > -1}">{{field.min}}</td>
-    </tr>
-  </tbody>
-</table>
+<h4>
+  Sort
+  <span ng-show="selectedSortGroup" class="text-muted">&raquo;&nbsp;{{selectedSortGroup.group}}</span>
+  <span ng-show="selectedSortField" class="text-muted">&raquo;&nbsp;{{selectedSortField.name}}</span>
+  <span ng-show="selectedSortGroup || selectedSortField" class="small"><a href ng-click="resetSortSelection()">Cancel</a></span>
+</h4>
+<div class="row sort">
+  <div class="col-md-6 small left">
+    <div ng-hide="selectedSortGroup">
+      <ul>
+        <li ng-repeat="group in sortGroups">
+          <a href ng-click="setSortSelection(group)">
+            {{group.group}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-show="selectedSortGroup && !selectedSortField">
+      <ul>
+        <li ng-repeat="field in selectedSortGroup.fields">
+          <a href ng-click="setSortSelection(selectedSortGroup, field)">
+            {{field.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-show="selectedSortGroup && selectedSortField">
+      <ul>
+        <li><a href ng-click="sort(selectedSortField, '+'); resetSortSelection()">{{selectedSortField.plus}}</a></li>
+        <li><a href ng-click="sort(selectedSortField, '-'); resetSortSelection()">{{selectedSortField.min}}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6 small right">
+    <a href ng-click="resetSort()">clear</a>
+    <div ng-repeat="field in sortFields">
+      {{sortFields.indexOf(field)+1}} {{field.name}}
+      <a href class="label label-default" ng-click="sort(field, '-')" ng-show="field.direction === '+'"><i class="fa fa-sort-up"></i></a>
+      <a href class="label label-default" ng-click="sort(field, '+')" ng-show="field.direction === '-'"><i class="fa fa-sort-down"></i></a>
+      <a href class="label label-danger" ng-click="removeSort(field)"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+</div>

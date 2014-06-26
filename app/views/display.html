@@ -16,7 +16,7 @@
     <div ng-include="'views/sort.html'"></div>
     <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
     <div>
-      <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSort() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
+      <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSortKeys() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
       </angular-pr>
     </div>
   </div>

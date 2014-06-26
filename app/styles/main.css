@@ -52,25 +52,20 @@ body {
 }
 
 /* Sort table */
-table.sort th span {
-  float: right;
-  cursor: pointer;
+.sort .left {
+  min-height: 100px;
 }
 
-table.sort th span:hover {
-  background-color: #999;
+.sort ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-table.sort td {
-  cursor: pointer;
-}
-
-table.sort td.selected {
-  background: #eeeeee;
-}
-
-table.sort td:hover {
-  background: #d9edf7;
+.sort li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Pull request */
