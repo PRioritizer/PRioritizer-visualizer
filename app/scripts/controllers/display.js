@@ -3,10 +3,9 @@
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, jsonFactory) {
     $scope.defaultSort = '+timestamp';
-    $scope.sortGroups = getSortFields();
-    $scope.selectedSortGroup = null;
+    $scope.sortFields = getSortFields();
     $scope.selectedSortField = null;
-    $scope.sortFields = [];
+    $scope.activeSortFields = [];
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
     $scope.branches = getTargets() || [];
@@ -24,39 +23,36 @@ angular.module('visualizerApp')
       direction = direction || '+';
       field.direction = direction;
 
-      if ($scope.sortFields.indexOf(field) === -1)
-        $scope.sortFields.push(field);
+      if ($scope.activeSortFields.indexOf(field) === -1)
+        $scope.activeSortFields.push(field);
     };
 
     $scope.removeSort = function removeSort (field) {
-      var index = $scope.sortFields.indexOf(field);
+      var index = $scope.activeSortFields.indexOf(field);
 
       if (index !== -1)
-        $scope.sortFields.splice(index, 1);
+        $scope.activeSortFields.splice(index, 1);
     };
 
     $scope.getSortKeys = function getSortKeys () {
-      if ($scope.sortFields.length === 0)
+      if ($scope.activeSortFields.length === 0)
         return $scope.defaultSort;
 
-      return $scope.sortFields.map(function (field) {
+      return $scope.activeSortFields.map(function (field) {
         return (field.direction || '+') + field.key;
       });
     };
 
     $scope.resetSort = function resetSort () {
-      $scope.sortFields = [];
+      $scope.activeSortFields = [];
     };
 
-    $scope.setSortSelection = function setSortSelection (group, field) {
-      group = group || null;
-      field = field || null;
-      $scope.selectedSortGroup = group;
-      $scope.selectedSortField = field;
+    $scope.setSortField = function setSortField (field) {
+      $scope.selectedSortField = field || null;
     };
 
     $scope.resetSortSelection = function resetSortSelection () {
-      $scope.setSortSelection();
+      $scope.setSortField();
     };
 
     /* Misc functions */
@@ -109,35 +105,15 @@ angular.module('visualizerApp')
 
     function getSortFields () {
       return [
-        {
-          group: 'Age',
-          fields: [
-            { key: 'timestamp', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' }
-          ]
-        },
-        {
-          group: 'Size',
-          fields: [
-            { key: 'lines', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
-            { key: 'files', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
-            { key: 'commits', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' }
-          ]
-        },
-        {
-          group: 'Author',
-          fields: [
-            { key: 'coreMember', name: 'Member', plus: 'Non-members to members', min: 'Members to non-members' },
-            { key: 'contributor', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
-            { key: 'ratioPullRequests', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' }
-          ]
-        },
-        {
-          group: 'Conflicts',
-          fields: [
-            { key: 'isMergeable', name: 'Mergeable', plus: 'Conflicted to mergeable', min: 'Mergeable to conflicted' },
-            { key: 'numConflicts', name: 'Pairwise', plus: 'Smallest to largest', min: 'Largest to smallest' }
-          ]
-        }
+        { key: 'timestamp', color: '#e9b9f9', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
+        { key: 'isMergeable', color: '#f9e8b9', name: 'Mergeable', plus: 'Conflicted to mergeable', min: 'Mergeable to conflicted' },
+        { key: 'numConflicts', color: '#f9e8b9', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'lines', color: '#d1f9b9', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'files', color: '#d1f9b9', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'commits', color: '#d1f9b9', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'coreMember', color: '#b9dbf9', name: 'Member', plus: 'Non-members to members', min: 'Members to non-members' },
+        { key: 'contributor', color: '#b9dbf9', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
+        { key: 'ratioPullRequests', color: '#b9dbf9', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' }
       ];
     }
   }]);

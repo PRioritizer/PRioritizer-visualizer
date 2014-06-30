@@ -56,16 +56,15 @@ body {
   min-height: 100px;
 }
 
-.sort ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.sort .field {
+  cursor: pointer;
+  padding: 3px 0;
+  text-align: center;
 }
 
-.sort li {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.sort .field:hover {
+  color: #ffffff;
+  background-color: #428bca !important;
 }
 
 /* Pull request */
