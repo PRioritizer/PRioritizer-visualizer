@@ -109,22 +109,22 @@ h1 .mega-octicon {
   padding: 3px 0;
 }
 
-.sort .active-field a {
-  display: inline-block;
+.sort .active-field .direction,
+.sort .active-field .remove {
+  position: absolute;
+  top: 0;
+  right: 0;
   height: 16px;
   width: 16px;
   padding: 3px 0 0 0;
   text-align: center;
 }
 
-.sort .active-field .controls {
+.sort .active-field .remove {
   display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
-.sort .active-field:hover .controls {
+.sort .active-field:hover .remove {
   display: block;
 }
 

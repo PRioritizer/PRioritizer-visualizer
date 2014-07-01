@@ -4,7 +4,6 @@ angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, jsonFactory) {
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
-    $scope.selectedSortField = null;
     $scope.activeSortFields = [];
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
@@ -19,8 +18,8 @@ angular.module('visualizerApp')
     $scope.showConflictsOf = 0;
 
     /* Sort functions */
-    $scope.sort = function sort (field, direction) {
-      direction = direction || '+';
+    $scope.sort = function sort (field) {
+      var direction = field.direction === '+' ? '-' : '+';
       field.direction = direction;
 
       if ($scope.activeSortFields.indexOf(field) === -1)
@@ -28,6 +27,7 @@ angular.module('visualizerApp')
     };
 
     $scope.removeSort = function removeSort (field) {
+      delete field.direction;
       var index = $scope.activeSortFields.indexOf(field);
 
       if (index !== -1)
@@ -45,14 +45,9 @@ angular.module('visualizerApp')
 
     $scope.resetSort = function resetSort () {
       $scope.activeSortFields = [];
-    };
-
-    $scope.setSortField = function setSortField (field) {
-      $scope.selectedSortField = field || null;
-    };
-
-    $scope.resetSortSelection = function resetSortSelection () {
-      $scope.setSortField();
+      $scope.sortFields.forEach(function (field) {
+        delete field.direction;
+      });
     };
 
     /* Misc functions */

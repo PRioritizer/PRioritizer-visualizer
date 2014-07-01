@@ -5,28 +5,24 @@
 <div class="row sort">
   <div class="col-sm-6 small left">
     <div class="row" ng-show="!selectedSortField">
-      <div class="field col-sm-4" ng-repeat="field in sortFields" ng-click="setSortField(field)" ng-class="field.class">
+      <div class="field col-sm-4" ng-repeat="field in sortFields" ng-click="sort(field)" ng-class="field.class">
         {{field.name}}
       </div>
-    </div>
-    <div ng-show="selectedSortField">
-      <span><a href ng-click="resetSortSelection()">&laquo; Cancel</a></span>
-      <span class="text-muted">{{selectedSortField.name}}</span>
-      <ul>
-        <li><a href ng-click="sort(selectedSortField, '+'); resetSortSelection()">{{selectedSortField.plus}}</a></li>
-        <li><a href ng-click="sort(selectedSortField, '-'); resetSortSelection()">{{selectedSortField.min}}</a></li>
-      </ul>
     </div>
   </div>
   <div class="col-sm-6 small right">
     <div class="row">
       <div class="col-sm-4" ng-repeat="i in [0,1,2]">
         <div class="active-field" ng-repeat="field in activeSortFields | limitToFrom:i*3:3">
-          {{activeSortFields.indexOf(field)+1}}. {{field.name}}
-          <div class="controls">
-            <a href class="label label-default" ng-click="sort(field, '-')" ng-show="field.direction === '+'"><i class="fa fa-arrow-up"></i></a>
-            <a href class="label label-default" ng-click="sort(field, '+')" ng-show="field.direction === '-'"><i class="fa fa-arrow-down"></i></a>
-            <a href class="label label-danger" ng-click="removeSort(field)"><i class="fa fa-times"></i></a>
+          <span ng-attr-title="{{field.direction === '+' ? field.plus : field.min}}">
+            {{activeSortFields.indexOf(field)+1}}. {{field.name}}
+          </span>
+          <div class="direction label label-default">
+            <i class="fa fa-arrow-up" ng-show="field.direction === '+'"></i>
+            <i class="fa fa-arrow-down" ng-show="field.direction === '-'"></i>
+          </div>
+          <div class="remove label label-danger" ng-click="removeSort(field)">
+            <i class="fa fa-times"></i>
           </div>
         </div>
       </div>
