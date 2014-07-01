@@ -46,6 +46,12 @@ body {
   visibility: hidden;
 }
 
+/* Display header */
+h1 .mega-octicon {
+  padding-top: 3px;
+  vertical-align: top;
+}
+
 /* Cross reference */
 .cross-reference {
   cursor: pointer;
@@ -116,12 +122,17 @@ body {
   color: #cccccc;
 }
 
-.pull-request i.icon {
-  color: #999999;
+.pull-request.conflict i.icon {
+  background-color: #999999;
+  color: #ffffff;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 24px;
 }
 
 .pull-request.mergeable i.icon {
   color: #6cc644;
+  font-size: 32px;
 }
 
 .pull-request .text-muted i {

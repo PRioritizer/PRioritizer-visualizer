@@ -291,6 +291,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/bower_components/fontawesome/fonts',
           dest: '<%= yeoman.dist %>/fonts/',
           src: ['*-webfont.*']
+        }, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/octicons/octicons',
+          dest: '<%= yeoman.dist %>/fonts/',
+          src: ['octicons.*', '!*.css']
         }]
       },
       styles: {

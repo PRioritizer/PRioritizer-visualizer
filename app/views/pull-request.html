@@ -1,14 +1,10 @@
-<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable}">
+<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}">
     <div class="left">
-      <i class="icon fa fa-2x fa-code-fork" title="Can be merged directly" ng-show="pr.isMergeable"></i>
-      <span class="fa-stack" title="Cannot be merged directly" ng-hide="pr.isMergeable">
-        <i class="icon fa fa-2x fa-code-fork"></i>
-        <i class="conflict fa fa-exclamation-triangle fa-stack-1x"></i>
-      </span>
+      <i class="icon mega-octicon octicon-git-pull-request" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
     </div>
     <div class="right number text-muted">
       <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
-        <i class="fa fa-github"></i>&nbsp;#{{pr.number}}
+        <i class="octicon octicon-mark-github"></i>&nbsp;#{{pr.number}}
       </a>
     </div>
     <h4 title="{{pr.title}}">{{pr.title}}</h4>
@@ -38,10 +34,10 @@
           <i class="fa fa-align-left"></i>&nbsp;{{pr.lines}}
         </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
-          <i class="fa fa-files-o"></i>&nbsp;{{pr.filesChanged}}
+          <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}
         </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/commits" target="_blank">
-          <i class="fa fa-history"></i>&nbsp;{{pr.commits}}
+          <i class="octicon octicon-history"></i>&nbsp;{{pr.commits}}
         </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank" class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
           <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>
