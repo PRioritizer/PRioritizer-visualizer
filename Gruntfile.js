@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-text-replace');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -335,6 +337,18 @@ module.exports = function (grunt) {
       }
     },
 
+    // Dirty hack to get octicon font working
+    replace: {
+      dist: {
+        src: ['<%= yeoman.dist %>/styles/vendor.css'],
+        overwrite: true,
+        replacements: [{
+          from: 'url(octicons',
+          to: 'url(../fonts/octicons'
+        }]
+      }
+    },
+
     // sshexec: {
     //   test: {
     //     command: 'uptime',
@@ -425,6 +439,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
+    'replace:dist',
     'uglify',
     'rev',
     'usemin',
