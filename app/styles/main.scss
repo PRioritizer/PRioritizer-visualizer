@@ -4,6 +4,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 // bower:scss
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+@import "../bower_components/octicons/octicons/sprockets-octicons.scss";
 // endbower
 
 // General colors
@@ -83,18 +84,48 @@ h1 .mega-octicon {
 
 /* Sort table */
 .sort .left {
-  min-height: 100px;
+  min-height: 70px;
+}
+
+@for $i from 1 through 5 {
+  .sort .group#{$i} {
+    background-color: darken(lighten($primary, 100%), $i*7%);
+  }
 }
 
 .sort .field {
   cursor: pointer;
   padding: 3px 0;
   text-align: center;
+
+  &:hover {
+    color: $white;
+    background-color: $primary !important;
+  }
 }
 
-.sort .field:hover {
-  color: $white;
-  background-color: $primary !important;
+.sort .active-field {
+  position: relative;
+  padding: 3px 0;
+}
+
+.sort .active-field a {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  padding: 3px 0 0 0;
+  text-align: center;
+}
+
+.sort .active-field .controls {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.sort .active-field:hover .controls {
+  display: block;
 }
 
 /* Pull request */

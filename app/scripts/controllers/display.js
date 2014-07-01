@@ -105,15 +105,15 @@ angular.module('visualizerApp')
 
     function getSortFields () {
       return [
-        { key: 'timestamp', color: '#e9b9f9', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
-        { key: 'isMergeable', color: '#f9e8b9', name: 'Mergeable', plus: 'Conflicted to mergeable', min: 'Mergeable to conflicted' },
-        { key: 'numConflicts', color: '#f9e8b9', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'lines', color: '#d1f9b9', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'files', color: '#d1f9b9', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'commits', color: '#d1f9b9', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'coreMember', color: '#b9dbf9', name: 'Member', plus: 'Non-members to members', min: 'Members to non-members' },
-        { key: 'contributor', color: '#b9dbf9', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
-        { key: 'ratioPullRequests', color: '#b9dbf9', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' }
+        { key: 'timestamp', class: 'group1', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
+        { key: 'isMergeable', class: 'group2', name: 'Mergeable', plus: 'Conflicted to mergeable', min: 'Mergeable to conflicted' },
+        { key: 'numConflicts', class: 'group2', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'lines', class: 'group3', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'files', class: 'group3', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'commits', class: 'group3', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'coreMember', class: 'group4', name: 'Member', plus: 'Non-members to members', min: 'Members to non-members' },
+        { key: 'contributor', class: 'group4', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
+        { key: 'ratioPullRequests', class: 'group4', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' }
       ];
     }
   }]);
