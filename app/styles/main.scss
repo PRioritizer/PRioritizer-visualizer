@@ -6,6 +6,22 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
+// General colors
+$white: #ffffff;
+$black: #000000;
+$primary: $brand-primary;
+$gray-ultra-lighter: lighten($black, 97%); // #f7f7f7
+$gray-somewhat-lighter: lighten($black, 80%); // #cccccc
+
+// Specific colors
+$text-light: lighten($black, 50%); // #808080
+$border-light: $gray-lighter; // #eeeeee
+
+// GitHub colors
+$github-green: #6cc644;
+$github-red:   #d7431b;
+$github-gray:  #888888;
+
 /* Space out content a bit */
 html {
   overflow-y: scroll;
@@ -23,7 +39,7 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $border-light;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -36,18 +52,18 @@ body {
 /* Custom page footer */
 .footer {
   padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+  color: $text-light;
+  border-top: 1px solid $border-light;
 }
 
 /* Links in muted text */
 .text-muted a {
-  color: inherit;
+  color: $text-muted;
 }
 
 .text-muted a:hover {
   text-decoration: none;
-  color: #333333;
+  color: darken($text-muted, 20%);
 }
 
 .notvisible {
@@ -77,15 +93,15 @@ h1 .mega-octicon {
 }
 
 .sort .field:hover {
-  color: #ffffff;
-  background-color: #428bca !important;
+  color: $white;
+  background-color: $primary !important;
 }
 
 /* Pull request */
 .pull-request {
   position: relative;
   padding: 10px 10px 10px 70px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid $border-light;
 }
 
 .pull-request .left {
@@ -94,16 +110,8 @@ h1 .mega-octicon {
   left: 10px;
   width: 50px;
   font-size: 18px;
-  color: #999999;
+  color: $github-gray;
   text-align: center;
-}
-
-.pull-request .left .conflict {
-  color: #d7431b;
-  right: 0;
-  top: 20%;
-  left: auto !important;
-  width: auto !important;
 }
 
 .pull-request .right {
@@ -114,8 +122,8 @@ h1 .mega-octicon {
   text-align: right;
 }
 
-.pull-request.even {
-  background-color: #eeeeee;
+.even .pull-request {
+  background-color: $gray-ultra-lighter;
 }
 
 .pull-request .abs-right {
@@ -127,19 +135,19 @@ h1 .mega-octicon {
 
 /* PR icons */
 .pull-request i {
-  color: #cccccc;
+  color: $gray-somewhat-lighter;
 }
 
 .pull-request.conflict i.icon {
-  background-color: #999999;
-  color: #ffffff;
+  background-color: $github-gray;
+  color: $white;
   padding: 8px 10px;
   border-radius: 5px;
   font-size: 24px;
 }
 
 .pull-request.mergeable i.icon {
-  color: #6cc644;
+  color: $github-green;
   font-size: 32px;
 }
 
@@ -168,7 +176,7 @@ h1 .mega-octicon {
 }
 
 .pull-request i.core {
-  color: #428bca;
+  color: $primary;
 }
 
 /* PR info */
@@ -179,21 +187,21 @@ h1 .mega-octicon {
 
 .pull-request .info,
 .pull-request .info a {
-  color: #999999;
+  color: $text-muted;
   text-decoration: none;
 }
 
 .pull-request .info a:hover,
 .pull-request .info a:hover i {
-  color: #333333;
+  color: darken($text-muted, 20%);
 }
 
 .pull-request .info a i.red {
-  color: #f9a18a;
+  color: $github-red;
 }
 
 .pull-request .info a:hover i.red {
-  color: #d7431b;
+  color: darken($github-red, 10%);
 }
 
 .pull-request .info svg.peity {
@@ -213,19 +221,19 @@ h1 .mega-octicon {
 }
 
 .pull-request .line-bar i.added {
-  color: #6cc644;
+  color: $github-green;
 }
 
 .pull-request .line-bar:hover i.added {
-  color: #3f9e15;
+  color: darken($github-green, 10%);
 }
 
 .pull-request .line-bar i.deleted {
-  color: #d7431b;
+  color: $github-red;
 }
 
 .pull-request .line-bar:hover i.deleted {
-  color: #bb1e12;
+  color: darken($github-red, 10%);
 }
 
 /* Customize container */
@@ -238,7 +246,7 @@ h1 .mega-octicon {
 /* Main message and sign up button */
 .jumbotron {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid $border-light;
 }
 .jumbotron .btn {
   font-size: 21px;
