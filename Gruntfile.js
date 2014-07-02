@@ -170,11 +170,11 @@ module.exports = function (grunt) {
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
+        fontsDir: '<%= yeoman.app %>/fonts',
         importPath: '<%= yeoman.app %>/bower_components',
         httpImagesPath: '/images',
         httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
+        httpFontsPath: '/fonts',
         relativeAssets: false,
         assetCacheBuster: false,
         raw: 'Sass::Script::Number.precision = 10\n'
@@ -321,16 +321,32 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
+        }]
+      },
+      fonts: {
+        files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>/bower_components/fontawesome/fonts',
-          dest: '<%= yeoman.dist %>/fonts/',
+          cwd: '<%= yeoman.app %>/bower_components/font-awesome/fonts',
+          dest: '<%= yeoman.app %>/fonts/',
           src: ['*-webfont.*']
         }, {
           expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap',
+          dest: '<%= yeoman.app %>/fonts/',
+          src: ['*']
+        }, {
+          expand: true,
           cwd: '<%= yeoman.app %>/bower_components/octicons/octicons',
-          dest: '<%= yeoman.dist %>/fonts/',
+          dest: '<%= yeoman.app %>/fonts/',
           src: ['octicons.*', '!*.css']
+        }]
+      },
+      bowerInstall: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/bower_components/font-awesome/scss/',
+          dest: '<%= yeoman.app %>/bower_components/font-awesome/fix/',
+          src: ['*']
         }]
       },
       styles: {
@@ -367,18 +383,6 @@ module.exports = function (grunt) {
           createDirectories: true,
           showProgress: true
         }
-      }
-    },
-
-    // Dirty hack to get octicon font working
-    replace: {
-      dist: {
-        src: ['<%= yeoman.dist %>/styles/vendor.css'],
-        overwrite: true,
-        replacements: [{
-          from: 'url(octicons',
-          to: 'url(../fonts/octicons'
-        }]
       }
     },
 
@@ -440,6 +444,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'copy:bowerInstall',
+      'copy:fonts',
       'bowerInstall',
       'concurrent:server',
       'autoprefixer',
@@ -463,6 +469,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'copy:bowerInstall',
+    'copy:fonts',
     'bowerInstall',
     'useminPrepare',
     'concurrent:dist',
@@ -472,7 +480,6 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'replace:dist',
     'uglify',
     'rev',
     'usemin',
