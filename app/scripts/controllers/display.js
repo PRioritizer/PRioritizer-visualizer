@@ -33,6 +33,7 @@ angular.module('visualizerApp')
       $scope.filteredPullRequests = $scope.pullRequests.filter(function (pr) {
         return pr.target === value;
       });
+      console.log($scope.filteredPullRequests);
     });
 
     /* Sort functions */
@@ -136,7 +137,7 @@ angular.module('visualizerApp')
         return [];
 
       var targets = $scope.pullRequests.map(function (pr) {
-        return pr.target.toLowerCase();
+        return pr.target;
       });
       return targets.distinct().sort();
     }
