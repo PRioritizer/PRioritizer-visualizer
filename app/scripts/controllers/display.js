@@ -91,15 +91,20 @@ angular.module('visualizerApp')
     /* Misc functions */
     $scope.branchClass = function branchClass (branch, prefix) {
       prefix = prefix || '';
+
+      if ($scope.selectedBranch !== branch)
+        return prefix + 'default';
+
       switch (branch) {
         case 'master':
           return prefix + 'primary';
         case 'dev':
         case 'develop':
         case 'development':
+        case 'unstable':
           return prefix + 'warning';
         default:
-          return prefix + 'default';
+          return prefix + 'success';
       }
     };
 
