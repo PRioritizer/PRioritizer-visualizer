@@ -6,6 +6,7 @@ angular.module('visualizerApp')
     $scope.message = null;
     $scope.file = null;
     $scope.repos = [];
+    $scope.perColumn = 0;
 
     getRepositories();
 
@@ -63,6 +64,7 @@ angular.module('visualizerApp')
       $http.get('json/index.json').
         success(function(data) {
           $scope.repos = data;
+          $scope.perColumn = Math.ceil($scope.repos.length / 3);
         }).
         error(function(data, status) {
           $scope.message = 'Could not read JSON index: ' + status;
