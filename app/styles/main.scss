@@ -140,6 +140,14 @@ h1 .mega-octicon {
   display: block;
 }
 
+/* Pagination */
+.pagination .disabled,
+.pagination .disabled:hover {
+  cursor: no-drop;
+  color: $github-gray;
+  text-decoration: none;
+}
+
 /* Pull request */
 .pull-request {
   position: relative;

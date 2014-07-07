@@ -14,10 +14,18 @@
       </span>
     </p>
     <div ng-include="'views/sort.html'"></div>
-    <h3>Pull requests <small class="text-muted">({{(pullRequests|filter:{target:selectedBranch}:true).length}})</small></h3>
+    <h3>Pull requests <small class="text-muted">({{page*perPage+1}}-{{page*perPage+perPage}} of {{filteredPullRequests.length}})</small></h3>
+    <div class="pagination">
+      <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
+      <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
+    </div>
     <div>
-      <angular-pr pull-request="pr" ng-repeat="pr in pullRequests | filter:{target:selectedBranch}:true | orderBy:getSortKeys() | limitTo:25" ng-class-even="'even'" ng-class-odd="'odd'">
+      <angular-pr pull-request="pr" ng-repeat="pr in filteredPullRequests | orderBy:getSortKeys() | limitToFrom:page*perPage:perPage" ng-class-even="'even'" ng-class-odd="'odd'">
       </angular-pr>
+    </div>
+    <div class="pagination">
+      <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
+      <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
     </div>
   </div>
   <div class="col-md-12" ng-show="!pullRequests.length">

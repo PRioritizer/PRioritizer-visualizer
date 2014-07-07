@@ -2,20 +2,38 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, jsonFactory) {
+    /* Sort */
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
     $scope.activeSortFields = [];
+
+    /* Data */
     $scope.data = jsonFactory.getData() || {};
     $scope.pullRequests = $scope.data.pullRequests || [];
-    $scope.branches = getTargets() || [];
     $scope.commits = $scope.data.commits || 0;
-    $scope.selectedBranch = $scope.branches[0] || '';
     $scope.snapshot = $scope.data.date || '';
     $scope.owner = $scope.data.owner || '';
     $scope.repository = $scope.data.repository || '';
     $scope.host = 'https://github.com';
     $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
+
+    /* Calculated data */
+    $scope.branches = getTargets() || [];
+    $scope.selectedBranch = $scope.branches[0] || '';
+    $scope.filteredPullRequests = [];
+
+    /* Pagination */
     $scope.showConflictsOf = 0;
+    $scope.page = 0;
+    $scope.perPage = 10;
+
+    /* Filter */
+    $scope.$watch('selectedBranch', function (value) {
+      $scope.page = 0;
+      $scope.filteredPullRequests = $scope.pullRequests.filter(function (pr) {
+        return pr.target === value;
+      });
+    });
 
     /* Sort functions */
     $scope.sort = function sort (field) {
@@ -48,6 +66,26 @@ angular.module('visualizerApp')
       $scope.sortFields.forEach(function (field) {
         delete field.direction;
       });
+    };
+
+    /* Pagination function */
+    $scope.hasNextPage = function hasNextPage() {
+      var maxPage = Math.ceil($scope.filteredPullRequests.length / $scope.perPage) - 1;
+      return $scope.page < maxPage;
+    };
+
+    $scope.hasPreviousPage = function hasPreviousPage() {
+      return $scope.page > 0;
+    };
+
+    $scope.nextPage = function nextPage() {
+      if ($scope.hasNextPage())
+        $scope.page = $scope.page + 1;
+    };
+
+    $scope.previousPage = function previousPage() {
+      if ($scope.hasPreviousPage())
+        $scope.page = $scope.page - 1;
     };
 
     /* Misc functions */
