@@ -29,7 +29,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist',
+      base: 'prioritizer'
     },
 
     // Watches files for changes and runs tasks based on the changed files
@@ -386,6 +387,17 @@ module.exports = function (grunt) {
       }
     },
 
+    replace: {
+      production: {
+        src: ['<%= yeoman.dist %>/styles/*.css'],
+        overwrite: true,
+        replacements: [{
+          from: /url\s*\(\s*\//g, // regex replacement ('url(/' to 'url(/<base-dir>/')
+          to: 'url(/<%= yeoman.base %>/'
+        }]
+      }
+    },
+
     // sshexec: {
     //   test: {
     //     command: 'uptime',
@@ -495,6 +507,7 @@ module.exports = function (grunt) {
   grunt.registerTask('production', [
     'test',
     'build',
+    'replace:production',
     'sftp:deployProduction'
   ]);
 };
