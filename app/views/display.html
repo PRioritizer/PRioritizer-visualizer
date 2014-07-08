@@ -9,7 +9,7 @@
     </h1>
     <p>Filter on:
       <span ng-repeat="branch in branches">
-        <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="$parent.selectedBranch = branch">{{branch}}</button>
+        <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
         {{$last ? '' : ' '}}
       </span>
     </p>

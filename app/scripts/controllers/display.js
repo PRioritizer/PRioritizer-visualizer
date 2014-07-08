@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, jsonFactory) {
     /* Sort */
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
@@ -19,7 +19,9 @@ angular.module('visualizerApp')
 
     /* Calculated data */
     $scope.branches = getTargets() || [];
-    $scope.selectedBranch = $scope.branches[0] || '';
+    $scope.filterObject = {
+      target: $scope.branches[0] || ''
+    };
     $scope.filteredPullRequests = [];
 
     /* Pagination */
@@ -28,13 +30,14 @@ angular.module('visualizerApp')
     $scope.perPage = 10;
 
     /* Filter */
-    $scope.$watch('selectedBranch', function (value) {
+    $scope.$watch('filterObject', function (value) {
       $scope.page = 0;
-      $scope.filteredPullRequests = $scope.pullRequests.filter(function (pr) {
-        return pr.target === value;
-      });
-      console.log($scope.filteredPullRequests);
-    });
+      $scope.filteredPullRequests = $filter('filter')($scope.pullRequests, value, true);
+    }, true);
+
+    $scope.setFilter = function setFilter (key, value) {
+      $scope.filterObject[key] = value;
+    }
 
     /* Sort functions */
     $scope.sort = function sort (field) {
@@ -93,7 +96,7 @@ angular.module('visualizerApp')
     $scope.branchClass = function branchClass (branch, prefix) {
       prefix = prefix || '';
 
-      if ($scope.selectedBranch !== branch)
+      if ($scope.filterObject.target !== branch)
         return prefix + 'default';
 
       switch (branch) {
