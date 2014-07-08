@@ -5,7 +5,7 @@
 <div class="row sort">
   <div class="col-sm-6 small left">
     <div ng-show="!selectedSortField">
-      <button ng-repeat="field in sortFields" type="button" ng-class="field.class" class="btn btn-xs col-sm-4" ng-click="sort(field)">{{field.name}}</button>
+      <button ng-repeat="field in sortFields" type="button" ng-class="field.class" class="field btn btn-xs col-sm-4" ng-click="sort(field)">{{field.name}}</button>
     </div>
   </div>
   <div class="col-sm-6 small right">
@@ -15,13 +15,13 @@
           <span ng-attr-title="{{field.direction === '+' ? field.plus : field.min}}">
             {{activeSortFields.indexOf(field)+1}}. {{field.name}}
           </span>
-          <div class="direction label label-default">
+          <button class="direction btn btn-xs btn-default">
             <i class="fa fa-arrow-up" ng-show="field.direction === '+'"></i>
             <i class="fa fa-arrow-down" ng-show="field.direction === '-'"></i>
-          </div>
-          <div class="remove label label-danger" ng-click="removeSort(field)">
+          </button>
+          <button class="remove btn btn-xs btn-danger" ng-click="removeSort(field)">
             <i class="fa fa-times"></i>
-          </div>
+          </button>
         </div>
       </div>
     </div>
