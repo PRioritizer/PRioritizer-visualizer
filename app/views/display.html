@@ -7,12 +7,7 @@
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
       <small class="text-muted" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
     </h1>
-    <p>Filter on:
-      <span ng-repeat="branch in branches">
-        <button type="button" class="btn" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
-        {{$last ? '' : ' '}}
-      </span>
-    </p>
+    <div ng-include="'views/filter.html'"></div>
     <div ng-include="'views/sort.html'"></div>
     <h3>Pull requests <small class="text-muted">({{page*perPage+1}}-{{page*perPage+perPage}} of {{filteredPullRequests.length}})</small></h3>
     <div class="pagination">

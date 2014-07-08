@@ -93,7 +93,14 @@ h1 .mega-octicon {
   cursor: pointer;
 }
 
-/* Sort table */
+/* Filter */
+.filter label,
+.filter .control-label {
+  font-weight: normal;
+  text-align: left;
+}
+
+/* Sort */
 .sort .left {
   min-height: 70px;
 }
