@@ -45,7 +45,6 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid $border-light;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -60,6 +59,17 @@ body {
   padding-top: 19px;
   color: $text-light;
   border-top: 1px solid $border-light;
+  line-height: 30px;
+}
+
+.footer .left {
+  float: left;
+  margin-right: 20px;
+}
+
+.footer .right {
+  float: right;
+  margin-left: 20px;
 }
 
 /* Links in muted text */
@@ -308,11 +318,15 @@ h1 .mega-octicon {
 /* Main message and sign up button */
 .jumbotron {
   text-align: center;
-  border-bottom: 1px solid $border-light;
+  border: 1px solid $border-light;
 }
 .jumbotron .btn {
   font-size: 21px;
   padding: 14px 24px;
+}
+
+.clear {
+  clear: both;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -325,10 +339,11 @@ h1 .mega-octicon {
   }
   /* Space out the masthead */
   .header {
+    border-bottom: 1px solid $border-light;
     margin-bottom: 10px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
-    border-bottom: 0;
+    border: 0;
   }
 }
