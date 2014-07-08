@@ -4,10 +4,8 @@
 </h4>
 <div class="row sort">
   <div class="col-sm-6 small left">
-    <div class="row" ng-show="!selectedSortField">
-      <div class="field col-sm-4" ng-repeat="field in sortFields" ng-click="sort(field)" ng-class="field.class">
-        {{field.name}}
-      </div>
+    <div ng-show="!selectedSortField">
+      <button ng-repeat="field in sortFields" type="button" ng-class="field.class" class="btn btn-xs col-sm-4" ng-click="sort(field)">{{field.name}}</button>
     </div>
   </div>
   <div class="col-sm-6 small right">

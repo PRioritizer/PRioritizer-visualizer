@@ -24,6 +24,15 @@ $github-green: #6cc644;
 $github-red:   #d7431b;
 $github-gray:  #888888;
 
+// Functions
+@function get-text-color($color) {
+  @if (lightness($color) > 50) {
+    @return #000000; // Lighter background, return dark color
+  } @else {
+    @return #ffffff; // Darker background, return light color
+  }
+}
+
 /* Space out content a bit */
 html {
   overflow-y: scroll;
@@ -120,20 +129,15 @@ h1 .mega-octicon {
 }
 
 @for $i from 1 through 5 {
-  .sort .group#{$i} {
-    background-color: darken(lighten($primary, 100%), $i*7%);
+  $btn-color: darken(lighten($primary, 100%), $i*7%);
+  .sort .btn.group#{$i} {
+    @include button-variant(get-text-color($btn-color), $btn-color, darken($btn-color, 10%));
   }
 }
 
-.sort .field {
-  cursor: pointer;
-  padding: 3px 0;
-  text-align: center;
-
-  &:hover {
-    color: $white;
-    background-color: $primary !important;
-  }
+.sort .btn {
+  display: block;
+  border-radius: 0;
 }
 
 .sort .active-field {
