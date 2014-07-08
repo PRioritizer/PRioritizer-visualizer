@@ -5,7 +5,7 @@
       <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
       /
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
-      <small class="text-muted">({{snapshot | date:'d MMM yyyy'}})</small>
+      <small class="text-muted" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
     </h1>
     <p>Filter on:
       <span ng-repeat="branch in branches">
