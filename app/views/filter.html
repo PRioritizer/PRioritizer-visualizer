@@ -1,27 +1,43 @@
 <h4>
   Filter on
 </h4>
-<form class="form-horizontal filter" role="form">
-  <div class="form-group">
-    <label class="col-sm-2"><small>Target branch</small></label>
-    <div class="col-sm-10">
-      <div class="btn-group">
-        <button ng-repeat="branch in branches" type="button" class="btn btn-xs" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
+<div class="row">
+  <div class="col-sm-6">
+    <form class="form-horizontal filter" role="form">
+      <div class="form-group">
+        <label class="col-sm-2"><small>Target branch</small></label>
+        <div class="col-sm-10 btn-group">
+          <button ng-repeat="branch in branches" type="button" class="btn btn-xs" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2"><small>Mergable</small></label>
-    <div class="col-sm-10">
-      <div class="btn-group">
-        <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('isMergeable')">All</button>
-        <button type="button" class="btn btn-xs btn-default"
-        ng-class="{'btn-success': getFilter('isMergeable') === true}"
-        ng-click="setFilter('isMergeable', true)">Mergeable</button>
-        <button type="button" class="btn btn-xs btn-default"
-        ng-class="{'btn-danger': getFilter('isMergeable') === false}"
-        ng-click="setFilter('isMergeable', false)">Conflicted</button>
+      <div class="form-group">
+        <label class="col-sm-2"><small>Mergable</small></label>
+        <div class="col-sm-10 btn-group">
+          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('isMergeable')">All</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-success': getFilter('isMergeable') === true}"
+          ng-click="setFilter('isMergeable', true)">Mergeable</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-danger': getFilter('isMergeable') === false}"
+          ng-click="setFilter('isMergeable', false)">Conflicted</button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
-</form>
+  <div class="col-sm-6">
+    <form class="form-horizontal filter" role="form">
+      <div class="form-group">
+        <label class="col-sm-2"><small>Author</small></label>
+        <div class="col-sm-10 btn-group">
+          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('coreMember')">All</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-success': getFilter('coreMember') === true}"
+          ng-click="setFilter('coreMember', true)">Core member</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-danger': getFilter('coreMember') === false}"
+          ng-click="setFilter('coreMember', false)">Non-member</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
