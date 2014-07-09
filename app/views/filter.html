@@ -10,4 +10,18 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label"><small>Mergable</small></label>
+    <div class="col-sm-10">
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-default" ng-click="removeFilter('isMergeable')">All</button>
+        <button type="button" class="btn btn-sm btn-default"
+        ng-class="{'btn-success': getFilter('isMergeable') === true}"
+        ng-click="setFilter('isMergeable', true)">Mergeable</button>
+        <button type="button" class="btn btn-sm btn-default"
+        ng-class="{'btn-danger': getFilter('isMergeable') === false}"
+        ng-click="setFilter('isMergeable', false)">Conflicted</button>
+      </div>
+    </div>
+  </div>
 </form>

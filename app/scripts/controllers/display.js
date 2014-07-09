@@ -36,8 +36,19 @@ angular.module('visualizerApp')
     }, true);
 
     $scope.setFilter = function setFilter (key, value) {
-      $scope.filterObject[key] = value;
-    }
+      if (typeof value !== 'undefined')
+        $scope.filterObject[key] = value;
+      else
+        delete $scope.filterObject[key];
+    };
+
+    $scope.removeFilter = function removeFilter (key) {
+      $scope.setFilter(key);
+    };
+
+    $scope.getFilter = function getFilter (key) {
+      return $scope.filterObject[key];
+    };
 
     /* Sort functions */
     $scope.sort = function sort (field) {
