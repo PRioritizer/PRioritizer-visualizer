@@ -27,9 +27,9 @@ $github-gray:  #888888;
 // Functions
 @function get-text-color($color) {
   @if (lightness($color) > 50) {
-    @return #000000; // Lighter background, return dark color
+    @return $black; // Lighter background, return dark color
   } @else {
-    @return #ffffff; // Darker background, return light color
+    @return $white; // Darker background, return light color
   }
 }
 
