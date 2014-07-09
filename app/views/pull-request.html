@@ -12,7 +12,7 @@
       <i class="fa fa-user" ng-class="{core: pr.coreMember}" ng-attr-title="{{pr.coreMember ? 'Core member' : 'Contributor'}}"></i>
       <a ng-href="{{host}}/{{pr.author}}" target="_blank">{{pr.author}}</a>
       wants to merge
-      <span class="label label-default">{{pr.source}}</span>
+      <span class="label label-default" ng-attr-title="{{pr.source}}">{{pr.source | limitTo: 42}}{{pr.source.length > 42 ? '...' : ''}}</span>
       into
       <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
       <span class="ago abs-right" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></span>
