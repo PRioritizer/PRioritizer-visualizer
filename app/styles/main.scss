@@ -129,7 +129,7 @@ h1 .mega-octicon {
 }
 
 @for $i from 1 through 5 {
-  $btn-color: darken(lighten($primary, 100%), $i*7%);
+  $btn-color: darken(lighten($white, 100%), $i*10%);
   .sort .btn.group#{$i} {
     @include button-variant(get-text-color($btn-color), $btn-color, darken($btn-color, 10%));
   }
@@ -138,6 +138,10 @@ h1 .mega-octicon {
 .sort .field.btn {
   display: block;
   border-radius: 0;
+}
+
+.sort .field.btn.spacer {
+  visibility: hidden;
 }
 
 .sort .active-field {

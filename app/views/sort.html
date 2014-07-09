@@ -5,7 +5,7 @@
 <div class="row sort">
   <div class="col-sm-6 small left">
     <div ng-show="!selectedSortField">
-      <button ng-repeat="field in sortFields" type="button" ng-class="field.class" class="field btn btn-xs col-sm-4" ng-click="sort(field)">{{field.name}}</button>
+      <button ng-repeat="field in sortFields" type="button" ng-class="field.class" class="field btn btn-xs col-sm-4" ng-click="sort(field)">{{field.name || '&nbsp;'}}</button>
     </div>
   </div>
   <div class="col-sm-6 small right">

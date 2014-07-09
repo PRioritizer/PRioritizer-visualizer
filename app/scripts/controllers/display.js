@@ -159,14 +159,14 @@ angular.module('visualizerApp')
     function getSortFields () {
       return [
         { key: 'timestamp', class: 'group1', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
-        { key: 'isMergeable', class: 'group2', name: 'Mergeable', plus: 'Conflicted to mergeable', min: 'Mergeable to conflicted' },
         { key: 'numConflicts', class: 'group2', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'lines', class: 'group3', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'files', class: 'group3', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'commits', class: 'group3', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'coreMember', class: 'group4', name: 'Member', plus: 'Non-members to members', min: 'Members to non-members' },
-        { key: 'contributor', class: 'group4', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
-        { key: 'ratioPullRequests', class: 'group4', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' }
+        { class: 'spacer' },
+        { key: 'contributor', class: 'group3', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
+        { key: 'ratioPullRequests', class: 'group3', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' },
+        { class: 'spacer' },
+        { key: 'lines', class: 'group4', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'files', class: 'group4', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'commits', class: 'group4', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' }
       ];
     }
   }]);
