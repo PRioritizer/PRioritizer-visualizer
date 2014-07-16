@@ -2,6 +2,8 @@
 
 angular.module('visualizerApp')
   .factory('pullRequestFactory', function() {
+    var avatarSize = 16; // pixels
+
     var PullRequest = function PullRequest(obj) {
       obj = obj || {};
 
@@ -11,6 +13,7 @@ angular.module('visualizerApp')
       }
 
       // Default values
+      this.avatar = (this.avatar || 'https://assets-cdn.github.com/images/gravatars/gravatar-user-420.png?') + 's=' + avatarSize;
       this.linesAdded = this.linesAdded || 0;
       this.linesDeleted = this.linesDeleted || 0;
       this.filesChanged = this.filesChanged || 0;

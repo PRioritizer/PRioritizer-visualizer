@@ -264,6 +264,14 @@ h1 .mega-octicon {
   color: $primary;
 }
 
+.pull-request .avatar {
+  height: 16px;
+  width: 16px;
+  margin-top: 1px;
+  vertical-align: top;
+  border-radius: 2px;
+}
+
 /* PR info */
 .pull-request .info {
   position: relative;
