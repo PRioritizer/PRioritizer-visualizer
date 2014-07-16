@@ -31,6 +31,9 @@
         </a>
       </p>
       <p class="size abs-right">
+        <a ng-href="{{github}}/pull/{{pr.number}}" target="_blank">
+          <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
+        </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
           <i class="fa fa-align-left"></i>&nbsp;{{pr.lines}}
         </a>

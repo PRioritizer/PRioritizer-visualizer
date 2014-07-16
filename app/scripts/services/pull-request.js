@@ -19,6 +19,8 @@ angular.module('visualizerApp')
       this.filesChanged = this.filesChanged || 0;
       this.commits = this.commits || 0;
       this.coreMember = this.coreMember || false;
+      this.comments = this.comments || 0;
+      this.reviewComments = this.reviewComments || 0;
       this.isMergeable = this.isMergeable || false;
       this.conflictsWith = this.conflictsWith || [];
       this.contributedCommits = this.contributedCommits || 0;
@@ -33,6 +35,7 @@ angular.module('visualizerApp')
       this.ratioAdded = this.linesAdded / (this.linesAdded + this.linesDeleted) || 0;
       this.contributor = this.contributedCommits;
       this.files = this.filesChanged;
+      this.allComments = this.comments + this.reviewComments;
     };
 
     return {
