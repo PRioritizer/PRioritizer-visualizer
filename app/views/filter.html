@@ -5,14 +5,14 @@
   <div class="col-sm-6">
     <form class="form-horizontal filter" role="form">
       <div class="form-group">
-        <label class="col-sm-2"><small>Target branch</small></label>
-        <div class="col-sm-10 btn-group">
+        <label class="col-sm-3"><small>Target branch</small></label>
+        <div class="col-sm-9 btn-group">
           <button ng-repeat="branch in branches" type="button" class="btn btn-xs" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2"><small>Mergable</small></label>
-        <div class="col-sm-10 btn-group">
+        <label class="col-sm-3"><small>Mergable</small></label>
+        <div class="col-sm-9 btn-group">
           <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('isMergeable')">All</button>
           <button type="button" class="btn btn-xs btn-default"
           ng-class="{'btn-success': getFilter('isMergeable') === true}"
@@ -27,8 +27,8 @@
   <div class="col-sm-6">
     <form class="form-horizontal filter" role="form">
       <div class="form-group">
-        <label class="col-sm-2"><small>Author</small></label>
-        <div class="col-sm-10 btn-group">
+        <label class="col-sm-3"><small>Author</small></label>
+        <div class="col-sm-9 btn-group">
           <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('coreMember')">All</button>
           <button type="button" class="btn btn-xs btn-default"
           ng-class="{'btn-success': getFilter('coreMember') === true}"
@@ -36,6 +36,18 @@
           <button type="button" class="btn btn-xs btn-default"
           ng-class="{'btn-danger': getFilter('coreMember') === false}"
           ng-click="setFilter('coreMember', false)">Non-member</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3"><small>Importance</small></label>
+        <div class="col-sm-9 btn-group">
+          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('important')">All</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-success': getFilter('important') === true}"
+          ng-click="setFilter('important', true)">Important</button>
+          <button type="button" class="btn btn-xs btn-default"
+          ng-class="{'btn-danger': getFilter('important') === false}"
+          ng-click="setFilter('important', false)">Not important</button>
         </div>
       </div>
     </form>
