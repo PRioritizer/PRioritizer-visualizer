@@ -1,6 +1,7 @@
-<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}">
+<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: pr.important}">
     <div class="left">
       <i class="icon mega-octicon octicon-git-pull-request" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
+      <i class="important fa fa-thumb-tack" ng-if="pr.important" title="This pull request is marked as important based on actions on past pull requests."></i>
     </div>
     <div class="right number text-muted">
       <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
