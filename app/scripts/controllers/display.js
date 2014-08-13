@@ -158,12 +158,12 @@ angular.module('visualizerApp')
 
     function getSortFields () {
       return [
-        { key: 'timestamp', class: 'group1', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
-        { key: 'numConflicts', class: 'group2', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
+        { key: 'timestamp', class: 'group2', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
+        { key: 'allComments', class: 'group2', name: 'Comments', plus: 'Smallest to largest', min: 'Largest to smallest' },
         { class: 'spacer' },
         { key: 'contributor', class: 'group3', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
         { key: 'ratioPullRequests', class: 'group3', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' },
-        { class: 'spacer' },
+        { key: 'numConflicts', class: 'group3', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
         { key: 'lines', class: 'group4', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
         { key: 'files', class: 'group4', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
         { key: 'commits', class: 'group4', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' }
