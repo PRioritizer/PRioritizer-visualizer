@@ -24,7 +24,7 @@
         <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
           <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributor
         </a>
-        <a ng-href="{{github}}/pulls/{{pr.author}}?state=all" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
+        <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
           <pie-chart data="getPart(pr.ratioPullRequests, 12) + '/12'"></pie-chart>&nbsp;history
         </a>
         <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
