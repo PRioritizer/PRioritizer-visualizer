@@ -20,9 +20,7 @@ angular.module('visualizerApp')
 
     /* Calculated data */
     $scope.branches = getTargets() || [];
-    $scope.filterObject = {
-      target: $scope.branches[0] || ''
-    };
+    $scope.filterObject = getDefaultFilter() || {};
     $scope.filteredPullRequests = [];
 
     /* Pagination */
@@ -51,12 +49,22 @@ angular.module('visualizerApp')
       return $scope.filterObject[key];
     };
 
+    $scope.hasFilter = function hasFilter (key) {
+      if (typeof key === 'undefined')
+        return Object.keys($scope.filterObject).length > 1;
+      return typeof $scope.getFilter(key) !== 'undefined';
+    };
+
     $scope.toggleFilter = function toggleFilter (key, value) {
       if ($scope.getFilter(key) !== value) {
         $scope.setFilter(key, value);
       } else {
         $scope.removeFilter(key);
       }
+    };
+
+    $scope.resetFilter = function resetFilter () {
+      $scope.filterObject = getDefaultFilter();
     };
 
     /* Sort functions */
@@ -86,12 +94,14 @@ angular.module('visualizerApp')
     };
 
     $scope.getSort = function getSort (field, direction) {
-      if (typeof(direction) !== 'undefined' && field.direction !== direction)
+      if (typeof direction !== 'undefined' && field.direction !== direction)
         return -1;
       return $scope.activeSortFields.indexOf(field);
     };
 
     $scope.hasSort = function hasSort (field, direction) {
+      if (typeof field === 'undefined')
+        return $scope.activeSortFields.length > 0;
       return $scope.getSort(field, direction) !== -1;
     };
 
@@ -181,6 +191,12 @@ angular.module('visualizerApp')
         return pr.target;
       });
       return targets.distinct().sort();
+    }
+
+    function getDefaultFilter () {
+      return {
+        target: $scope.branches[0] || ''
+      };
     }
 
     function getSortFields () {

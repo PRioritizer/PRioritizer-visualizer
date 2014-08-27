@@ -130,6 +130,10 @@ h1 .mega-octicon {
   height: 100%;
 }
 
+.btn-filter-active {
+  @include button-variant($btn-default-color, darken($btn-default-bg, 5%), $btn-default-border);
+}
+
 /* Sort */
 .sort .left {
   min-height: 70px;

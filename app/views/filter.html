@@ -1,8 +1,8 @@
-<h4>Filter</h4>
+<h4>Filter <small class="text-muted" ng-click="resetFilter(); resetSort()" ng-if="hasFilter() || hasSort()"><a href>(reset)</a></small></h4>
 <div class="row filter">
   <div class="col-sm-12 btn-group">
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <button type="button" class="btn btn-filter-active dropdown-toggle" data-toggle="dropdown">
         Branch <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
@@ -15,7 +15,7 @@
       </ul>
     </div>
     <div ng-repeat="filter in filterFields" class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-class="{'btn-filter-active' : hasFilter(filter.key)}">
         {{filter.name}} <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
@@ -34,7 +34,7 @@
       </ul>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-class="{'btn-filter-active' : hasSort()}">
         Sort <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
