@@ -1,55 +1,120 @@
-<h4>
-  Filter on
-</h4>
-<div class="row">
-  <div class="col-sm-6">
-    <form class="form-horizontal filter" role="form">
-      <div class="form-group">
-        <label class="col-sm-3"><small>Target branch</small></label>
-        <div class="col-sm-9 btn-group">
-          <button ng-repeat="branch in branches" type="button" class="btn btn-xs" ng-class="branchClass(branch, 'btn-')" ng-click="setFilter('target', branch)">{{branch}}</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3"><small>Mergable</small></label>
-        <div class="col-sm-9 btn-group">
-          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('isMergeable')">All</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-success': getFilter('isMergeable') === true}"
-          ng-click="setFilter('isMergeable', true)">Mergeable</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-danger': getFilter('isMergeable') === false}"
-          ng-click="setFilter('isMergeable', false)">Conflicted</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="col-sm-6">
-    <form class="form-horizontal filter" role="form">
-      <div class="form-group">
-        <label class="col-sm-3"><small>Author</small></label>
-        <div class="col-sm-9 btn-group">
-          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('coreMember')">All</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-success': getFilter('coreMember') === true}"
-          ng-click="setFilter('coreMember', true)">Core member</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-danger': getFilter('coreMember') === false}"
-          ng-click="setFilter('coreMember', false)">Non-member</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3"><small>Importance</small></label>
-        <div class="col-sm-9 btn-group">
-          <button type="button" class="btn btn-xs btn-default" ng-click="removeFilter('important')">All</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-success': getFilter('important') === true}"
-          ng-click="setFilter('important', true)">Important</button>
-          <button type="button" class="btn btn-xs btn-default"
-          ng-class="{'btn-danger': getFilter('important') === false}"
-          ng-click="setFilter('important', false)">Not important</button>
-        </div>
-      </div>
-    </form>
+<h4>Filter</h4>
+<div class="row filter">
+  <div class="col-sm-12 btn-group">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Branch <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="branch in branches">
+          <a href class="dropdown-link" ng-click="setFilter('target', branch)">
+            <span class="octicon octicon-check" ng-if="getFilter('target') === branch"></span>
+            {{branch}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Mergeable <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href class="dropdown-link" ng-click="removeFilter('isMergeable')">
+            <span class="octicon octicon-x text-muted"></span>
+            Clear
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('isMergeable', true)">
+            <span class="octicon octicon-check" ng-if="getFilter('isMergeable') === true"></span>
+            Mergeable
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('isMergeable', false)">
+            <span class="octicon octicon-check" ng-if="getFilter('isMergeable') === false"></span>
+            Conflicted
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Author <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href class="dropdown-link" ng-click="removeFilter('coreMember')">
+            <span class="octicon octicon-x text-muted"></span>
+            Clear
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('coreMember', true)">
+            <span class="octicon octicon-check" ng-if="getFilter('coreMember') === true"></span>
+            Core member
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('coreMember', false)">
+            <span class="octicon octicon-check" ng-if="getFilter('coreMember') === false"></span>
+            Non-member
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Attention <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href class="dropdown-link" ng-click="removeFilter('important')">
+            <span class="octicon octicon-x text-muted"></span>
+            Clear
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('important', true)">
+            <span class="octicon octicon-check" ng-if="getFilter('important') === true"></span>
+            More attention needed
+          </a>
+        </li>
+        <li>
+          <a href class="dropdown-link" ng-click="toggleFilter('important', false)">
+            <span class="octicon octicon-check" ng-if="getFilter('important') === false"></span>
+            Less attention needed
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Sort <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href class="dropdown-link" ng-click="resetSort()">
+            <span class="octicon octicon-x text-muted"></span>
+            Clear
+          </a>
+        </li>
+        <li ng-repeat-start="field in sortFields">
+          <a href class="dropdown-link" ng-click="toggleSort(field, '-')">
+            <span class="octicon octicon-check" ng-if="hasSort(field, '-')"></span>
+            {{field.desc}}
+            <span ng-if="hasSort(field, '-')">({{getSort(field)+1}})</span>
+          </a>
+        </li>
+        <li ng-repeat-end>
+          <a href class="dropdown-link" ng-click="toggleSort(field, '+')">
+            <span class="octicon octicon-check" ng-if="hasSort(field, '+')"></span>
+            {{field.asc}}
+            <span ng-if="hasSort(field, '+')">({{getSort(field)+1}})</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

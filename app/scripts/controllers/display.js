@@ -50,9 +50,17 @@ angular.module('visualizerApp')
       return $scope.filterObject[key];
     };
 
+    $scope.toggleFilter = function toggleFilter (key, value) {
+      if ($scope.getFilter(key) !== value) {
+        $scope.setFilter(key, value);
+      } else {
+        $scope.removeFilter(key);
+      }
+    };
+
     /* Sort functions */
-    $scope.sort = function sort (field) {
-      var direction = field.direction === '+' ? '-' : '+';
+    $scope.sort = function sort (field, direction) {
+      direction = direction || (field.direction === '+' ? '-' : '+');
       field.direction = direction;
 
       if ($scope.activeSortFields.indexOf(field) === -1)
@@ -74,6 +82,24 @@ angular.module('visualizerApp')
       return $scope.activeSortFields.map(function (field) {
         return (field.direction || '+') + field.key;
       });
+    };
+
+    $scope.getSort = function getSort (field, direction) {
+      if (typeof(direction) !== 'undefined' && field.direction !== direction)
+        return -1;
+      return $scope.activeSortFields.indexOf(field);
+    };
+
+    $scope.hasSort = function hasSort (field, direction) {
+      return $scope.getSort(field, direction) !== -1;
+    };
+
+    $scope.toggleSort = function toggleSort (field, direction) {
+      if (!$scope.hasSort(field, direction)) {
+        $scope.sort(field, direction);
+      } else {
+        $scope.removeSort(field);
+      }
     };
 
     $scope.resetSort = function resetSort () {
@@ -158,15 +184,12 @@ angular.module('visualizerApp')
 
     function getSortFields () {
       return [
-        { key: 'timestamp', class: 'group2', name: 'Date', plus: 'Oldest to newest', min: 'Newest to oldest' },
-        { key: 'allComments', class: 'group2', name: 'Comments', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { class: 'spacer' },
-        { key: 'contributor', class: 'group3', name: 'Contributor', plus: 'Unknown to known', min: 'Known to unknown' },
-        { key: 'ratioPullRequests', class: 'group3', name: 'History', plus: 'Negative to positive', min: 'Positive to negative' },
-        { key: 'numConflicts', class: 'group3', name: 'Conflicts', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'lines', class: 'group4', name: 'Lines', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'files', class: 'group4', name: 'Files', plus: 'Smallest to largest', min: 'Largest to smallest' },
-        { key: 'commits', class: 'group4', name: 'Commits', plus: 'Smallest to largest', min: 'Largest to smallest' }
+        { key: 'timestamp', asc: 'Oldest', desc: 'Newest' },
+        { key: 'lines', asc: 'Smallest', desc: 'Largest' },
+        { key: 'allComments', asc: 'Least commented', desc: 'Most commented' },
+        { key: 'numConflicts', asc: 'Least conflicts', desc: 'Most conflicts' },
+        { key: 'contributor', asc: 'Least contributed', desc: 'Most contributed' },
+        { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' }
       ];
     }
   }]);
