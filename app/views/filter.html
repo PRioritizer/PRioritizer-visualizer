@@ -14,77 +14,21 @@
         </li>
       </ul>
     </div>
-    <div class="btn-group">
+    <div ng-repeat="filter in filterFields" class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Mergeable <span class="caret"></span>
+        {{filter.name}} <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href class="dropdown-link" ng-click="removeFilter('isMergeable')">
+          <a href class="dropdown-link" ng-click="removeFilter(filter.key)">
             <span class="octicon octicon-x text-muted"></span>
             Clear
           </a>
         </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('isMergeable', true)">
-            <span class="octicon octicon-check" ng-if="getFilter('isMergeable') === true"></span>
-            Mergeable
-          </a>
-        </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('isMergeable', false)">
-            <span class="octicon octicon-check" ng-if="getFilter('isMergeable') === false"></span>
-            Conflicted
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Author <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href class="dropdown-link" ng-click="removeFilter('coreMember')">
-            <span class="octicon octicon-x text-muted"></span>
-            Clear
-          </a>
-        </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('coreMember', true)">
-            <span class="octicon octicon-check" ng-if="getFilter('coreMember') === true"></span>
-            Core member
-          </a>
-        </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('coreMember', false)">
-            <span class="octicon octicon-check" ng-if="getFilter('coreMember') === false"></span>
-            Non-member
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Attention <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href class="dropdown-link" ng-click="removeFilter('important')">
-            <span class="octicon octicon-x text-muted"></span>
-            Clear
-          </a>
-        </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('important', true)">
-            <span class="octicon octicon-check" ng-if="getFilter('important') === true"></span>
-            More attention needed
-          </a>
-        </li>
-        <li>
-          <a href class="dropdown-link" ng-click="toggleFilter('important', false)">
-            <span class="octicon octicon-check" ng-if="getFilter('important') === false"></span>
-            Less attention needed
+        <li ng-repeat="value in filter.values">
+          <a href class="dropdown-link" ng-click="toggleFilter(filter.key, value.value)">
+            <span class="octicon octicon-check" ng-if="getFilter(filter.key) === value.value"></span>
+            {{value.name}}
           </a>
         </li>
       </ul>

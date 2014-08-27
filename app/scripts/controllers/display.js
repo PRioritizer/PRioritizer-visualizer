@@ -5,6 +5,7 @@ angular.module('visualizerApp')
     /* Sort */
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
+    $scope.filterFields = getFilterFields();
     $scope.activeSortFields = [];
 
     /* Data */
@@ -190,6 +191,14 @@ angular.module('visualizerApp')
         { key: 'numConflicts', asc: 'Least conflicts', desc: 'Most conflicts' },
         { key: 'contributor', asc: 'Least contributed', desc: 'Most contributed' },
         { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' }
+      ];
+    }
+
+    function getFilterFields () {
+      return [
+        { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
+        { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
+        { key: 'important',   name: 'Attention', values: [ { name : 'More attention needed', value: true }, { name : 'Less attention needed', value: false } ] }
       ];
     }
   }]);
