@@ -28,6 +28,10 @@ angular.module('visualizerApp')
     $scope.page = 0;
     $scope.perPage = 10;
 
+    /* Math */
+    $scope.min = window.Math.min;
+    $scope.max = window.Math.max;
+
     /* Filter */
     $scope.$watch('filterObject', function (value) {
       $scope.page = 0;

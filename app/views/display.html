@@ -8,7 +8,7 @@
       <small class="text-muted" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
     </h1>
     <div ng-include="'views/filter.html'"></div>
-    <h3>Pull requests <small class="text-muted">({{page*perPage+1}}-{{page*perPage+perPage}} of {{filteredPullRequests.length}})</small></h3>
+    <h3>Pull requests <small class="text-muted">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
     <div class="pagination">
       <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
       <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
