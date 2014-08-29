@@ -22,10 +22,10 @@
     <div class="info">
       <p class="author">
         <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
-          <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributor
+          <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributed
         </a>
         <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
-          <pie-chart data="getPart(pr.ratioPullRequests, 12) + '/12'"></pie-chart>&nbsp;history
+          <pie-chart data="getPart(pr.ratioPullRequests, 12) + '/12'"></pie-chart>&nbsp;accepted
         </a>
         <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
