@@ -3,10 +3,11 @@
       <i class="icon mega-octicon octicon-git-pull-request" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
       <i class="important octicon octicon-zap" ng-if="pr.important" title="This pull request is marked as important based on actions on past pull requests."></i>
     </div>
-    <div class="right number text-muted">
-      <a ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
+    <div class="right">
+      <a class="number text-muted" ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
         <i class="octicon octicon-mark-github"></i>&nbsp;#{{pr.number}}
       </a>
+      <p class="ago" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></p>
     </div>
     <h4 title="{{pr.title}}">{{pr.title}}</h4>
     <p class="subtitle">
@@ -17,10 +18,9 @@
       <span class="label label-default" ng-attr-title="{{pr.source}}">{{pr.source | limitTo: 42}}{{pr.source.length > 42 ? '...' : ''}}</span>
       into
       <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
-      <span class="ago abs-right" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></span>
     </p>
-    <div class="info">
-      <p class="author">
+    <div class="info row">
+      <div class="col-sm-6 author">
         <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
           <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributed
         </a>
@@ -30,8 +30,8 @@
         <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
         </a>
-      </p>
-      <p class="size abs-right">
+      </div>
+      <div class="col-sm-6 size">
         <a ng-href="{{github}}/pull/{{pr.number}}" target="_blank">
           <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
         </a>
@@ -47,12 +47,12 @@
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank" class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
           <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>
         </a>
-      </p>
-      <p class="conflicts" ng-if="showConflictsOf == pr.number">
+      </div>
+      <div class="col-xs-12 conflicts" ng-if="showConflictsOf == pr.number">
         <span ng-repeat="n in pr.conflictsWith">
           <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>{{$last ? '' : ' '}}
         </span>
-      </p>
+      </div>
     </div>
   </div>
 </div>

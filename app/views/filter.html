@@ -14,7 +14,7 @@
         </li>
       </ul>
     </div>
-    <div ng-repeat="filter in filterFields" class="btn-group">
+    <div class="btn-group" ng-repeat="filter in filterFields">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-class="{'btn-filter-active' : hasFilter(filter.key)}">
         {{filter.name}} <span class="caret"></span>
       </button>

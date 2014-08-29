@@ -83,11 +83,13 @@ body {
 }
 
 /* Links in muted text */
-.text-muted a {
+.text-muted a,
+a.text-muted {
   color: $text-muted;
 }
 
-.text-muted a:hover {
+.text-muted a:hover,
+a.text-muted:hover {
   text-decoration: none;
   color: darken($text-muted, 20%);
 }
@@ -222,13 +224,6 @@ h1 .mega-octicon {
   background-color: $gray-ultra-lighter;
 }
 
-.pull-request .abs-right {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 /* PR icons */
 .pull-request i {
   color: $gray-somewhat-lighter;
@@ -271,12 +266,20 @@ h1 .mega-octicon {
 }
 
 .pull-request .number {
+  display: block;
+  margin: -5px 0;
+  padding: 5px 0 0 0;
   font-size: 18px;
+}
+
+.pull-request .ago {
+  font-size: 0.9em;
 }
 
 /* PR subtitle */
 .pull-request .subtitle {
   position: relative;
+  margin-right: 110px; /* Because pr number */
   font-size: 0.9em;
 }
 
