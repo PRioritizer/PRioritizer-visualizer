@@ -22,11 +22,13 @@ angular.module('visualizerApp')
     $scope.branches = getTargets() || [];
     $scope.filterObject = getDefaultFilter() || {};
     $scope.filteredPullRequests = [];
+    $scope.importantPullRequests = [];
 
     /* Pagination */
     $scope.showConflictsOf = 0;
     $scope.page = 0;
     $scope.perPage = 10;
+    $scope.showImportant = true;
 
     /* Math */
     $scope.min = window.Math.min;
@@ -35,7 +37,14 @@ angular.module('visualizerApp')
     /* Filter */
     $scope.$watch('filterObject', function (value) {
       $scope.page = 0;
-      $scope.filteredPullRequests = $filter('filter')($scope.pullRequests, value, true);
+
+      var filter1 = angular.copy(value);
+      var filter2 = angular.copy(value);
+      filter1.important = true;
+      filter2.important = false;
+
+      $scope.importantPullRequests = $filter('filter')($scope.pullRequests, filter1, true);
+      $scope.filteredPullRequests  = $filter('filter')($scope.pullRequests, filter2, true);
     }, true);
 
     $scope.setFilter = function setFilter (key, value) {
@@ -218,7 +227,6 @@ angular.module('visualizerApp')
       return [
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
-        { key: 'important',   name: 'Attention', values: [ { name : 'More attention needed', value: true }, { name : 'Less attention needed', value: false } ] }
       ];
     }
   }]);

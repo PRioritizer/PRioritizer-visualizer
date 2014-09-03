@@ -226,7 +226,7 @@ h1 .mega-octicon {
 
 .pull-request .subtitle,
 .pull-request .ago {
-  font-size: floor(($font-size-base * 0.9));
+  font-size: floor($font-size-base * 0.95);
 }
 
 .pull-request i.core {
