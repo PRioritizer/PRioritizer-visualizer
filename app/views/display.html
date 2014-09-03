@@ -5,15 +5,15 @@
       <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
       /
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
-      <small class="text-muted" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
+      <small class="text-muted nowrap" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
     </h1>
     <div ng-include="'views/filter.html'"></div>
-    <h3>Pull requests <small class="text-muted">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
+    <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
     <div class="pagination">
       <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
       <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
     </div>
-    <div>
+    <div class="pr-list">
       <angular-pr pull-request="pr" ng-repeat="pr in filteredPullRequests | orderBy:getSortKeys() | limitToFrom:page*perPage:perPage" ng-class-even="'even'" ng-class-odd="'odd'">
       </angular-pr>
     </div>

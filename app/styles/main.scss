@@ -136,57 +136,6 @@ h1 .mega-octicon {
   @include button-variant($btn-default-color, darken($btn-default-bg, 5%), $btn-default-border);
 }
 
-/* Sort */
-.sort .left {
-  min-height: 70px;
-}
-
-@for $i from 1 through 5 {
-  $btn-color: darken(lighten($white, 100%), $i*10%);
-  .sort .btn.group#{$i} {
-    @include button-variant(get-text-color($btn-color), $btn-color, darken($btn-color, 10%));
-  }
-}
-
-.sort .field.btn {
-  display: block;
-  border-radius: 0;
-}
-
-.sort .field.btn.spacer {
-  visibility: hidden;
-}
-
-.sort .active-field {
-  position: relative;
-  padding: 3px 0;
-}
-
-.sort .active-field .direction,
-.sort .active-field .remove {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 16px;
-  width: 16px;
-  font-size: 10px;
-
-  i {
-    position: relative;
-    top: -2px;
-    left: -2px;
-  }
-}
-
-.sort .active-field {
-  .remove {
-    display: none;
-  }
-  &:hover .remove {
-    display: block;
-  }
-}
-
 /* Pagination */
 .pagination .disabled,
 .pagination .disabled:hover {
@@ -207,7 +156,6 @@ h1 .mega-octicon {
   top: 10px;
   left: 10px;
   width: 50px;
-  font-size: 18px;
   color: $github-gray;
   text-align: center;
 }
@@ -259,28 +207,26 @@ h1 .mega-octicon {
 .pull-request h4 {
   margin: -5px 0;
   padding: 5px 0;
-  margin-right: 110px; /* Because pr number */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.pull-request .subtitle,
+.pull-request h4 {
+  margin-right: 110px; /* Because pr number */
 }
 
 .pull-request .number {
   display: block;
   margin: -5px 0;
   padding: 5px 0 0 0;
-  font-size: 18px;
+  font-size: $font-size-h4;
 }
 
+.pull-request .subtitle,
 .pull-request .ago {
-  font-size: 0.9em;
-}
-
-/* PR subtitle */
-.pull-request .subtitle {
-  position: relative;
-  margin-right: 110px; /* Because pr number */
-  font-size: 0.9em;
+  font-size: floor(($font-size-base * 0.9));
 }
 
 .pull-request i.core {
@@ -297,7 +243,6 @@ h1 .mega-octicon {
 
 /* PR info */
 .pull-request .info {
-  position: relative;
   margin-bottom: -10px;
 }
 
@@ -352,13 +297,6 @@ h1 .mega-octicon {
   color: darken($github-red, 10%);
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-
 /* Main message and sign up button */
 .jumbotron {
   text-align: center;
@@ -373,8 +311,50 @@ h1 .mega-octicon {
   clear: both;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+.nowrap {
+  white-space: nowrap;
+}
+
+// Extra small grid
+@media (max-width: $screen-sm-min) {
+  h1 {
+    font-size: floor($font-size-h1 * 0.75);
+  }
+  h2 {
+    font-size: floor($font-size-h2 * 0.75);
+  }
+  h3 {
+    font-size: floor($font-size-h3 * 0.75);
+  }
+  h4,
+  .pull-request .number {
+    font-weight: bold;
+    font-size: floor($font-size-h4 * 0.75);
+  }
+  .pull-request .subtitle,
+  .pull-request h4 {
+    margin-right: 70px;
+  }
+  .pr-list {
+    margin-left: -($grid-gutter-width / 2);
+    margin-right: -($grid-gutter-width / 2);
+  }
+  .pull-request {
+    padding-left: 50px;
+  }
+  .pull-request .left {
+    width: 30px;
+  }
+  .filter .btn-group {
+    margin-bottom: 10px;
+  }
+}
+
+// Small grid
+@media (min-width: $screen-sm-min) {
+  .container {
+    max-width: 730px;
+  }
   /* Remove the padding we set earlier */
   .header,
   .footer {
@@ -389,5 +369,9 @@ h1 .mega-octicon {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border: 0;
+  }
+
+  .pull-request .size {
+    text-align: right;
   }
 }

@@ -21,27 +21,27 @@
     </p>
     <div class="info row">
       <div class="col-sm-6 author">
-        <a ng-href="{{github}}/commits?author={{pr.author}}" target="_blank" title="{{pr.contributedCommits}} commits">
+        <a ng-href="{{github}}/commits?author={{pr.author}}" class="nowrap" target="_blank" title="{{pr.contributedCommits}} commits">
           <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributed
         </a>
-        <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
+        <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" class="nowrap" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
           <pie-chart data="getPart(pr.ratioPullRequests, 12) + '/12'"></pie-chart>&nbsp;accepted
         </a>
-        <a href ng-click="showConflicts(pr)" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
+        <a href ng-click="showConflicts(pr)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
         </a>
       </div>
       <div class="col-sm-6 size">
-        <a ng-href="{{github}}/pull/{{pr.number}}" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}" class="nowrap" target="_blank">
           <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" class="nowrap" target="_blank">
           <i class="fa fa-align-left"></i>&nbsp;{{pr.lines}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" class="nowrap" target="_blank">
           <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/commits" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}/commits" class="nowrap" target="_blank">
           <i class="octicon octicon-history"></i>&nbsp;{{pr.commits}}
         </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank" class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
