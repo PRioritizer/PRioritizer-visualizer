@@ -208,7 +208,7 @@ angular.module('visualizerApp')
 
     function getDefaultFilter () {
       return {
-        target: $scope.branches[0] || ''
+        target: ($scope.branches.indexOf($scope.data.defaultBranch) !== -1) ? $scope.data.defaultBranch : $scope.branches[0] || ''
       };
     }
 
