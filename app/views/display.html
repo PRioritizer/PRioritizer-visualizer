@@ -1,11 +1,10 @@
 <div class="row">
   <div class="col-md-12" ng-show="pullRequests.length > 0">
     <h1 class="no-top">
-      <i class="mega-octicon octicon-mark-github"></i>
-      <a ng-href="{{host}}/{{owner}}" title="View this repository on GitHub" target="_blank">{{owner}}</a>
+      <i class="mega-octicon octicon-mark-github" title="Last update: {{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}"></i>
+      <a ng-href="{{host}}/{{owner}}" title="View this owner on GitHub" target="_blank">{{owner}}</a>
       /
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
-      <small class="text-muted nowrap" title="{{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}">({{snapshot | date:'d MMM yyyy'}})</small>
     </h1>
     <div ng-include="'views/filter.html'"></div>
     <h3 ng-if="importantPullRequests.length > 0">Important pull requests <small class="text-muted"><a href ng-click="$parent.showImportant = !showImportant">({{showImportant ? 'hide' : 'show'}})</a></small></h3>
