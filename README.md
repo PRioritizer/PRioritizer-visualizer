@@ -1,6 +1,8 @@
 PRioritizer visualizer
 ======================
 
+[![Build Status](https://magnum.travis-ci.com/erikvdv1/PRioritizer-visualizer.svg?token=wgtEsFC7Tpxoy7U9Y5p1&branch=master)](https://magnum.travis-ci.com/erikvdv1/PRioritizer-visualizer)
+
 A pull request prioritization visualizer written in Javascript and AngularJS.
 
 Follow the steps below to view a prioritization of your pull requests.
