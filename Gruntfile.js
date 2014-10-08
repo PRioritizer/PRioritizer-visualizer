@@ -458,6 +458,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'copy:bowerInstall',
     'compass',
     'autoprefixer',
     'connect:test',
