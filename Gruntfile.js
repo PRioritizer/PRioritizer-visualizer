@@ -358,6 +358,21 @@ module.exports = function (grunt) {
       }
     },
 
+    // Run some tasks in parallel to speed up the build process
+    concurrent: {
+      server: [
+        'compass:server'
+      ],
+      test: [
+        'compass'
+      ],
+      dist: [
+        'compass:dist',
+        'imagemin',
+        'svgmin'
+      ]
+    },
+
     sftp: {
       deployProduction: {
         files: {
@@ -444,7 +459,7 @@ module.exports = function (grunt) {
       'copy:bowerInstall',
       'copy:fonts',
       'bowerInstall',
-      'compass:server',
+      'concurrent:server',
       'autoprefixer',
       'connect:livereload',
       'watch'
@@ -459,7 +474,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'copy:bowerInstall',
-    'compass',
+    'concurrent:test',
     'autoprefixer',
     'connect:test',
     'karma'
@@ -471,9 +486,7 @@ module.exports = function (grunt) {
     'copy:fonts',
     'bowerInstall',
     'useminPrepare',
-    'compass:dist',
-    'imagemin',
-    'svgmin',
+    'concurrent:dist',
     'autoprefixer',
     'concat',
     'ngmin',
