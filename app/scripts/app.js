@@ -10,12 +10,12 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        redirectTo: '/read/'
+        redirectTo: '/explore/'
       })
-      .when('/read/', {
-        templateUrl: 'views/read.html',
-        controller: 'ReadController',
-        activetab: 'read'
+      .when('/explore/', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreController',
+        activetab: 'explore'
       })
       .when('/display/', {
         templateUrl: 'views/display.html',

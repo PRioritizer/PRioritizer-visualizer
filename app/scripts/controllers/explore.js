@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('ReadController', ['$scope', '$upload', '$location', '$http', 'jsonFactory', 'pullRequestFactory', function ($scope, $upload, $location, $http, jsonFactory, pullRequestFactory) {
+  .controller('ExploreController', ['$scope', '$upload', '$location', '$http', 'jsonFactory', 'pullRequestFactory', function ($scope, $upload, $location, $http, jsonFactory, pullRequestFactory) {
     $scope.fileApiSupport = jsonFactory.fileApiSupport;
     $scope.message = null;
     $scope.file = null;
