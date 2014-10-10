@@ -22,6 +22,11 @@ angular
         controller: 'DisplayController',
         activetab: 'display'
       })
+      .when('/display/:owner/:repo/', {
+        templateUrl: 'views/display.html',
+        controller: 'DisplayController',
+        activetab: 'display'
+      })
       .otherwise({
         redirectTo: '/'
       });
