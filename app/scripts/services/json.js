@@ -1,42 +1,49 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .factory('jsonFactory', function() {
-    var service = {
-      fileApiSupport: window.File && window.FileReader && window.FileList && window.Blob,
-      data: null,
+  .factory('jsonFactory', ['$http', '$q', 'pullRequestFactory', function ($http, $q, pullRequestFactory) {
+    var service = {};
+
+    function transformData(data) {
+      if (angular.isArray(data.pullRequests))
+        data.pullRequests = data.pullRequests.map(function (pr) { return pullRequestFactory.get(pr); });
+      return data;
+    }
+
+    function initialize() {
+      return $http.get('json/index.json')
+        .success(function(data) {
+          service.repositories = data;
+        });
+    }
+
+    function getRepositoryFile(owner, repo) {
+      var repos = service.repositories.filter(function(r) { return r.owner === owner && r.repo === repo; });
+      return repos.length > 0 ? repos[0].file : null;
+    }
+
+    service.getData = function getData(owner, repository) {
+      var deferred = $q.defer();
+
+      service.init
+        .then(function() {
+          var file = getRepositoryFile(owner, repository);
+          $http.get('json/' + file).success(function(data) {
+            data = transformData(data);
+            deferred.resolve(data);
+          });
+        });
+
+       return deferred.promise;
+     };
+
+    service.getRepositories = function getRepositories() {
+      return service.repositories;
     };
 
-    service.readFile = function readFile(file, callback, errorCallback) {
-      if (!service.fileApiSupport || file === null)
-        return;
-
-      var parseJson = function(e) {
-        var jsonStr = e.target.result;
-        try {
-          var data = angular.fromJson(jsonStr);
-          service.data = data;
-        } catch(err) {
-          service.data = null;
-          if (errorCallback)
-            errorCallback(err);
-        }
-        if (service.data)
-          callback(service.data);
-      };
-
-      var fileReader = new FileReader();
-      fileReader.onload = parseJson;
-      fileReader.readAsText(file);
-    };
-
-    service.getData = function getData () {
-      return service.data;
-    };
-
-    service.setData = function setData (data) {
-      service.data = data;
-    };
-
+    service.fileApiSupport = window.File && window.FileReader && window.FileList && window.Blob;
+    service.message = null;
+    service.repositories = [];
+    service.init = initialize();
     return service;
-  });
+  }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
     /* Sort */
     $scope.defaultSort = '+timestamp';
     $scope.sortFields = getSortFields();
@@ -9,20 +9,33 @@ angular.module('visualizerApp')
     $scope.activeSortFields = [];
 
     /* Data */
-    $scope.data = jsonFactory.getData() || {};
-    $scope.pullRequests = $scope.data.pullRequests || [];
-    $scope.commits = $scope.data.commits || 0;
-    $scope.snapshot = $scope.data.date || '';
-    $scope.owner = $scope.data.owner || '';
-    $scope.repository = $scope.data.repository || '';
-    $scope.host = 'https://github.com';
-    $scope.github = $interpolate('{{host}}/{{owner}}/{{repository}}')($scope);
-
-    /* Calculated data */
-    $scope.branches = getTargets() || [];
-    $scope.filterObject = getDefaultFilter() || {};
+    $scope.data = {};
+    $scope.pullRequests = [];
+    $scope.commits = 0;
+    $scope.snapshot = '';
+    $scope.owner = '';
+    $scope.repository = '';
+    $scope.branches = [];
+    $scope.filterObject = {};
     $scope.filteredPullRequests = [];
     $scope.importantPullRequests = [];
+    $scope.host = 'https://github.com';
+    $scope.github = $scope.host;
+
+    /* Load pull requests */
+    var ready = jsonFactory.getData($routeParams.owner, $routeParams.repo);
+    ready.then(function (data)
+    {
+      $scope.data = data;
+      $scope.pullRequests = $scope.data.pullRequests;
+      $scope.commits = $scope.data.commits;
+      $scope.snapshot = $scope.data.date;
+      $scope.owner = $scope.data.owner;
+      $scope.repository = $scope.data.repository;
+      $scope.branches = getTargets();
+      $scope.filterObject = getDefaultFilter();
+      $scope.github = $scope.host + '/' + $scope.owner + '/' + $scope.repository;
+    });
 
     /* Pagination */
     $scope.showConflictsOf = 0;
@@ -234,7 +247,7 @@ angular.module('visualizerApp')
     }
 
     function track() {
-      var path = $scope.repository ? $location.path() + $scope.owner + '/' + $scope.repository : $location.path();
+      var path = $location.path();
       ga('send', 'pageview', {'page': path});
     }
   }]);
