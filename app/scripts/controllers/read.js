@@ -9,6 +9,7 @@ angular.module('visualizerApp')
     $scope.perColumn = 0;
 
     getRepositories();
+    track();
 
     $scope.selectFile = function selectFile() {
       if (!$scope.fileApiSupport)
@@ -69,5 +70,9 @@ angular.module('visualizerApp')
         error(function(data, status) {
           $scope.message = 'Could not read JSON index: ' + status;
         });
+    }
+
+    function track() {
+      ga('send', 'pageview', {'page': $location.path()});
     }
   }]);

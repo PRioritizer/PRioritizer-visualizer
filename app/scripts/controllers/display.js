@@ -34,6 +34,9 @@ angular.module('visualizerApp')
     $scope.min = window.Math.min;
     $scope.max = window.Math.max;
 
+    /* Analytics */
+    track();
+
     /* Filter */
     $scope.$watch('filterObject', function (value) {
       $scope.page = 0;
@@ -228,5 +231,10 @@ angular.module('visualizerApp')
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
       ];
+    }
+
+    function track() {
+      var path = $scope.repository ? $location.path() + $scope.owner + '/' + $scope.repository : $location.path();
+      ga('send', 'pageview', {'page': path});
     }
   }]);
