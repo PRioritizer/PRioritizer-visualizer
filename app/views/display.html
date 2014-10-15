@@ -7,11 +7,6 @@
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
     </h1>
     <div ng-include="'views/filter.html'"></div>
-    <h3 ng-if="importantPullRequests.length > 0">Important pull requests <small class="text-muted"><a href ng-click="$parent.showImportant = !showImportant">({{showImportant ? 'hide' : 'show'}})</a></small></h3>
-    <div ng-if="importantPullRequests.length > 0 && showImportant" class="pr-list">
-      <angular-pr pull-request="pr" ng-repeat="pr in importantPullRequests | orderBy:getSortKeys() | limitTo:10" ng-class-even="'even'" ng-class-odd="'odd'">
-      </angular-pr>
-    </div>
     <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
     <div class="pagination">
       <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;

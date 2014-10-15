@@ -3,7 +3,7 @@
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
     /* Sort */
-    $scope.defaultSort = '+timestamp';
+    $scope.defaultSort = ['-important', '-timestamp'];
     $scope.sortFields = getSortFields();
     $scope.filterFields = getFilterFields();
     $scope.activeSortFields = [];
@@ -18,9 +18,10 @@ angular.module('visualizerApp')
     $scope.branches = [];
     $scope.filterObject = {};
     $scope.filteredPullRequests = [];
-    $scope.importantPullRequests = [];
     $scope.host = 'https://github.com';
     $scope.github = $scope.host;
+    $scope.numImportant = 5;
+    $scope.importantThreshold = 0;
 
     /* Load pull requests */
     var ready = jsonFactory.getData($routeParams.owner, $routeParams.repo);
@@ -35,13 +36,18 @@ angular.module('visualizerApp')
       $scope.branches = getTargets();
       $scope.filterObject = getDefaultFilter();
       $scope.github = $scope.host + '/' + $scope.owner + '/' + $scope.repository;
+
+      $scope.numImportant = window.Math.min($scope.numImportant, $scope.pullRequests.length);
+      if ($scope.numImportant > 0) {
+        var sortedPrs = $filter('orderBy')($scope.pullRequests, '-important');
+        $scope.importantThreshold = sortedPrs[$scope.numImportant-1].important;
+      }
     });
 
     /* Pagination */
     $scope.showConflictsOf = 0;
     $scope.page = 0;
     $scope.perPage = 10;
-    $scope.showImportant = true;
 
     /* Math */
     $scope.min = window.Math.min;
@@ -53,14 +59,8 @@ angular.module('visualizerApp')
     /* Filter */
     $scope.$watch('filterObject', function (value) {
       $scope.page = 0;
-
-      var filter1 = angular.copy(value);
-      var filter2 = angular.copy(value);
-      filter1.important = true;
-      filter2.important = false;
-
-      $scope.importantPullRequests = $filter('filter')($scope.pullRequests, filter1, true);
-      $scope.filteredPullRequests  = $filter('filter')($scope.pullRequests, filter2, true);
+      var filter = angular.copy(value);
+      $scope.filteredPullRequests = $filter('filter')($scope.pullRequests, filter, true);
     }, true);
 
     $scope.setFilter = function setFilter (key, value) {
@@ -235,7 +235,8 @@ angular.module('visualizerApp')
         { key: 'allComments', asc: 'Least commented', desc: 'Most commented' },
         { key: 'numConflicts', asc: 'Least conflicts', desc: 'Most conflicts' },
         { key: 'contributor', asc: 'Least contributed', desc: 'Most contributed' },
-        { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' }
+        { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' },
+        { key: 'important', asc: 'Least attention needed', desc: 'Most attention needed' }
       ];
     }
 
