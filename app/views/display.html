@@ -8,7 +8,7 @@
     </h1>
     <div ng-include="'views/filter.html'"></div>
     <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
-    <div class="pagination">
+    <div class="pagination top" ng-if="hasPreviousPage() || hasNextPage()">
       <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
       <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
     </div>
@@ -16,7 +16,7 @@
       <angular-pr pull-request="pr" ng-repeat="pr in filteredPullRequests | orderBy:getSortKeys() | limitToFrom:page*perPage:perPage" ng-class-even="'even'" ng-class-odd="'odd'">
       </angular-pr>
     </div>
-    <div class="pagination">
+    <div class="pagination bottom" ng-if="hasPreviousPage() || hasNextPage()">
       <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
       <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
     </div>

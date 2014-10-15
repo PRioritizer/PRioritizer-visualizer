@@ -131,6 +131,10 @@ h1 .mega-octicon {
 }
 
 /* Pagination */
+.pagination.top {
+  margin-top: 0;
+}
+
 .pagination .disabled,
 .pagination .disabled:hover {
   cursor: no-drop;
