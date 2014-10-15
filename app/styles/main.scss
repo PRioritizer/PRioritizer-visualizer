@@ -3,7 +3,7 @@ $icon-font-path: "#{$font-path}/";
 $fa-font-path: "#{$font-path}";
 
 // bower:scss
-@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 @import "../bower_components/font-awesome/fix/font-awesome.scss";
 @import "../bower_components/octicons/octicons/sprockets-octicons.scss";
 // endbower

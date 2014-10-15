@@ -339,7 +339,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>/bower_components/octicons/octicons',
           dest: '<%= yeoman.app %>/fonts/',
-          src: ['octicons.*', '!*.css']
+          src: ['octicons.*', '!*.css', '!*.less']
         }]
       },
       bowerInstall: {

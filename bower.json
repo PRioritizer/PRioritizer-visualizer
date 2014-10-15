@@ -2,21 +2,20 @@
   "name": "visualizer",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.15",
-    "json3": "~3.2.6",
-    "es5-shim": "~2.1.0",
-    "jquery": "~1.11.0",
-    "bootstrap-sass-official": "~3.1.0",
-    "angular-route": "1.2.15",
-    "ng-file-upload": "1.4.0",
-    "font-awesome": "~4.1.0",
-    "angular-moment": "~0.7.1",
-    "peity": "2.0.3",
-    "octicons": "~2.0.2"
+    "angular": "~1.3.0",
+    "es5-shim": "~4.0.3",
+    "jquery": "~2.1.1",
+    "bootstrap-sass-official": "~3.2.0",
+    "angular-route": "~1.3.0",
+    "ng-file-upload": "~1.6.12",
+    "font-awesome": "~4.2.0",
+    "angular-moment": "~0.8.2",
+    "peity": "~2.0.4",
+    "octicons": "~2.1.2"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.15",
-    "angular-scenario": "1.2.15"
+    "angular-mocks": "~1.3.0",
+    "angular-scenario": "~1.3.0"
   },
   "overrides": {
     "font-awesome": {
