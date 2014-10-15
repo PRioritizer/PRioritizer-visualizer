@@ -9,7 +9,7 @@
       </a>
       <p class="ago" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></p>
     </div>
-    <h4 title="{{pr.title}}">{{pr.title}}</h4>
+    <h4><a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.title}}" target="_blank">{{pr.title}}</a></h4>
     <p class="subtitle">
       <img class="avatar" title="{{pr.author}}" ng-src="{{pr.avatar}}" />
       <i class="fa fa-user" ng-class="{core: pr.coreMember}" ng-attr-title="{{pr.coreMember ? 'Core member' : 'Contributor'}}"></i>

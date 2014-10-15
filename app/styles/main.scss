@@ -210,6 +210,15 @@ h1 .mega-octicon {
   text-overflow: ellipsis;
 }
 
+.pull-request h4 a {
+  color: lighten($black, 20%);
+  text-decoration: none;
+}
+
+.pull-request h4 a:hover {
+  color: $black;
+}
+
 .pull-request .subtitle,
 .pull-request h4 {
   margin-right: 110px; /* Because pr number */
