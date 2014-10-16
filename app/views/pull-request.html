@@ -32,19 +32,16 @@
         </a>
       </div>
       <div class="col-sm-6 size">
-        <a ng-href="{{github}}/pull/{{pr.number}}" class="nowrap" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.allComments}} comments" class="nowrap" target="_blank">
           <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" class="nowrap" target="_blank">
-          <i class="fa fa-align-left"></i>&nbsp;{{pr.lines}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" class="nowrap" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.filesChanged}} files changed" class="nowrap" target="_blank">
           <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/commits" class="nowrap" target="_blank">
+        <a ng-href="{{github}}/pull/{{pr.number}}/commits" title="{{pr.commits}} commits" class="nowrap" target="_blank">
           <i class="octicon octicon-history"></i>&nbsp;{{pr.commits}}
         </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" target="_blank" class="line-bar" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions">
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions" class="line-bar" target="_blank">
           <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>
         </a>
       </div>
