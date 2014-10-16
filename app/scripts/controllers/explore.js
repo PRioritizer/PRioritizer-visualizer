@@ -8,7 +8,7 @@ angular.module('visualizerApp')
 
     jsonFactory.init
       .success(function() {
-        $scope.repos = jsonFactory.repositories;
+        $scope.repos = jsonFactory.repositories.map(function(r) { return { owner: r.owner, repo: r.repo }; });
         $scope.perColumn = Math.ceil($scope.repos.length / 3);
       });
 
