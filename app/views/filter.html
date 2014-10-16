@@ -10,6 +10,7 @@
           <a href class="dropdown-link" ng-click="setFilter('target', branch)">
             <span class="octicon octicon-check" ng-if="getFilter('target') === branch"></span>
             {{branch}}
+            <span ng-if="data.defaultBranch === branch" class="text-muted"><small>(default)</small></span>
           </a>
         </li>
       </ul>
