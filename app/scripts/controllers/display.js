@@ -180,9 +180,6 @@ angular.module('visualizerApp')
     $scope.branchClass = function branchClass (branch, prefix) {
       prefix = prefix || '';
 
-      if ($scope.filterObject.target !== branch)
-        return prefix + 'default';
-
       switch (branch) {
         case 'master':
           return prefix + 'primary';
