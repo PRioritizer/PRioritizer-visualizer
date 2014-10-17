@@ -4,8 +4,9 @@ angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
     /* Sort */
     $scope.defaultSort = ['-important'];
-    $scope.sortFields = getSortFields();
-    $scope.filterFields = getFilterFields();
+    $scope.defaultFilter = {};
+    $scope.sortFields = [];
+    $scope.filterFields = [];
     $scope.activeSortFields = [];
 
     /* Data */
@@ -29,12 +30,12 @@ angular.module('visualizerApp')
     {
       $scope.data = data;
       $scope.pullRequests = $scope.data.pullRequests;
+      $scope.filteredPullRequests = $scope.pullRequests;
       $scope.commits = $scope.data.commits;
       $scope.snapshot = $scope.data.date;
       $scope.owner = $scope.data.owner;
       $scope.repository = $scope.data.repository;
       $scope.branches = getTargets();
-      $scope.filterObject = getDefaultFilter();
       $scope.github = $scope.host + '/' + $scope.owner + '/' + $scope.repository;
 
       $scope.numImportant = window.Math.min($scope.numImportant, $scope.pullRequests.length);
@@ -42,6 +43,9 @@ angular.module('visualizerApp')
         var sortedPrs = $filter('orderBy')($scope.pullRequests, '-important');
         $scope.importantThreshold = sortedPrs[$scope.numImportant-1].important;
       }
+
+      $scope.sortFields = getSortFields();
+      $scope.filterFields = getFilterFields();
     });
 
     /* Pagination */
@@ -80,7 +84,7 @@ angular.module('visualizerApp')
 
     $scope.hasFilter = function hasFilter (key) {
       if (typeof key === 'undefined')
-        return Object.keys($scope.filterObject).length > 1;
+        return Object.keys($scope.filterObject).length > 0;
       return typeof $scope.getFilter(key) !== 'undefined';
     };
 
@@ -93,7 +97,7 @@ angular.module('visualizerApp')
     };
 
     $scope.resetFilter = function resetFilter () {
-      $scope.filterObject = getDefaultFilter();
+      $scope.filterObject = $scope.defaultFilter;
     };
 
     /* Sort functions */
@@ -222,12 +226,6 @@ angular.module('visualizerApp')
       return targets.distinct().sort();
     }
 
-    function getDefaultFilter () {
-      return {
-        target: ($scope.branches.indexOf($scope.data.defaultBranch) !== -1) ? $scope.data.defaultBranch : $scope.branches[0] || ''
-      };
-    }
-
     function getSortFields () {
       return [
         { key: 'timestamp', asc: 'Oldest', desc: 'Newest' },
@@ -241,7 +239,9 @@ angular.module('visualizerApp')
     }
 
     function getFilterFields () {
+      var branches = $scope.branches.map(function(b) { return { name: b, value: b}; });
       return [
+        { key: 'target', name: 'Branch', values: branches },
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
       ];

@@ -1,20 +1,6 @@
 <h4>Filter <small class="text-muted" ng-click="resetFilter(); resetSort()" ng-if="hasFilter() || hasSort()"><a href>(reset)</a></small></h4>
 <div class="row filter">
   <div class="col-sm-12 btn-group" role="toolbar">
-    <div class="btn-group">
-      <button type="button" class="btn btn-filter-active dropdown-toggle" data-toggle="dropdown">
-        Branch <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li ng-repeat="branch in branches">
-          <a href class="dropdown-link" ng-click="setFilter('target', branch)">
-            <span class="octicon octicon-check" ng-if="getFilter('target') === branch"></span>
-            {{branch}}
-            <span ng-if="data.defaultBranch === branch" class="text-muted"><small>(default)</small></span>
-          </a>
-        </li>
-      </ul>
-    </div>
     <div class="btn-group" ng-repeat="filter in filterFields">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-class="{'btn-filter-active' : hasFilter(filter.key)}">
         {{filter.name}} <span class="caret"></span>
@@ -30,6 +16,7 @@
           <a href class="dropdown-link" ng-click="toggleFilter(filter.key, value.value)">
             <span class="octicon octicon-check" ng-if="getFilter(filter.key) === value.value"></span>
             {{value.name}}
+            <span ng-if="filter.key === 'target' && data.defaultBranch === value.value" class="text-muted"><small>(default)</small></span>
           </a>
         </li>
       </ul>
