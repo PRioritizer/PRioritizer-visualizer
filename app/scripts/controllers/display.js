@@ -3,7 +3,7 @@
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
     /* Sort */
-    $scope.defaultSort = ['-important', '-timestamp'];
+    $scope.defaultSort = ['-important'];
     $scope.sortFields = getSortFields();
     $scope.filterFields = getFilterFields();
     $scope.activeSortFields = [];
