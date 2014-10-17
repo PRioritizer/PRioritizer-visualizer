@@ -56,6 +56,8 @@ angular.module('visualizerApp')
     /* Math */
     $scope.min = window.Math.min;
     $scope.max = window.Math.max;
+    $scope.ceil = window.Math.ceil;
+    $scope.floor = window.Math.floor;
 
     /* Feedback */
     $scope.showSendFeedback = true;

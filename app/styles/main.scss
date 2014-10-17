@@ -175,7 +175,7 @@ h1 .mega-octicon {
   color: $gray-somewhat-lighter;
 }
 
-.pull-request.conflict i.icon {
+i.conflict {
   background-color: $github-gray;
   color: $white;
   padding: 5px 7px;
@@ -183,18 +183,16 @@ h1 .mega-octicon {
   font-size: 22px;
 }
 
-.pull-request.mergeable i.icon {
+i.mergeable {
   color: $github-green;
   font-size: 32px;
-  display: block;
 }
 
-.pull-request i.important {
+i.important {
   color: $brand-primary;
   margin-top: 10px;
   font-size: 24px;
   /* transform: rotate(-45deg); */
-  display: block;
 }
 
 .pull-request .text-muted i {
@@ -264,11 +262,11 @@ h1 .mega-octicon {
   color: darken($text-muted, 20%);
 }
 
-.pull-request .info a i.red {
+.pull-request i.red {
   color: $github-red;
 }
 
-.pull-request .info a:hover i.red {
+.pull-request a:hover i.red {
   color: darken($github-red, 10%);
 }
 
@@ -288,7 +286,7 @@ h1 .mega-octicon {
   margin: 0 1px;
 }
 
-.pull-request .line-bar i.added {
+.pull-request i.added {
   color: $github-green;
 }
 
@@ -296,7 +294,7 @@ h1 .mega-octicon {
   color: darken($github-green, 10%);
 }
 
-.pull-request .line-bar i.deleted {
+.pull-request i.deleted {
   color: $github-red;
 }
 
@@ -326,6 +324,29 @@ h1 .mega-octicon {
 
 .pull-request .feedback .thanks {
   display: none;
+}
+
+/* Help */
+.pull-request.help {
+  padding: 0;
+  border: 0;
+  font-size: 90%;
+}
+
+.pull-request.help ul,
+.pull-request.help ul li {
+  list-style: none;
+  padding: 0;
+  border: 0;
+}
+
+.pull-request.help table tr td:first-child {
+  padding: 8px;
+  text-align: center;
+}
+
+.pull-request.help table tr td:last-child {
+  vertical-align: middle;
 }
 
 /* Main message and sign up button */

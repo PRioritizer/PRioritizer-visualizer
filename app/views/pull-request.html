@@ -1,6 +1,6 @@
 <div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: pr.important}">
     <div class="left">
-      <i class="icon mega-octicon octicon-git-pull-request" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
+      <i class="mega-octicon octicon-git-pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i><br />
       <i class="important octicon octicon-zap" ng-if="pr.important >= importantThreshold" title="This pull request is marked as important based on actions on past pull requests."></i>
     </div>
     <div class="right">
@@ -20,26 +20,26 @@
       <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
     </p>
     <div class="info row">
-      <div class="col-sm-6 author">
+      <div class="col-sm-8 author">
         <a ng-href="{{github}}/commits?author={{pr.author}}" class="nowrap" target="_blank" title="{{pr.contributedCommits}} commits">
-          <pie-chart data="getPart(pr.contributedCommits/commits, 12) + '/12'"></pie-chart>&nbsp;contributed
+          <i class="octicon octicon-history"></i>&nbsp;{{ceil(100*pr.contributedCommits/commits)}}<small>%</small>&nbsp;contributed
         </a>
         <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" class="nowrap" target="_blank" title="{{pr.totalPullRequests}} requests and {{pr.acceptedPullRequests}} accepted">
-          <pie-chart data="getPart(pr.ratioPullRequests, 12) + '/12'"></pie-chart>&nbsp;accepted
+          <i class="octicon octicon-git-merge"></i>&nbsp;{{ceil(100*pr.ratioPullRequests)}}<small>%</small>&nbsp;accepted
         </a>
         <a href ng-click="showConflicts(pr)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflicts with other pull requests">
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
         </a>
       </div>
-      <div class="col-sm-6 size">
+      <div class="col-sm-4 size">
         <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.allComments}} comments" class="nowrap" target="_blank">
           <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
         </a>
+        <a ng-href="{{github}}/pull/{{pr.number}}/commits" title="{{pr.commits}} commits" class="nowrap" target="_blank">
+          <i class="octicon octicon-git-commit"></i>&nbsp;{{pr.commits}}
+        </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.filesChanged}} files changed" class="nowrap" target="_blank">
           <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/commits" title="{{pr.commits}} commits" class="nowrap" target="_blank">
-          <i class="octicon octicon-history"></i>&nbsp;{{pr.commits}}
         </a>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.linesAdded}} additions and {{pr.linesDeleted}} deletions" class="line-bar" target="_blank">
           <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>
