@@ -57,6 +57,9 @@ angular.module('visualizerApp')
     $scope.min = window.Math.min;
     $scope.max = window.Math.max;
 
+    /* Feedback */
+    $scope.showSendFeedback = true;
+
     /* Analytics */
     track();
 
@@ -213,6 +216,19 @@ angular.module('visualizerApp')
       $anchorScroll();
       //reset to old to keep any additional routing logic from kicking in
       $location.hash(old);
+    };
+
+    $scope.sendFeedback = function sendFeedback (pr, important, $event) {
+      var category = $scope.owner + '/' + $scope.repository;
+      var action = important ? 'important' : 'unimportant';
+      var label = '' + pr.number;
+      var value = window.Math.round(pr.important * 1000);
+
+      var el = jQuery($event.target).parent();
+      el.hide();
+      el.next().show();
+
+      ga('send', 'event', category, action, label, value);
     };
 
     /* Private functions */

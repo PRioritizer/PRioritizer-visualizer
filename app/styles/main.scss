@@ -304,6 +304,30 @@ h1 .mega-octicon {
   color: darken($github-red, 10%);
 }
 
+.pull-request .feedback {
+  font-size: 80%;
+  position: absolute;
+  top: 5px;
+  right: 100%;
+  width: 160px;
+  height: 100%;
+  padding: 0 10px;
+  text-align: right;
+  display: none;
+}
+
+.pull-request:hover .feedback {
+  display: block;
+}
+
+.pull-request .feedback .answer {
+  margin-top: -10px;
+}
+
+.pull-request .feedback .thanks {
+  display: none;
+}
+
 /* Main message and sign up button */
 .jumbotron {
   text-align: center;
@@ -374,5 +398,12 @@ h1 .mega-octicon {
 
   .pull-request .size {
     text-align: right;
+  }
+}
+
+@media(max-width: 1023px) {
+  .pull-request .feedback,
+  .pull-request:hover .feedback {
+    display: none !important;
   }
 }
