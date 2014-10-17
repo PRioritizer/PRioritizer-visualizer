@@ -123,7 +123,7 @@ angular.module('visualizerApp')
 
       return $scope.activeSortFields.map(function (field) {
         return (field.direction || '+') + field.key;
-      });
+      }).concat($scope.defaultSort);
     };
 
     $scope.getSort = function getSort (field, direction) {
@@ -233,8 +233,7 @@ angular.module('visualizerApp')
         { key: 'allComments', asc: 'Least commented', desc: 'Most commented' },
         { key: 'numConflicts', asc: 'Least conflicts', desc: 'Most conflicts' },
         { key: 'contributor', asc: 'Least contributed', desc: 'Most contributed' },
-        { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' },
-        { key: 'important', asc: 'Least attention needed', desc: 'Most attention needed' }
+        { key: 'ratioPullRequests', asc: 'Worst accept rate', desc: 'Best accept rate' }
       ];
     }
 
