@@ -14,7 +14,7 @@
       <div class="col-sm-6">
         <form role="form" ng-submit="openProject()">
           <div class="form-group">
-            <input type="text" ng-model="searchText" class="form-control" placeholder="Enter project name" value="">
+            <input type="text" ng-model="searchText" class="form-control" placeholder="Enter project name" value="" autofocus>
           </div>
         </form>
       </div>
@@ -22,11 +22,11 @@
   </div>
 </div>
 
-<h4>Projects</h4>
+<h4>Projects <small>({{filteredRepos.length}})</small></h4>
 <div class="row projects">
   <div class="column col-sm-4" ng-repeat="i in [0,1,2]">
     <ul>
-      <li ng-repeat="repo in repos | orderBy:['owner','repo'] | filter: {$:searchText} | limitToFrom:i*perColumn:perColumn"><a href ng-click="onFileClick(repo);">{{repo.owner}}/{{repo.repo}}</a></li>
+      <li ng-repeat="repo in filteredRepos | orderBy:['owner','repo'] | limitToFrom:i*perColumn:perColumn"><a href ng-click="onFileClick(repo);">{{repo.owner}}/{{repo.repo}}</a></li>
     </ul>
   </div>
 </div>
