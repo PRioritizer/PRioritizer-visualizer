@@ -1,7 +1,7 @@
 <div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: pr.important}">
     <div class="left">
       <i class="mega-octicon octicon-git-pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i><br />
-      <i class="important octicon octicon-zap" ng-if="pr.important >= importantThreshold" title="This pull request is marked as important based on actions on past pull requests."></i>
+      <i class="important octicon octicon-zap" ng-if="pr.important >= importantThreshold" title="This pull request is marked as important based on actions on past pull requests (probability of {{ceil(pr.important*100)}}%)."></i>
     </div>
     <div class="right">
       <a class="number text-muted" ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
