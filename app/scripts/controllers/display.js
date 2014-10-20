@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', '$cookieStore', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, $cookieStore, jsonFactory) {
     /* Sort */
     $scope.defaultSort = ['-important'];
     $scope.defaultFilter = {};
     $scope.sortFields = [];
     $scope.filterFields = [];
     $scope.activeSortFields = [];
+    $scope.filterObject = {};
 
     /* Data */
     $scope.data = {};
@@ -17,7 +18,6 @@ angular.module('visualizerApp')
     $scope.owner = '';
     $scope.repository = '';
     $scope.branches = [];
-    $scope.filterObject = {};
     $scope.filteredPullRequests = [];
     $scope.host = 'https://github.com';
     $scope.github = $scope.host;
@@ -46,6 +46,10 @@ angular.module('visualizerApp')
 
       $scope.sortFields = getSortFields();
       $scope.filterFields = getFilterFields();
+
+      // Load settings from cookie
+      $scope.loadFilter();
+      $scope.loadSort();
     });
 
     /* Pagination */
@@ -102,7 +106,19 @@ angular.module('visualizerApp')
     };
 
     $scope.resetFilter = function resetFilter () {
-      $scope.filterObject = $scope.defaultFilter;
+      $scope.filterObject = angular.copy($scope.defaultFilter);
+    };
+
+    $scope.saveFilter = function saveFilter() {
+      $cookieStore.put('filter', $scope.filterObject);
+    };
+
+    $scope.loadFilter = function loadFilter() {
+      $scope.filterObject = $cookieStore.get('filter') || {};
+    };
+
+    $scope.forgetFilter = function forgetFilter() {
+      $cookieStore.remove('filter');
     };
 
     /* Sort functions */
@@ -156,6 +172,28 @@ angular.module('visualizerApp')
       $scope.sortFields.forEach(function (field) {
         delete field.direction;
       });
+    };
+
+    $scope.saveSort = function saveSort() {
+      var sort = $scope.activeSortFields.map(function (field) {
+        return {
+          direction: field.direction || '+',
+          key: field.key
+        };
+      });
+      $cookieStore.put('sort', sort);
+    };
+
+    $scope.loadSort = function loadSort() {
+      var sort = $cookieStore.get('sort') || [];
+      sort.forEach(function(element) {
+        var field = getSortFieldByKey(element.key);
+        $scope.sort(field, element.direction);
+      });
+    };
+
+    $scope.forgetSort = function forgetSort() {
+      $cookieStore.remove('sort');
     };
 
     /* Pagination function */
@@ -259,6 +297,10 @@ angular.module('visualizerApp')
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
       ];
+    }
+
+    function getSortFieldByKey (key) {
+      return $scope.sortFields.filter(function(f) { return f.key === key; })[0];
     }
 
     function track() {

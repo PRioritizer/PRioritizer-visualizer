@@ -3,6 +3,7 @@
 angular
   .module('visualizerApp', [
     'ngRoute',
+    'ngCookies',
     'angularFileUpload',
     'angularMoment',
     'angularPeity'
