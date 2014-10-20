@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('ExploreController', ['$scope', '$upload', '$location', '$http', 'jsonFactory', function ($scope, $upload, $location, $http, jsonFactory) {
+  .controller('ExploreController', ['$scope', '$upload', '$location', '$http', '$timeout', 'jsonFactory', function ($scope, $upload, $location, $http, $timeout, jsonFactory) {
     $scope.fileApiSupport = jsonFactory.fileApiSupport;
     $scope.repos = [];
     $scope.perColumn = 0;
@@ -16,6 +16,12 @@ angular.module('visualizerApp')
 
     $scope.onFileClick = function onFileClick(repo) {
       $location.path('/display/' + repo.owner + '/' + repo.repo);
+    };
+
+    $scope.openProject = function openProject() {
+      $timeout(function() {
+        angular.element('.projects a').eq(0).trigger('click');
+      });
     };
 
     function track() {
