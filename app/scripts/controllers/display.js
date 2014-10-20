@@ -38,7 +38,7 @@ angular.module('visualizerApp')
       $scope.branches = getTargets();
       $scope.github = $scope.host + '/' + $scope.owner + '/' + $scope.repository;
 
-      $scope.numImportant = window.Math.min($scope.numImportant, $scope.pullRequests.length);
+      $scope.numImportant = Math.min($scope.numImportant, $scope.pullRequests.length);
       if ($scope.numImportant > 0) {
         var sortedPrs = $filter('orderBy')($scope.pullRequests, '-important');
         $scope.importantThreshold = sortedPrs[$scope.numImportant-1].important;
@@ -58,10 +58,10 @@ angular.module('visualizerApp')
     $scope.perPage = 10;
 
     /* Math */
-    $scope.min = window.Math.min;
-    $scope.max = window.Math.max;
-    $scope.ceil = window.Math.ceil;
-    $scope.floor = window.Math.floor;
+    $scope.min = Math.min;
+    $scope.max = Math.max;
+    $scope.ceil = Math.ceil;
+    $scope.floor = Math.floor;
 
     /* Feedback */
     $scope.showSendFeedback = true;
@@ -259,7 +259,7 @@ angular.module('visualizerApp')
       var category = $scope.owner + '/' + $scope.repository;
       var action = important ? 'important' : 'unimportant';
       var label = '' + pr.number;
-      var value = window.Math.round(pr.important * 1000);
+      var value = Math.round(pr.important * 1000);
 
       var el = jQuery($event.target).parent();
       el.hide();
