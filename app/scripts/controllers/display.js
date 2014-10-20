@@ -22,7 +22,7 @@ angular.module('visualizerApp')
     $scope.host = 'https://github.com';
     $scope.github = $scope.host;
     $scope.numImportant = 5;
-    $scope.importantThreshold = 0;
+    $scope.importantThreshold = 0.5;
 
     /* Load pull requests */
     var ready = jsonFactory.getData($routeParams.owner, $routeParams.repo);
@@ -41,7 +41,8 @@ angular.module('visualizerApp')
       $scope.numImportant = Math.min($scope.numImportant, $scope.pullRequests.length);
       if ($scope.numImportant > 0) {
         var sortedPrs = $filter('orderBy')($scope.pullRequests, '-important');
-        $scope.importantThreshold = sortedPrs[$scope.numImportant-1].important;
+        var threshold = sortedPrs[$scope.numImportant-1].important;
+        $scope.importantThreshold = Math.max(threshold, $scope.importantThreshold);
       }
 
       $scope.sortFields = getSortFields();
