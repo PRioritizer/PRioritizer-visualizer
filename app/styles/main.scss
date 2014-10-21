@@ -371,6 +371,11 @@ i.important {
   white-space: nowrap;
 }
 
+.spinner {
+  text-align: center;
+  margin: 30px;
+}
+
 // Extra small grid
 @media (max-width: $screen-sm-min) {
   h1 {
