@@ -104,8 +104,15 @@ h1 .mega-octicon {
 
 /* Projects */
 .projects ul {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 0 0 0 10px;
+  list-style-position: inside;
+}
+
+.projects ul li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .projects .column:last-child {
