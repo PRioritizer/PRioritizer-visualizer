@@ -26,7 +26,7 @@
 <div class="row projects">
   <div class="column col-sm-4" ng-repeat="i in [0,1,2]">
     <ul>
-      <li ng-repeat="repo in filteredRepos | orderBy:['owner','repo'] | limitToFrom:i*perColumn:perColumn"><a href ng-click="onFileClick(repo);">{{repo.owner}}/{{repo.repo}}</a></li>
+      <li ng-repeat="repo in filteredRepos | orderBy:['owner','repo'] | limitToFrom:i*perColumn:perColumn"><a href="#display/{{::repo.owner}}/{{::repo.repo}}" title="{{::repo.owner}}/{{::repo.repo}}">{{::repo.owner}}/{{::repo.repo}}</a></li>
     </ul>
   </div>
 </div>
