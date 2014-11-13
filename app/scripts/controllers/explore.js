@@ -11,16 +11,13 @@ angular.module('visualizerApp')
     jsonFactory.init
       .success(function() {
         $scope.repos = jsonFactory.repositories.map(function(r) { return { owner: r.owner, repo: r.repo }; });
-        $scope.filteredRepos = $scope.repos;
-        $scope.perColumn = Math.ceil($scope.repos.length / 3);
+        filterRepos();
       });
 
     track();
 
     /* Filter */
-    $scope.$watch('searchText', function (value) {
-      $scope.filteredRepos = $filter('filter')($scope.repos, {$:value});
-    });
+    $scope.$watch('searchText', filterRepos);
 
     $scope.onFileClick = function onFileClick(repo) {
       $location.path('/display/' + repo.owner + '/' + repo.repo);
@@ -31,6 +28,11 @@ angular.module('visualizerApp')
         $scope.onFileClick($scope.filteredRepos[0]);
       }
     };
+
+    function filterRepos(value) {
+      $scope.filteredRepos = $filter('filter')($scope.repos, {$:value});
+      $scope.perColumn = Math.ceil($scope.filteredRepos.length / 3);
+    }
 
     function track() {
       ga('send', 'pageview', {'page': $location.path()});
