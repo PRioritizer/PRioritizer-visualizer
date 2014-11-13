@@ -1,10 +1,10 @@
 <div class="feedback">
   <p>
-    <strong>Feedback:</strong> How would you classify this pull request?
+    <strong>Feedback:</strong> Requires this PR your attention at the moment?
   </p>
   <p class="answer">
-    <a href ng-click="sendFeedback(pr, true, $event);">Important&nbsp;<i class="octicon octicon-arrow-up"></i></a><br />
-    <a href ng-click="sendFeedback(pr, false, $event);">Unimportant&nbsp;<i class="octicon octicon-arrow-down"></i></a>
+    <a href ng-click="sendFeedback(pr, true, $event);" title="You need to take action e.g. merge, close, review or comment on the pull request.">Yes, I need to take action&nbsp;<i class="octicon octicon-arrow-up"></i></a><br />
+    <a href ng-click="sendFeedback(pr, false, $event);" title="You don't need to take action at the moment.">No, no action is needed&nbsp;<i class="octicon octicon-arrow-down"></i></a>
   </p>
   <p class="thanks">
     <em>Thank you!</em>
