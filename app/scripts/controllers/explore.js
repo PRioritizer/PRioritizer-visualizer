@@ -10,7 +10,7 @@ angular.module('visualizerApp')
 
     jsonFactory.init
       .success(function() {
-        $scope.repos = jsonFactory.repositories.map(function(r) { return { owner: r.owner, repo: r.repo }; });
+        $scope.repos = jsonFactory.repositories.map(function(r) { return { owner: r.owner, repo: r.repo, name: r.owner + '/' + r.repo }; });
         filterRepos();
       });
 
