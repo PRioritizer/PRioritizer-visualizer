@@ -1,27 +1,33 @@
 <div class="row">
-  <div class="col-md-12" ng-show="pullRequests.length > 0">
+  <div class="col-md-12" ng-show="!loading">
     <h1 class="no-top">
       <i class="mega-octicon octicon-mark-github" title="Last update: {{snapshot | date:'EEEE d MMMM yyyy @ HH:mm'}}"></i>
       <a ng-href="{{host}}/{{owner}}" title="View this owner on GitHub" target="_blank">{{owner}}</a>
       /
       <strong><a ng-href="{{github}}" title="View this repository on GitHub" target="_blank">{{repository}}</a></strong>
     </h1>
-    <div ng-include="'views/filter.html'"></div>
-    <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
-    <div class="pagination top" ng-if="hasPreviousPage() || hasNextPage()">
-      <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
-      <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
+    <div ng-show="pullRequests.length == 0">
+      <h3>Pull requests</h3>
+      <p>There is nothing to show here! The repository has no open pull requests at the moment.</p>
     </div>
-    <div class="pr-list">
-      <angular-pr pull-request="pr" ng-repeat="pr in filteredPullRequests | orderBy:getSortKeys() | limitToFrom:page*perPage:perPage" ng-class-even="'even'" ng-class-odd="'odd'">
-      </angular-pr>
-    </div>
-    <div class="pagination bottom" ng-if="hasPreviousPage() || hasNextPage()">
-      <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
-      <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
+    <div ng-show="pullRequests.length > 0">
+      <div ng-include="'views/filter.html'"></div>
+      <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
+      <div class="pagination top" ng-if="hasPreviousPage() || hasNextPage()">
+        <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
+        <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
+      </div>
+      <div class="pr-list">
+        <angular-pr pull-request="pr" ng-repeat="pr in filteredPullRequests | orderBy:getSortKeys() | limitToFrom:page*perPage:perPage" ng-class-even="'even'" ng-class-odd="'odd'">
+        </angular-pr>
+      </div>
+      <div class="pagination bottom" ng-if="hasPreviousPage() || hasNextPage()">
+        <a ng-class="{disabled: !hasPreviousPage()}" href ng-click="previousPage()">&larr; Previous</a> &ndash;
+        <a ng-class="{disabled: !hasNextPage()}" href ng-click="nextPage()">Next &rarr;</a>
+      </div>
     </div>
   </div>
-  <div class="col-md-12" ng-show="!pullRequests.length">
+  <div class="col-md-12" ng-show="loading">
     <h3>Loading...</h3>
     <p>
       There is no data available yet, please wait while the data is being loaded.

@@ -2,6 +2,8 @@
 
 angular.module('visualizerApp')
   .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', '$cookieStore', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, $cookieStore, jsonFactory) {
+    $scope.loading = true;
+
     /* Sort */
     $scope.defaultSort = ['-important'];
     $scope.defaultFilter = {};
@@ -51,6 +53,9 @@ angular.module('visualizerApp')
       // Load settings from cookie
       $scope.loadFilter();
       $scope.loadSort();
+
+      // Signal the view to render
+      $scope.loading = false;
     });
 
     /* Pagination */
