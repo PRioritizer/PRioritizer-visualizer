@@ -4,6 +4,15 @@ angular.module('visualizerApp')
   .factory('jsonFactory', ['$http', '$q', 'pullRequestFactory', function ($http, $q, pullRequestFactory) {
     var service = {};
 
+    function httpGetNoCache(url) {
+      // Circumvent cache by adding the current time to the query string
+      return $http({
+        method: 'GET',
+        url: url,
+        params: { 'nocache': new Date().getTime() }
+      });
+    }
+
     function transformData(data) {
       if (angular.isArray(data.pullRequests))
         data.pullRequests = data.pullRequests.map(function (pr) { return pullRequestFactory.get(pr); });
@@ -11,7 +20,7 @@ angular.module('visualizerApp')
     }
 
     function initialize() {
-      return $http.get('json/index.json')
+      return httpGetNoCache('json/index.json')
         .success(function(data) {
           service.repositories = data;
         });
@@ -28,7 +37,7 @@ angular.module('visualizerApp')
       service.init
         .then(function() {
           var file = getRepositoryFile(owner, repository);
-          $http.get('json/' + file).success(function(data) {
+          httpGetNoCache('json/' + file).success(function(data) {
             data = transformData(data);
             deferred.resolve(data);
           });
