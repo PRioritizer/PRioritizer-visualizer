@@ -302,6 +302,7 @@ angular.module('visualizerApp')
         { key: 'target', name: 'Branch', values: branches },
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
+        { key: 'hasTestCode', name: 'Tests',     values: [ { name : 'With test code', value: true }, { name : 'Without test code', value: false } ] },
       ];
     }
 

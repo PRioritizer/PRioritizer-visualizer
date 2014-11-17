@@ -26,6 +26,7 @@ angular.module('visualizerApp')
       this.contributedCommits = this.contributedCommits || 0;
       this.acceptedPullRequests = this.acceptedPullRequests || 0;
       this.totalPullRequests = this.totalPullRequests || 0;
+      this.hasTestCode = this.hasTestCode || false;
       this.important = this.important || 0;
 
       // Calculated values
