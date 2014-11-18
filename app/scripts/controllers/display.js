@@ -59,7 +59,8 @@ angular.module('visualizerApp')
     });
 
     /* Pagination */
-    $scope.showConflictsOf = 0;
+    $scope.showConflictsOf = {};
+    $scope.showPrDetailsOf = {};
     $scope.page = 0;
     $scope.perPage = 10;
 
@@ -223,6 +224,32 @@ angular.module('visualizerApp')
     };
 
     /* Misc functions */
+    $scope.isImportant = function isImportant (pr) {
+      return pr.important >= $scope.importantThreshold;
+    };
+
+    $scope.detailsActive = function detailsActive (pr) {
+      return $scope.showPrDetailsOf['pr' + pr.number] === true;
+    };
+
+    $scope.conflictsActive = function conflictsActive (pr) {
+      return $scope.showConflictsOf['pr' + pr.number] === true;
+    };
+
+    $scope.toggleDetails = function toggleDetails (pr) {
+      if ($scope.showPrDetailsOf['pr' + pr.number])
+        delete $scope.showPrDetailsOf['pr' + pr.number];
+      else
+        $scope.showPrDetailsOf['pr' + pr.number] = true;
+    };
+
+    $scope.toggleConflicts = function toggleConflicts (pr) {
+      if ($scope.showConflictsOf['pr' + pr.number])
+        delete $scope.showConflictsOf['pr' + pr.number];
+      else
+        $scope.showConflictsOf['pr' + pr.number] = true;
+    };
+
     $scope.branchClass = function branchClass (branch, prefix) {
       prefix = prefix || '';
 
@@ -237,13 +264,6 @@ angular.module('visualizerApp')
         default:
           return prefix + 'success';
       }
-    };
-
-    $scope.showConflicts = function showConflicts (pr) {
-      if ($scope.showConflictsOf === pr.number)
-        $scope.showConflictsOf = 0;
-      else
-        $scope.showConflictsOf = pr.number;
     };
 
     $scope.getPart = function getPart (part, resolution) {

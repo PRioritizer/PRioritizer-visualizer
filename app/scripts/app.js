@@ -4,6 +4,7 @@ angular
   .module('visualizerApp', [
     'ngRoute',
     'ngCookies',
+    'ngAnimate',
     'angularFileUpload',
     'angularMoment',
     'angularPeity'

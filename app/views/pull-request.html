@@ -1,53 +1,63 @@
-<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: pr.important}">
+<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: isImportant(pr)}" ng-click="toggleDetails(pr)">
     <div class="left">
-      <i class="mega-octicon octicon-git-pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i><br />
-      <i class="important octicon octicon-zap" ng-if="pr.important >= importantThreshold" title="This pull request is marked as important based on actions on past pull requests (probability of {{ceil(pr.important*100)}}%)."></i>
+      <i class="mega-octicon octicon-git-pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
     </div>
     <div class="right">
-      <a class="number text-muted" ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank">
-        <i class="octicon octicon-mark-github"></i>&nbsp;#{{pr.number}}
+      <a class="number text-muted" ng-href="{{github}}/pull/{{pr.number}}" title="View this pull request on GitHub" target="_blank" stop-event>
+        <i class="octicon octicon-mark-github"></i>&nbsp;<small>#</small>{{pr.number}}
       </a>
       <p class="ago" title="{{pr.createdAt | date:'EEEE d MMMM yyyy @ HH:mm'}}" am-time-ago="pr.timestamp"></p>
     </div>
-    <h4><a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.title}}" target="_blank">{{pr.title}}</a></h4>
+    <h4><i class="important octicon octicon-zap" ng-if="pr.important >= importantThreshold" title="This pull request is marked as important based on actions on past pull requests (probability of {{ceil(pr.important*100)}}%)."></i> <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.title}}" target="_blank" stop-event>{{pr.title}}</a></h4>
     <p class="subtitle">
-      <img class="avatar" title="{{pr.author}}" ng-src="{{pr.avatar}}" />
-      <i class="fa fa-user" ng-class="{core: pr.coreMember}" ng-attr-title="{{pr.coreMember ? 'Core member' : 'Contributor'}}"></i>
-      <a ng-href="{{host}}/{{pr.author}}" target="_blank">{{pr.author}}</a>
+      <a ng-href="{{host}}/{{pr.author}}" target="_blank" stop-event>{{pr.author}}</a>
       wants to merge
-      <span class="label label-default" ng-attr-title="{{pr.source}}">{{pr.source | limitTo: 42}}{{pr.source.length > 42 ? '...' : ''}}</span>
+      <span class="label label-default-light" ng-attr-title="{{pr.source}}">{{pr.source | limitTo: 42}}{{pr.source.length > 42 ? '...' : ''}}</span>
       into
       <span class="label" ng-class="branchClass(pr.target, 'label-')">{{pr.target}}</span>
     </p>
-    <div class="info row">
-      <div class="col-sm-8 author">
-        <a ng-href="{{github}}/commits?author={{pr.author}}" class="nowrap" target="_blank" title="{{pr.contributedCommits}} commit(s)">
-          <i class="octicon octicon-history"></i>&nbsp;{{ceil(100*pr.contributedCommits/commits)}}<small>%</small>&nbsp;contributed
-        </a>
-        <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" class="nowrap" target="_blank" title="{{pr.totalPullRequests}} request(s) and {{pr.acceptedPullRequests}} accepted">
-          <i class="octicon octicon-git-merge"></i>&nbsp;{{ceil(100*pr.ratioPullRequests)}}<small>%</small>&nbsp;accepted
-        </a>
-        <a href ng-click="showConflicts(pr)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflict(s) with other pull requests">
-          <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflicts
-        </a>
-      </div>
-      <div class="col-sm-4 size">
-        <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.allComments}} comment(s)" class="nowrap" target="_blank">
-          <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/commits" title="{{pr.commits}} commit(s)" class="nowrap" target="_blank">
-          <i class="octicon octicon-git-commit"></i>&nbsp;{{pr.commits}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.filesChanged}} file(s) changed" class="nowrap" target="_blank">
-          <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}
-        </a>
-        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.linesAdded}} addition(s) and {{pr.linesDeleted}} deletion(s)" class="line-bar" target="_blank">
-          <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>
+    <div class="info row" ng-if="detailsActive(pr)">
+      <div class="col-sm-5 author">
+        <div><strong>Author</strong></div>
+        <img class="avatar" title="{{pr.author}}" ng-src="{{pr.avatar}}" /> <a ng-href="{{host}}/{{pr.author}}" target="_blank" stop-event>{{pr.author}} ({{pr.coreMember ? 'core member' : 'non-member'}})</a><br>
+        <a ng-href="{{github}}/commits?author={{pr.author}}" class="nowrap" target="_blank" title="{{pr.contributedCommits}} commit(s)" stop-event>
+          <i class="octicon octicon-history"></i>&nbsp;{{ceil(100*pr.contributedCommits/commits)}}<small>%</small>&nbsp;contributed commit(s)
+        </a><br>
+        <a ng-href="{{github}}/pulls?q=is:pr+author:{{pr.author}}" class="nowrap" target="_blank" title="{{pr.totalPullRequests}} request(s) and {{pr.acceptedPullRequests}} accepted" stop-event>
+          <i class="octicon octicon-git-merge"></i>&nbsp;{{ceil(100*pr.ratioPullRequests)}}<small>%</small>&nbsp;accepted pull request(s)
         </a>
       </div>
-      <div class="col-xs-12 conflicts" ng-if="showConflictsOf == pr.number">
+      <div class="col-sm-3 size">
+        <div><strong>Size</strong></div>
+        <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.allComments}} comment(s)" class="nowrap" target="_blank" stop-event>
+          <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}&nbsp;comment(s)
+        </a>
+        <br>
+        <a ng-href="{{github}}/pull/{{pr.number}}/commits" title="{{pr.commits}} commit(s)" class="nowrap" target="_blank" stop-event>
+          <i class="octicon octicon-git-commit"></i>&nbsp;{{pr.commits}}&nbsp;commit(s)
+        </a>
+        <br>
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.filesChanged}} file(s) changed" class="nowrap" target="_blank" stop-event>
+          <i class="octicon octicon-diff"></i>&nbsp;{{pr.filesChanged}}&nbsp;file(s)
+        </a>
+        <br>
+        <a ng-if="false" ng-href="{{github}}/pull/{{pr.number}}/files" title="{{pr.linesAdded}} addition(s) and {{pr.linesDeleted}} deletion(s)" class="line-bar" target="_blank" stop-event>
+          <i class="fa fa-square" ng-repeat="i in [1,2,3,4,5,6]" ng-class="{added: i <= getPart(pr.ratioAdded, 6), deleted: i > getPart(pr.ratioAdded, 6)}"></i>&nbsp;{{pr.linesAdded}} / {{pr.linesDeleted}}
+        </a>
+      </div>
+      <div class="col-sm-3 size">
+        <div><strong>Other</strong></div>
+        <a ng-href="{{github}}/pull/{{pr.number}}/files" title="Contains {{pr.hasTestCode ? '' : 'no '}}test files" class="nowrap" target="_blank" stop-event>
+          <i class="octicon octicon-pulse" ng-class="{green: pr.hasTestCode}"></i>&nbsp;contains&nbsp;{{pr.hasTestCode ? '' : 'no '}}test&nbsp;file(s)
+        </a>
+        <br>
+        <a href ng-click="toggleConflicts(pr)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflict(s) with other pull requests" stop-event>
+          <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflict(s)
+        </a>
+      </div>
+      <div class="col-xs-12 conflicts" ng-if="conflictsActive(pr)">
         <span ng-repeat="n in pr.conflictsWith">
-          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)">#{{n}}</span>{{$last ? '' : ' '}}
+          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)" stop-event>#{{n}}</span>{{$last ? '' : ' '}}
         </span>
       </div>
     </div>

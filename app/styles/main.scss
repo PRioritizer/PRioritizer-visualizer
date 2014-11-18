@@ -43,23 +43,11 @@ body {
   padding: 20px 0;
 }
 
-.no-top {
-  margin-top: 0;
-}
-
-/* Custom page header */
-.header {
-}
-
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin: 0;
   line-height: 40px;
   padding-bottom: 10px;
-}
-
-h4 a {
-  margin-left: 15px;
 }
 
 /* Custom page footer */
@@ -162,7 +150,7 @@ h1 .mega-octicon {
 
 .pull-request .left {
   position: absolute;
-  top: 10px;
+  top: 15px;
   left: 10px;
   width: 50px;
   color: $github-gray;
@@ -201,8 +189,6 @@ i.mergeable {
 
 i.important {
   color: $brand-primary;
-  margin-top: 10px;
-  font-size: 24px;
   /* transform: rotate(-45deg); */
 }
 
@@ -212,8 +198,9 @@ i.important {
 
 /* PR title */
 .pull-request h4 {
-  margin: -5px 0;
-  padding: 5px 0;
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: $font-size-h4;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -222,10 +209,10 @@ i.important {
 .pull-request h4 a {
   color: lighten($black, 20%);
   text-decoration: none;
-}
 
-.pull-request h4 a:hover {
-  color: $black;
+  &:hover {
+    color: $black;
+  }
 }
 
 .pull-request .subtitle,
@@ -235,14 +222,20 @@ i.important {
 
 .pull-request .number {
   display: block;
-  margin: -5px 0;
-  padding: 5px 0 0 0;
+  margin: 0 0 5px 0;
+  padding: 0;
   font-size: $font-size-h4;
 }
 
 .pull-request .subtitle,
-.pull-request .ago {
+.pull-request .ago,
+.pull-request .info {
   font-size: floor($font-size-base * 0.95);
+}
+
+.pull-request .subtitle,
+.pull-request .ago {
+  margin: 0;
 }
 
 .pull-request i.core {
@@ -257,10 +250,30 @@ i.important {
   border-radius: 2px;
 }
 
+.label-default-light {
+  @include label-variant(lighten($black, 95%));
+  color: $text-light;
+  border: 1px solid $border-light;
+  letter-spacing: 1px;
+  font-weight: normal;
+}
+
 /* PR info */
 .pull-request .info {
-  margin-bottom: -10px;
+  position: relative;
+  margin-top: 10px;
+  overflow: hidden;
+  -webkit-transition: 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000) all;
+  -moz-transition: 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000) all;
+  -ms-transition: 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000) all;
+  -o-transition: 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000) all;
+  transition: 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000) all;
 }
+
+.pull-request .info.ng-enter { opacity: 0; }
+.pull-request .info.ng-enter.ng-enter-active { opacity: 1; }
+.pull-request .info.ng-leave { opacity: 1; }
+.pull-request .info.ng-leave.ng-leave-active { opacity: 0; }
 
 .pull-request .info,
 .pull-request .info a {
@@ -273,12 +286,24 @@ i.important {
   color: darken($text-muted, 20%);
 }
 
+.pull-request .info i {
+  width: 16px;
+}
+
 .pull-request i.red {
   color: $github-red;
 }
 
 .pull-request a:hover i.red {
   color: darken($github-red, 10%);
+}
+
+.pull-request i.green {
+  color: $github-green;
+}
+
+.pull-request a:hover i.green {
+  color: darken($github-green, 10%);
 }
 
 .pull-request .info svg.peity {
@@ -316,7 +341,7 @@ i.important {
 .pull-request .feedback {
   font-size: 80%;
   position: absolute;
-  top: 5px;
+  top: 0;
   right: 100%;
   width: 170px;
   height: 100%;
@@ -431,10 +456,6 @@ i.important {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border: 0;
-  }
-
-  .pull-request .size {
-    text-align: right;
   }
 }
 
