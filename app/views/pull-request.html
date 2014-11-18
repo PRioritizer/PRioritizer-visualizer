@@ -18,7 +18,7 @@
     </p>
     <div class="info row" ng-if="detailsActive(pr)">
       <div class="col-sm-5 author">
-        <div><strong>Author</strong></div>
+        <div class="info-title">Author</div>
         <img class="avatar" title="{{pr.author}}" ng-src="{{pr.avatar}}" /> <a ng-href="{{host}}/{{pr.author}}" target="_blank" stop-event>{{pr.author}} ({{pr.coreMember ? 'core member' : 'non-member'}})</a><br>
         <a ng-href="{{github}}/commits?author={{pr.author}}" class="nowrap" target="_blank" title="{{pr.contributedCommits}} commit(s)" stop-event>
           <i class="octicon octicon-history"></i>&nbsp;{{ceil(100*pr.contributedCommits/commits)}}<small>%</small>&nbsp;contributed commit(s)
@@ -28,7 +28,7 @@
         </a>
       </div>
       <div class="col-sm-3 size">
-        <div><strong>Size</strong></div>
+        <div class="info-title">Size</div>
         <a ng-href="{{github}}/pull/{{pr.number}}" title="{{pr.allComments}} comment(s)" class="nowrap" target="_blank" stop-event>
           <i class="octicon octicon-comment-discussion"></i>&nbsp;{{pr.allComments}}&nbsp;comment(s)
         </a>
@@ -46,7 +46,7 @@
         </a>
       </div>
       <div class="col-sm-3 size">
-        <div><strong>Other</strong></div>
+        <div class="info-title">Other</div>
         <a ng-href="{{github}}/pull/{{pr.number}}/files" title="Contains {{pr.hasTestCode ? '' : 'no '}}test files" class="nowrap" target="_blank" stop-event>
           <i class="octicon octicon-pulse" ng-class="{green: pr.hasTestCode}"></i>&nbsp;contains&nbsp;{{pr.hasTestCode ? '' : 'no '}}test&nbsp;file(s)
         </a>

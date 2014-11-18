@@ -275,6 +275,10 @@ i.important {
 .pull-request .info.ng-leave { opacity: 1; }
 .pull-request .info.ng-leave.ng-leave-active { opacity: 0; }
 
+.pull-request .info .info-title {
+  font-weight: bold;
+}
+
 .pull-request .info,
 .pull-request .info a {
   color: $text-muted;
