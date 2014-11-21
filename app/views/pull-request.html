@@ -1,4 +1,4 @@
-<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: isImportant(pr)}" ng-click="toggleDetails(pr)">
+<div id="pr{{pr.number}}" class="pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable, important: isImportant(pr)}" ng-click="toggleDetails(pr)" title="Click for {{detailsActive(pr) ? 'less' : 'more'}} details">
     <div class="left">
       <i class="mega-octicon octicon-git-pull-request" ng-class="{mergeable: pr.isMergeable, conflict: !pr.isMergeable}" ng-attr-title="{{pr.isMergeable ? 'Can' : 'Cannot'}} be merged directly"></i>
     </div>
