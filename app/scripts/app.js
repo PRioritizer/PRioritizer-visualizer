@@ -19,15 +19,14 @@ angular
         controller: 'ExploreController',
         activetab: 'explore'
       })
-      .when('/display/', {
-        templateUrl: 'views/display.html',
-        controller: 'DisplayController',
-        activetab: 'display'
-      })
       .when('/display/:owner/:repo/', {
         templateUrl: 'views/display.html',
         controller: 'DisplayController',
-        activetab: 'display'
+        activetab: 'display',
+        reloadOnSearch: false
+      })
+      .when('/display/', {
+        redirectTo: '/explore/'
       })
       .otherwise({
         redirectTo: '/'

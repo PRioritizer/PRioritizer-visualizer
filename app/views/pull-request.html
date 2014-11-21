@@ -51,14 +51,9 @@
           <i class="octicon octicon-pulse" ng-class="{green: pr.hasTestCode}"></i>&nbsp;contains&nbsp;{{pr.hasTestCode ? '' : 'no '}}test&nbsp;file(s)
         </a>
         <br>
-        <a href ng-click="toggleConflicts(pr)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflict(s) with other pull requests" stop-event>
+        <a href ng-click="exclusiveFilter('conflictsWith', pr.number)" class="nowrap" target="_blank" title="{{pr.numConflicts}} conflict(s) with other pull requests" stop-event>
           <i class="fa fa-warning" ng-class="{red: pr.numConflicts > 0}"></i>&nbsp;{{pr.numConflicts}}&nbsp;conflict(s)
         </a>
-      </div>
-      <div class="col-xs-12 conflicts" ng-if="conflictsActive(pr)">
-        <span ng-repeat="n in pr.conflictsWith">
-          <span class="label label-default cross-reference" ng-click="scrollTo('pr' + n)" stop-event>#{{n}}</span>{{$last ? '' : ' '}}
-        </span>
       </div>
     </div>
     <div ng-if="showSendFeedback" ng-include="'views/feedback.html'"></div>

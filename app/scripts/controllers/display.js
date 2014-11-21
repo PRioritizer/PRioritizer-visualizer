@@ -58,7 +58,6 @@ angular.module('visualizerApp')
     });
 
     /* Pagination */
-    $scope.showConflictsOf = {};
     $scope.showPrDetailsOf = {};
     $scope.page = 0;
     $scope.perPage = 10;
@@ -74,6 +73,11 @@ angular.module('visualizerApp')
 
     /* Analytics */
     track();
+
+    /* Watches */
+    $scope.$on('$routeUpdate', readParameters);
+    $scope.$watch('filterObject', updateUrl, true);
+    $scope.$watch('activeSortFields', updateUrl, true);
 
     /* Filter */
     $scope.$watch('filterObject', function (value) {
@@ -97,6 +101,12 @@ angular.module('visualizerApp')
         $scope.filterObject[key] = value;
       else
         delete $scope.filterObject[key];
+    };
+
+    $scope.exclusiveFilter = function exclusiveFilter (key, value) {
+      var obj = {};
+      obj[key] = value;
+      $scope.filterObject = obj;
     };
 
     $scope.removeFilter = function removeFilter (key) {
@@ -150,13 +160,13 @@ angular.module('visualizerApp')
         $scope.activeSortFields.splice(index, 1);
     };
 
-    $scope.getSortKeys = function getSortKeys () {
+    $scope.getSortKeys = function getSortKeys (noDefault) {
       if ($scope.activeSortFields.length === 0)
-        return $scope.defaultSort;
+        return noDefault ? [] : $scope.defaultSort;
 
       return $scope.activeSortFields.map(function (field) {
         return (field.direction || '+') + field.key;
-      }).concat($scope.defaultSort);
+      }).concat(noDefault ? [] : $scope.defaultSort);
     };
 
     $scope.getSort = function getSort (field, direction) {
@@ -215,22 +225,11 @@ angular.module('visualizerApp')
       return $scope.showPrDetailsOf['pr' + pr.number] === true;
     };
 
-    $scope.conflictsActive = function conflictsActive (pr) {
-      return $scope.showConflictsOf['pr' + pr.number] === true;
-    };
-
     $scope.toggleDetails = function toggleDetails (pr) {
       if ($scope.showPrDetailsOf['pr' + pr.number])
         delete $scope.showPrDetailsOf['pr' + pr.number];
       else
         $scope.showPrDetailsOf['pr' + pr.number] = true;
-    };
-
-    $scope.toggleConflicts = function toggleConflicts (pr) {
-      if ($scope.showConflictsOf['pr' + pr.number])
-        delete $scope.showConflictsOf['pr' + pr.number];
-      else
-        $scope.showConflictsOf['pr' + pr.number] = true;
     };
 
     $scope.branchClass = function branchClass (branch, prefix) {
@@ -319,8 +318,15 @@ angular.module('visualizerApp')
     }
 
     function readParameters () {
-      $scope.filterObject = getFilterFieldsFromParams($routeParams);
-      $scope.activeSortFields = getSortFieldsFromParams($routeParams);
+      var filter = getFilterFieldsFromParams($routeParams);
+      var sort = getSortFieldsFromParams($routeParams);
+
+      // Update only if necessary
+      if (!angular.equals($scope.filterObject, filter))
+        $scope.filterObject = filter;
+
+      if (!angular.equals($scope.activeSortFields, sort))
+        $scope.activeSortFields = sort;
     }
 
     function getFilterFieldsFromParams (params) {
@@ -333,6 +339,7 @@ angular.module('visualizerApp')
 
     function getSortFieldsFromParams (params) {
       var sort = params.sort || [];
+      sort = angular.isArray(sort) ? sort : [sort];
       var ret = sort.map(function (key) {
         var dir = key.charAt(0) !== '+' ? '-' : '+';
         key = key.substring(1);
@@ -353,6 +360,26 @@ angular.module('visualizerApp')
       if (value === 'false')
         return false;
       return value;
+    }
+
+    function updateUrl (newValue, oldValue) {
+      if (typeof newValue === 'undefined' || newValue === oldValue)
+        return;
+
+      var params = $location.search();
+      var fields = $scope.filterFields;
+      var filter = $scope.filterObject;
+      params.sort = $scope.getSortKeys(true);
+
+      for (var f in fields) {
+        var key = fields[f].key;
+        if (filter.hasOwnProperty(key))
+          params[key] = filter[key].toString();
+        else if (params[key])
+          delete params[key];
+      }
+
+      $location.search(params);
     }
 
     function track() {
