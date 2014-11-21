@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', '$cookieStore', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, $cookieStore, jsonFactory) {
+  .controller('DisplayController', ['$scope', '$interpolate', '$location', '$anchorScroll', '$filter', '$routeParams', 'jsonFactory', function ($scope, $interpolate, $location, $anchorScroll, $filter, $routeParams, jsonFactory) {
     $scope.loading = true;
 
     /* Sort */
@@ -52,8 +52,6 @@ angular.module('visualizerApp')
 
       // Load settings from parameters
       readParameters();
-      //$scope.loadFilter();
-      //$scope.loadSort();
 
       // Signal the view to render
       $scope.loading = false;
@@ -127,18 +125,6 @@ angular.module('visualizerApp')
       $scope.filterObject = angular.copy($scope.defaultFilter);
     };
 
-    $scope.saveFilter = function saveFilter() {
-      $cookieStore.put('filter', $scope.filterObject);
-    };
-
-    $scope.loadFilter = function loadFilter() {
-      $scope.filterObject = $cookieStore.get('filter') || {};
-    };
-
-    $scope.forgetFilter = function forgetFilter() {
-      $cookieStore.remove('filter');
-    };
-
     $scope.settersFilter = {
       conflictsWith: function(value) {
         if (angular.isDefined(value))
@@ -198,28 +184,6 @@ angular.module('visualizerApp')
       $scope.sortFields.forEach(function (field) {
         delete field.direction;
       });
-    };
-
-    $scope.saveSort = function saveSort() {
-      var sort = $scope.activeSortFields.map(function (field) {
-        return {
-          direction: field.direction || '+',
-          key: field.key
-        };
-      });
-      $cookieStore.put('sort', sort);
-    };
-
-    $scope.loadSort = function loadSort() {
-      var sort = $cookieStore.get('sort') || [];
-      sort.forEach(function(element) {
-        var field = getSortFieldByKey(element.key);
-        $scope.sort(field, element.direction);
-      });
-    };
-
-    $scope.forgetSort = function forgetSort() {
-      $cookieStore.remove('sort');
     };
 
     /* Pagination function */
