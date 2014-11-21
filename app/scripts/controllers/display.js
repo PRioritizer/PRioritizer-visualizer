@@ -139,7 +139,7 @@ angular.module('visualizerApp')
       conflictsWith: function(value) {
         if (angular.isDefined(value))
           $scope.setFilter('conflictsWith', value);
-        return $scope.filterObject['conflictsWith'];
+        return $scope.filterObject.conflictsWith;
       }
     };
 
