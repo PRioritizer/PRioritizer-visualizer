@@ -80,11 +80,21 @@ angular.module('visualizerApp')
     $scope.$watch('filterObject', function (value) {
       $scope.page = 0;
       var filter = angular.copy(value);
-      $scope.filteredPullRequests = $filter('filter')($scope.pullRequests, filter, true);
+      var pulls = $scope.pullRequests;
+
+      // Special filter for conflicts with pr#
+      if (filter.conflictsWith) {
+        var nr = Number(filter.conflictsWith);
+        delete filter.conflictsWith;
+        pulls = pulls.filter(function(pr) { return pr.conflictsWith.indexOf(nr) !== -1; } );
+      }
+
+      // Regular filter
+      $scope.filteredPullRequests = $filter('filter')(pulls, filter, true);
     }, true);
 
     $scope.setFilter = function setFilter (key, value) {
-      if (typeof value !== 'undefined')
+      if (typeof value !== 'undefined' && value !== '')
         $scope.filterObject[key] = value;
       else
         delete $scope.filterObject[key];
@@ -126,6 +136,14 @@ angular.module('visualizerApp')
 
     $scope.forgetFilter = function forgetFilter() {
       $cookieStore.remove('filter');
+    };
+
+    $scope.settersFilter = {
+      conflictsWith: function(value) {
+        if (angular.isDefined(value))
+          $scope.setFilter('conflictsWith', value);
+        return $scope.filterObject['conflictsWith'];
+      }
     };
 
     /* Sort functions */
@@ -323,6 +341,7 @@ angular.module('visualizerApp')
         { key: 'isMergeable', name: 'Mergeable', values: [ { name : 'Mergeable', value: true }, { name : 'Conflicted', value: false } ] },
         { key: 'coreMember',  name: 'Author',    values: [ { name : 'Core member', value: true }, { name : 'Non-member', value: false } ] },
         { key: 'hasTestCode', name: 'Tests',     values: [ { name : 'With test code', value: true }, { name : 'Without test code', value: false } ] },
+        { key: 'conflictsWith', name: 'Conflicts',values: [ { name : 'Conflicts with', type: 'textbox', value: 'pull request #' } ] },
       ];
     }
 

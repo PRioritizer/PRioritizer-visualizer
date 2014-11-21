@@ -12,11 +12,17 @@
             Clear
           </a>
         </li>
-        <li ng-repeat="value in filter.values">
+        <li ng-if="value.type && value.type !== 'text'" ng-repeat-start="value in filter.values" role="presentation" class="dropdown-header">{{::value.name}}</li>
+        <li ng-if="!value.type || value.type === 'text'">
           <a href class="dropdown-link" ng-click="toggleFilter(filter.key, value.value)">
             <span class="octicon octicon-check" ng-if="getFilter(filter.key) === value.value"></span>
-            {{value.name}}
+            {{::value.name}}
             <span ng-if="filter.key === 'target' && data.defaultBranch === value.value" class="text-muted"><small>(default)</small></span>
+          </a>
+        </li>
+        <li ng-if="value.type === 'textbox'" ng-repeat-end>
+          <a>
+            <input type="text" placeholder="{{::value.value}}" class="filter-textbox form-control" ng-model="settersFilter[filter.key]" ng-model-options="{ getterSetter: true }" stop-event />
           </a>
         </li>
       </ul>

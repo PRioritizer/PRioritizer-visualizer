@@ -129,6 +129,12 @@ h1 .mega-octicon {
   @include button-variant($btn-default-color, darken($btn-default-bg, 5%), $btn-default-border);
 }
 
+.filter .filter-textbox {
+  padding: 7px;
+  height: 24px;
+  font-size: floor($font-size-base * 0.90);
+}
+
 /* Pagination */
 .pagination.top {
   margin-top: 0;
