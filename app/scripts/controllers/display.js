@@ -50,9 +50,10 @@ angular.module('visualizerApp')
       $scope.sortFields = getSortFields();
       $scope.filterFields = getFilterFields();
 
-      // Load settings from cookie
-      $scope.loadFilter();
-      $scope.loadSort();
+      // Load settings from parameters
+      readParameters();
+      //$scope.loadFilter();
+      //$scope.loadSort();
 
       // Signal the view to render
       $scope.loading = false;
@@ -345,8 +346,49 @@ angular.module('visualizerApp')
       ];
     }
 
+    function getFilterFieldByKey (key) {
+      return $scope.filterFields.filter(function(f) { return f.key === key; })[0];
+    }
+
     function getSortFieldByKey (key) {
       return $scope.sortFields.filter(function(f) { return f.key === key; })[0];
+    }
+
+    function readParameters () {
+      $scope.filterObject = getFilterFieldsFromParams($routeParams);
+      $scope.activeSortFields = getSortFieldsFromParams($routeParams);
+    }
+
+    function getFilterFieldsFromParams (params) {
+      var ret = {};
+      for (var key in params)
+        if (params.hasOwnProperty(key) && getFilterFieldByKey(key))
+          ret[key] = valueFromString(params[key]);
+      return ret;
+    }
+
+    function getSortFieldsFromParams (params) {
+      var sort = params.sort || [];
+      var ret = sort.map(function (key) {
+        var dir = key.charAt(0) !== '+' ? '-' : '+';
+        key = key.substring(1);
+        var field = getSortFieldByKey(key);
+        if (field) {
+          field.direction = dir;
+          return field;
+        } else {
+          return null;
+        }
+      });
+      return ret.filter(function (f) { return f !== null; } );
+    }
+
+    function valueFromString (value) {
+      if (value === 'true')
+        return true;
+      if (value === 'false')
+        return false;
+      return value;
     }
 
     function track() {
