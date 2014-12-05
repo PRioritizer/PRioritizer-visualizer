@@ -11,11 +11,10 @@ angular.module('visualizerApp')
     jsonFactory.init
       .success(function() {
         $scope.repos = jsonFactory.repositories.map(function(r) { return { owner: r.owner, repo: r.repo, name: r.owner + '/' + r.repo }; });
-        filterRepos();
+        readParameters();
       });
 
     track();
-    readParameters();
 
     /* Watches */
     $scope.$on('$routeUpdate', readParameters);
