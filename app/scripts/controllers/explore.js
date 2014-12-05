@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('visualizerApp')
-  .controller('ExploreController', ['$scope', '$upload', '$location', '$http', '$timeout', '$filter', 'jsonFactory', function ($scope, $upload, $location, $http, $timeout, $filter, jsonFactory) {
+  .controller('ExploreController', ['$scope', '$upload', '$location', '$http', '$timeout', '$filter', '$routeParams', 'jsonFactory', function ($scope, $upload, $location, $http, $timeout, $filter, $routeParams, jsonFactory) {
     $scope.fileApiSupport = jsonFactory.fileApiSupport;
     $scope.repos = [];
     $scope.filteredRepos = [];
@@ -15,8 +15,10 @@ angular.module('visualizerApp')
       });
 
     track();
+    readParameters();
 
-    /* Filter */
+    /* Watches */
+    $scope.$on('$routeUpdate', readParameters);
     $scope.$watch('searchText', filterRepos);
 
     $scope.onFileClick = function onFileClick(repo) {
@@ -28,6 +30,14 @@ angular.module('visualizerApp')
         $scope.onFileClick($scope.filteredRepos[0]);
       }
     };
+
+    function readParameters () {
+      var search = $routeParams.q;
+
+      // Update only if necessary
+      if (!angular.equals($scope.searchText, search))
+        $scope.searchText = search;
+    }
 
     function filterRepos(value) {
       $scope.filteredRepos = $filter('filter')($scope.repos, {$:value});

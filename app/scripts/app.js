@@ -17,7 +17,8 @@ angular
       .when('/explore/', {
         templateUrl: 'views/explore.html',
         controller: 'ExploreController',
-        activetab: 'explore'
+        activetab: 'explore',
+        reloadOnSearch: false
       })
       .when('/display/:owner/:repo/', {
         templateUrl: 'views/display.html',
