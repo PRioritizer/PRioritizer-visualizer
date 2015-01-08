@@ -28,7 +28,7 @@ angular.module('visualizerApp')
 
     function getRepositoryFile(owner, repo) {
       var repos = service.repositories.filter(function(r) { return r.owner === owner && r.repo === repo; });
-      return repos.length > 0 ? repos[0].file : null;
+      return repos.length > 0 ? repos[0].file.toLowerCase() : null;
     }
 
     service.getData = function getData(owner, repository) {
