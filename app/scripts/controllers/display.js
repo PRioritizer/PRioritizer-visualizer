@@ -55,6 +55,9 @@ angular.module('visualizerApp')
 
       // Signal the view to render
       $scope.loading = false;
+    }, function(status) {
+      $scope.error = 'Failed to get data for this repository ('+status+').';
+      $scope.loading = false;
     });
 
     /* Pagination */

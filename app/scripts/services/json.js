@@ -40,6 +40,8 @@ angular.module('visualizerApp')
           httpGetNoCache('json/' + file).success(function(data) {
             data = transformData(data);
             deferred.resolve(data);
+          }).error(function(data, status) {
+            deferred.reject(status);
           });
         });
 
