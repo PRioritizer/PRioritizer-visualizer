@@ -27,7 +27,7 @@ angular.module('visualizerApp')
     $scope.importantThreshold = 0.5;
 
     /* Load pull requests */
-    var ready = jsonFactory.getData($routeParams.owner, $routeParams.repo);
+    var ready = jsonFactory.getData($routeParams.owner, $routeParams.repo, $routeParams.hash);
     ready.then(function (data)
     {
       $scope.data = data;

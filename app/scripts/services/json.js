@@ -19,42 +19,20 @@ angular.module('visualizerApp')
       return data;
     }
 
-    function initialize() {
-      return httpGetNoCache('json/index.json')
-        .success(function(data) {
-          service.repositories = data;
-        });
-    }
-
-    function getRepositoryFile(owner, repo) {
-      var repos = service.repositories.filter(function(r) { return r.owner === owner && r.repo === repo; });
-      return repos.length > 0 ? repos[0].file.toLowerCase() : null;
-    }
-
-    service.getData = function getData(owner, repository) {
+    service.getData = function getData(owner, repository, hash) {
       var deferred = $q.defer();
 
-      service.init
-        .then(function() {
-          var file = getRepositoryFile(owner, repository);
-          httpGetNoCache('json/' + file).success(function(data) {
-            data = transformData(data);
-            deferred.resolve(data);
-          }).error(function(data, status) {
-            deferred.reject(status);
-          });
-        });
+      httpGetNoCache('json/' + owner + '/' + hash + '.json').success(function(data) {
+        data = transformData(data);
+        deferred.resolve(data);
+      }).error(function(data, status) {
+        deferred.reject(status);
+      });
 
        return deferred.promise;
      };
 
-    service.getRepositories = function getRepositories() {
-      return service.repositories;
-    };
-
     service.fileApiSupport = window.File && window.FileReader && window.FileList && window.Blob;
     service.message = null;
-    service.repositories = [];
-    service.init = initialize();
     return service;
   }]);
