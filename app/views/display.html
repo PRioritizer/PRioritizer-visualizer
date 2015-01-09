@@ -15,8 +15,12 @@
       <p>There is nothing to show here! The repository has no open pull requests at the moment.</p>
     </div>
     <div ng-show="pullRequests.length > 0">
-      <p>The automatic prioritization is determined by a machine learning algorithm (Random Forest) that is trained with the repository's history. Currently, you can only see the outputted ranking and not the reason why a pull request is considered more important than others by the algorithm. Maybe a future version will include this.</p>
-      <p>The page only shows the ranking, actual actions on the pull requests should be carried out via GitHub's interface. Basically it shows an ordered list of pull requests you should look or take action at, from top to bottom. Besides the automatic prioritization, you can also sort and filter the list manually on different features.</p>
+      <p>The automatic prioritization is determined by a machine learning algorithm (Random Forest) that is trained with the repository's history.
+      Currently, you can only see the outputted ranking and not the reason why a pull request is considered more important than others by the algorithm.
+      Maybe a future version will include this.</p>
+      <p>The page only shows the ranking, actual actions on the pull requests should be carried out via GitHub's interface.
+      Basically, it shows an ordered list of pull requests you should look or take action at (e.g. review, comment, merge or close), from top to bottom.
+      Besides the automatic prioritization, you can also sort and filter the list manually on different features.</p>
       <div ng-include="'views/filter.html'"></div>
       <h3>Pull requests <small class="text-muted nowrap">({{page*perPage+1}}-{{min(page*perPage+perPage, filteredPullRequests.length)}} of {{filteredPullRequests.length}})</small></h3>
       <div class="pagination top" ng-if="hasPreviousPage() || hasNextPage()">
