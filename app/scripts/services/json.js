@@ -21,8 +21,8 @@ angular.module('visualizerApp')
 
     service.getData = function getData(owner, repository, hash) {
       var deferred = $q.defer();
-      owner = owner.toLowerCase();
-      hash = hash.toLowerCase();
+      owner = (owner || '').toLowerCase();
+      hash = (hash || '').toLowerCase();
 
       httpGetNoCache('json/' + owner + '/' + hash + '.json').success(function(data) {
         data = transformData(data);
