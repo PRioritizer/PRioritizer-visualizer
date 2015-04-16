@@ -27,14 +27,14 @@ angular.module('visualizerApp')
     }
 
     function getRepositoryFile(owner, repo) {
-      var repos = service.repositories.filter(function(r) { return r.owner === owner && r.repo === repo; });
+      var repos = service.repositories.filter(function(r) { return r.owner.toLowerCase() === owner && r.repo.toLowerCase() === repo; });
       return repos.length > 0 ? repos[0].file.toLowerCase() : null;
     }
 
     service.getData = function getData(owner, repository) {
       var deferred = $q.defer();
       owner = (owner || '').toLowerCase();
-      hash = (hash || '').toLowerCase();
+      repository = (repository || '').toLowerCase();
 
       service.init
         .then(function() {
