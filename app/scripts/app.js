@@ -12,19 +12,22 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        redirectTo: '/display/'
+        redirectTo: '/explore/'
+      })
+      .when('/explore/', {
+        templateUrl: 'views/explore.html',
+        controller: 'ExploreController',
+        activetab: 'explore',
+        reloadOnSearch: false
+      })
+      .when('/display/:owner/:repo/', {
+        templateUrl: 'views/display.html',
+        controller: 'DisplayController',
+        activetab: 'display',
+        reloadOnSearch: false
       })
       .when('/display/', {
-        templateUrl: 'views/display.html',
-        controller: 'DisplayController',
-        activetab: 'display',
-        reloadOnSearch: false
-      })
-      .when('/display/:owner/:repo/:hash/', {
-        templateUrl: 'views/display.html',
-        controller: 'DisplayController',
-        activetab: 'display',
-        reloadOnSearch: false
+        redirectTo: '/explore/'
       })
       .otherwise({
         redirectTo: '/'

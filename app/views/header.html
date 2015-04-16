@@ -1,5 +1,8 @@
 <div class="header" ng-controller="HeaderController">
   <ul class="nav nav-pills pull-right">
+    <li ng-class="{active: activetab === 'explore'}">
+      <a ng-href="#/explore/">Explore</a>
+    </li>
     <li>
       <a href data-toggle="modal" data-target="#myModal">Help</a>
     </li>
