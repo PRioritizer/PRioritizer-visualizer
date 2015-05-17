@@ -37,5 +37,5 @@ Make sure that the server also has access to the generated `.json` files.
 You can also use grunt to upload your website through FTP.
 
 1. Copy the file `ssh/production.json.dist` to `ssh/production.json`
-2. Change the settings of the new file to your FTP server.
+2. Change the settings of the new file to your SSH server.
 3. Use `grunt production` to build and upload the files.
